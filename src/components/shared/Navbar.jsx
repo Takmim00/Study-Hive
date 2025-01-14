@@ -50,7 +50,7 @@ const Navbar = () => {
           {user ? (
             <>
               <li>
-                <NavLink to="/addCar">Dashboard</NavLink>
+                <NavLink to="dashboard">Dashboard</NavLink>
               </li>
               <li>
                 <button
@@ -93,7 +93,7 @@ const Navbar = () => {
           {user ? (
             <>
               <li>
-                <NavLink to="/addCar">Dashboard</NavLink>
+                <NavLink to="/dashboard">Dashboard</NavLink>
               </li>
               
               <div className="dropdown dropdown-end">
