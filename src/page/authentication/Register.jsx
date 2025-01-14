@@ -142,7 +142,6 @@ const Register = () => {
           />
         </form>
 
-        {/* Create Account */}
         <div className=" text-center">
           <p className="text-sm text-gray-600">
             Already registered?{" "}
@@ -155,7 +154,6 @@ const Register = () => {
           </p>
         </div>
 
-        {/* Social Sign-In */}
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">Or sign up with</p>
           <div className="flex justify-center mt-2 space-x-4">

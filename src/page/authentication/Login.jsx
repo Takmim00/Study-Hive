@@ -98,7 +98,7 @@ const Login = () => {
           />
         </form>
 
-        {/* Create Account */}
+       
         <div className="mt-4 text-center">
           <p className="text-sm text-gray-600">
             New here?{" "}
@@ -112,7 +112,7 @@ const Login = () => {
           </p>
         </div>
 
-        {/* Social Sign-In */}
+       
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">Or sign in with</p>
           <div className="flex justify-center mt-2 space-x-4">

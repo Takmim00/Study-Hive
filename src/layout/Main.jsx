@@ -3,13 +3,17 @@ import Footer from "../components/shared/Footer";
 import Navbar from "../components/shared/Navbar";
 
 const Main = () => {
-    return (
-        <div>
-            <Navbar/>
-            <Outlet/>
-            <Footer/>
-        </div>
-    );
+  return (
+    <div>
+      <div className="sticky top-0 z-50 backdrop-blur-2xl ">
+        <Navbar />
+      </div>
+      <div className="min-h-[calc(100vh-437px)]">
+        <Outlet />
+      </div>
+      <Footer />
+    </div>
+  );
 };
 
 export default Main;
