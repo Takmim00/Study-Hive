@@ -6,7 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const Register = () => {
-  const { setUser, createNewUser, handleGoogleLogin, handleGithubLogin } =
+  const { setUser, createUser, googleSignIn, handleGithubLogin } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -19,6 +19,12 @@ const Register = () => {
     const photo = form.get("photo");
     const email = form.get("email");
     const password = form.get("password");
+    const role = form.get("role");
+
+    if (!role) {
+      toast.error("Please select a role.");
+      return;
+    }
 
     if (password.length < 6) {
       toast.error("Password must contain at least 6 characters");
@@ -32,10 +38,16 @@ const Register = () => {
       return;
     }
 
-    createNewUser(email, password)
+    createUser(email, password)
       .then((result) => {
-        const user = { ...result.user, displayName: name, photoURL: photo };
+        const user = {
+          ...result.user,
+          displayName: name,
+          photoURL: photo,
+          role,
+        };
         setUser(user);
+        console.log(user);
         navigate("/");
       })
       .catch((error) => {
@@ -45,7 +57,7 @@ const Register = () => {
   };
 
   const googleLogIngHandler = () => {
-    handleGoogleLogin().then((res) => {
+    googleSignIn().then((res) => {
       const redirectTo = location.state?.from || "/";
       navigate(redirectTo);
     });
@@ -95,6 +107,28 @@ const Register = () => {
               placeholder="Type here"
               className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400"
             />
+          </div>
+          {/* Role Selection */}
+          <div className="">
+            <label
+              htmlFor="role"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Select Role
+            </label>
+            <select
+              defaultValue="default"
+              id="role"
+              name="role"
+              className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400"
+            >
+              <option disabled value="default">
+                Choose a role
+              </option>
+              <option value="student">Student</option>
+              <option value="tutor">Tutor</option>
+              <option value="admin">Administrator</option>
+            </select>
           </div>
           <div className="">
             <label
