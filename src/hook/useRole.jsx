@@ -12,7 +12,7 @@ const useRole = () => {
       const { data } = await axiosSecure.get(`/users`, {
         params: { email: user.email },
       });
-      console.log(data);
+
 
       return data.role;
     },

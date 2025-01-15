@@ -30,7 +30,7 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
-  
+
   const logOut = () => {
     setLoading(true);
     return signOut(auth);
@@ -39,10 +39,9 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
-  const handleGithubLogin = () =>{
-
-    signInWithPopup(auth, githubProvider)
-}
+  const handleGithubLogin = () => {
+    signInWithPopup(auth, githubProvider);
+  };
 
   const updateUserProfile = (name, photo) => {
     return updateProfile(auth.currentUser, {
@@ -81,7 +80,7 @@ const AuthProvider = ({ children }) => {
     logOut,
     updateUserProfile,
     googleSignIn,
-    handleGithubLogin
+    handleGithubLogin,
   };
 
   return (

@@ -3,7 +3,7 @@ import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { AuthContext } from "../../provider/AuthProvider";
+import {  AuthContext } from "../../provider/AuthProvider";
 
 const Login = () => {
   const { userLogin, googleSignIn, handleGithubLogin } =
@@ -11,7 +11,7 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -20,6 +20,8 @@ const Login = () => {
 
     userLogin(email, password)
       .then((res) => {
+        const user = res.user;
+        console.log(user);
         const redirectTo = location.state?.from || "/";
         navigate(redirectTo);
         toast.success("Login successful!");
@@ -29,6 +31,7 @@ const Login = () => {
           toast.error("No account found with this email. Please register.");
         }
       });
+      
   };
   const googleLogIngHandler = () => {
     googleSignIn().then((res) => {

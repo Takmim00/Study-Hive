@@ -4,6 +4,7 @@ import Login from "../page/authentication/Login";
 import Register from "../page/authentication/Register";
 import Home from "../page/Home";
 import Dashboard from "../layout/Dashboard";
+import CreateStudy from "../Dashboard/tutor/CreateStudy";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,12 @@ export const router = createBrowserRouter([
   },
   {
     path:'dashboard',
-    element:<Dashboard/>
+    element:<Dashboard/>,
+    children:[
+      {
+        path:'createStudy',
+        element:<CreateStudy/>
+      }
+    ]
   }
 ]);
