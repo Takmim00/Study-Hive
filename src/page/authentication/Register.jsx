@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa6";
@@ -6,8 +7,12 @@ import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const Register = () => {
-  const { setUser, createUser, googleSignIn, handleGithubLogin } =
-    useContext(AuthContext);
+  const {
+    setUser,
+    createUser,
+    googleSignIn,
+    handleGithubLogin,
+  } = useContext(AuthContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -40,15 +45,25 @@ const Register = () => {
 
     createUser(email, password)
       .then((result) => {
-        const user = {
-          ...result.user,
-          displayName: name,
-          photoURL: photo,
-          role,
-        };
-        setUser(user);
-        console.log(user);
-        navigate("/");
+        const user = { ...result.user, displayName: name, photoURL: photo,role };
+
+        axios
+          .post("http://localhost:5000/users", user)
+          .then((response) => {
+            const data = response.data;
+            if (data.success) {
+              toast.success(data.message);
+              setUser(user);
+              navigate("/");
+            } else {
+              toast.error(data.message);
+            }
+            console.log(user);
+          })
+          .catch((error) => {
+            console.error(error);
+            toast.error("Failed to save user to the database.");
+          });
       })
       .catch((error) => {
         const errorMessage = error.message || "An error occurred";

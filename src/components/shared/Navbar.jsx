@@ -5,6 +5,7 @@ import { AuthContext } from "../../provider/AuthProvider";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
 
+
   const handleLogOut = () => {
     logOut()
       .then(() => {})
@@ -55,7 +56,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={handleLogOut}
-                  className="btn bg-red-400 hover:bg-red-600 transition text-white"
+                  className="btn transition text-white"
                 >
                   Logout
                 </button>
@@ -120,7 +121,7 @@ const Navbar = () => {
                   <li>
                     <button
                       onClick={handleLogOut}
-                      className="btn bg-red-400 hover:bg-red-600 transition text-white"
+                      className="btn  transition text-white"
                     >
                       Logout
                     </button>
