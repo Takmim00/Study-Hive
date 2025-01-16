@@ -7,8 +7,13 @@ import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const Register = () => {
-  const { setUser, createUser, googleSignIn, handleGithubLogin } =
-    useContext(AuthContext);
+  const {
+    setUser,
+    createUser,
+    googleSignIn,
+    handleGithubLogin,
+    updateUserProfile,
+  } = useContext(AuthContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -17,7 +22,7 @@ const Register = () => {
 
     const form = new FormData(e.target);
     const name = form.get("name");
-    const photo = form.get("photo");
+    const photoURL = form.get("photo");
     const email = form.get("email");
     const password = form.get("password");
     const role = form.get("role");
@@ -39,37 +44,41 @@ const Register = () => {
       return;
     }
 
-    createUser(email, password)
-      .then((result) => {
-        const user = {
-          ...result.user,
-          displayName: name,
-          photoURL: photo,
-          role,
-        };
+    createUser(email, password).then((result) => {
+      console.log(createUser.user);
+      const loggedUser = result.user;
+      updateUserProfile(name, photoURL)
+        .then(() => {
+          const userInfo = {
+            name: name,
+            email: email,
+            photo: photoURL,
+            role,
+          };
 
-        axios
-          .post("http://localhost:5000/users", user)
-          .then((response) => {
-            const data = response.data;
-            if (data.success) {
-              toast.success(data.message);
-              setUser(user);
-              navigate("/");
-            } else {
-              toast.error(data.message);
-            }
-            console.log(user);
-          })
-          .catch((error) => {
-            console.error(error);
-            toast.error("Failed to save user to the database.");
-          });
-      })
-      .catch((error) => {
-        const errorMessage = error.message || "An error occurred";
-        toast.error(errorMessage);
-      });
+          axios
+            .post("http://localhost:5000/users", userInfo)
+            .then((response) => {
+              const data = response.data;
+              if (data.success) {
+                toast.success(data.message);
+                setUser(userInfo);
+                navigate("/");
+              } else {
+                toast.error(data.message);
+              }
+              console.log(userInfo);
+            })
+            .catch((error) => {
+              console.error(error);
+              toast.error("Failed to save user to the database.");
+            });
+        })
+        .catch((error) => {
+          const errorMessage = error.message || "An error occurred";
+          toast.error(errorMessage);
+        });
+    });
   };
 
   const googleLogIngHandler = () => {

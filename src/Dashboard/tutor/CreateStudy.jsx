@@ -1,14 +1,15 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../hook/useAuth";
 import useAxiosPublic from "../../hook/useAxiosPublic";
+import useAxiosSecure from "../../hook/useAxiosSecure";
 
-const image_hosting_key=import.meta.env.VITE_IMAGE_API;
+const image_hosting_key = import.meta.env.VITE_IMAGE_API;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const CreateStudy = () => {
   const { user } = useAuth();
-  const axiosPublic = useAxiosPublic()
+  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const [formData, setFormData] = useState({
     sessionTitle: "",
     name: "",
@@ -39,55 +40,81 @@ const CreateStudy = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFileChange = async (e) => {
+  const handleFileChange = (e) => {
     const file = e.target.files[0];
     setFormData({ ...formData, sessionImage: file });
-
-    // Upload the image to imgbb
-    if (file) {
-      const formDataToSend = new FormData();
-      formDataToSend.append("image", file);
-
-      try {
-        const response = await axiosPublic.post(image_hosting_api, formDataToSend, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-        const imageUrl = response.data.data.display_url; 
-        setFormData((prev) => ({
-          ...prev,
-          sessionImage: imageUrl, 
-        }));
-      } catch (err) {
-        toast.error("Image upload failed!");
-        console.error(err);
-      }
-    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Upload image to imgbb
+    let imageUrl = "";
+    if (formData.sessionImage) {
+      const imageFile = new FormData();
+      imageFile.append("image", formData.sessionImage);
+
+      try {
+        const imageRes = await axiosPublic.post(image_hosting_api, imageFile, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        if (imageRes.data.success) {
+          imageUrl = imageRes.data.data.display_url;
+        } else {
+          throw new Error("Image upload failed");
+        }
+      } catch (err) {
+        toast.error("Image upload failed!");
+        console.error(err);
+        return;
+      }
+    }
+
     const tutorData = {
-      ...formData,
+      sessionTitle: formData.sessionTitle,
+      name: formData.name,
+      email: formData.email,
+      sessionDescription: formData.sessionDescription,
+      sessionImage: imageUrl,
+      registrationStartDate: formData.registrationStartDate,
+      registrationEndDate: formData.registrationEndDate,
+      classStartTime: formData.classStartTime,
+      classEndTime: formData.classEndTime,
+      sessionDuration: parseFloat(formData.sessionDuration),
+      registrationFee: parseFloat(formData.registrationFee),
+      status: formData.status,
     };
 
-    console.log(tutorData);
-    try {
-      const formDataToSend = new FormData();
-      Object.entries(tutorData).forEach(([key, value]) => {
-        formDataToSend.append(key, value);
-      });
+    console.log("Final Data:", tutorData);
 
-      const res = await axios.post(
-        `http://localhost:5000/tutors`,
-        formDataToSend,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
+    // Send the data to the server
+    try {
+      const res = await axiosSecure.post(
+        "http://localhost:5000/tutors",
+        tutorData
       );
       console.log(res.data);
-      toast.success("Data Added Successfully!!!");
+
+      if (res.data.insertedId) {
+        setFormData({
+          sessionTitle: "",
+          name: user.displayName || "",
+          email: user.email || "",
+          sessionDescription: "",
+          sessionImage: null,
+          registrationStartDate: "",
+          registrationEndDate: "",
+          classStartTime: "",
+          classEndTime: "",
+          sessionDuration: 0,
+          registrationFee: 0,
+          status: "Pending",
+        });
+        toast.success("Session added successfully!");
+      }
     } catch (err) {
       toast.error(err.message);
+      console.error(err);
     }
   };
 

@@ -5,8 +5,6 @@ import { AuthContext } from "../../provider/AuthProvider";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
 
-
-
   const handleLogOut = () => {
     logOut()
       .then(() => {})
@@ -15,16 +13,13 @@ const Navbar = () => {
 
   return (
     <div className="navbar  shadow-sm px-6 py-2">
-      
       <div className="flex-1">
         <Link to="/" className="flex gap-2 items-center">
-          
           {/* <img src={'logo'} alt="" className="h-8" /> */}
           <p className="text-2xl font-semibold text-gray-800">StudyHive</p>
         </Link>
       </div>
 
-      
       <div className="dropdown dropdown-left md:hidden">
         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
           <svg
@@ -55,10 +50,7 @@ const Navbar = () => {
                 <NavLink to="dashboard">Dashboard</NavLink>
               </li>
               <li>
-                <button
-                  onClick={handleLogOut}
-                  className="btn transition "
-                >
+                <button onClick={handleLogOut} className="btn transition ">
                   Logout
                 </button>
               </li>
@@ -86,7 +78,6 @@ const Navbar = () => {
         </ul>
       </div>
 
-      
       <div className="hidden md:flex md:items-center">
         <ul className="menu menu-horizontal items-center px-1 space-x-4">
           <li>
@@ -97,7 +88,7 @@ const Navbar = () => {
               <li>
                 <NavLink to="/dashboard">Dashboard</NavLink>
               </li>
-              
+
               <div className="dropdown dropdown-end">
                 <div
                   tabIndex={0}
@@ -111,7 +102,7 @@ const Navbar = () => {
                     <img
                       referrerPolicy="no-referrer"
                       alt="User Profile"
-                      src={user?.photoURL || "/default-avatar.png"}
+                      src={user?.photoURL}
                     />
                   </div>
                 </div>
@@ -120,10 +111,7 @@ const Navbar = () => {
                   className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <button
-                      onClick={handleLogOut}
-                      className="btn  transition "
-                    >
+                    <button onClick={handleLogOut} className="btn  transition ">
                       Logout
                     </button>
                   </li>
