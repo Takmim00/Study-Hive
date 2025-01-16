@@ -5,6 +5,8 @@ import Register from "../page/authentication/Register";
 import Home from "../page/Home";
 import Dashboard from "../layout/Dashboard";
 import CreateStudy from "../Dashboard/tutor/CreateStudy";
+import VeiwSession from "../Dashboard/tutor/VeiwSession";
+import UploadMetarial from "../Dashboard/tutor/UploadMetarial";
 
 export const router = createBrowserRouter([
   {
@@ -32,7 +34,15 @@ export const router = createBrowserRouter([
       {
         path:'createStudy',
         element:<CreateStudy/>
-      }
+      },
+      {
+        path:'viewSession',
+        element:<VeiwSession/>
+      },
+      {
+        path:'uploadMaterial',
+        element:<UploadMetarial/>
+      },
     ]
   }
 ]);
