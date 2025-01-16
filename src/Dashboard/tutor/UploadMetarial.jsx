@@ -1,9 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import useAuth from "../../hook/useAuth";
+import UploadMetarialModal from "../../modal/UploadMetarialModal";
 
 const UploadMetarial = () => {
   const { user } = useAuth();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTutor, setSelectedTutor] = useState(null);
   const [tutor, setTutor] = useState([]);
   useEffect(() => {
     fetchTutor();
@@ -17,6 +20,21 @@ const UploadMetarial = () => {
     setTutor(data);
     console.log();
   };
+
+  const handleModalOpen = (tutor) => {
+    setSelectedTutor(tutor);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setSelectedTutor(null);
+    setIsModalOpen(false);
+  };
+
+  const handleSubmit = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div>
       <div className="my-4">
@@ -66,9 +84,21 @@ const UploadMetarial = () => {
               <h2 className="text-gray-800 font-semibold text-lg mb-4">
                 {tutor.sessionTitle}
               </h2>
-              <button className="btn bg-blue-600 text-white font-medium py-2 px-4 rounded hover:bg-blue-700">
-                Upload Material
-              </button>
+              <div>
+                <button
+                  onClick={() => handleModalOpen(tutor)}
+                  className="btn bg-blue-600 text-white font-medium py-2 px-4 rounded hover:bg-blue-700"
+                >
+                  Upload Material
+                </button>
+
+                <UploadMetarialModal
+                  isOpen={isModalOpen}
+                  tutor={selectedTutor}
+                  onClose={handleModalClose}
+                  onSubmit={handleSubmit}
+                />
+              </div>
             </div>
           </div>
         ))}
