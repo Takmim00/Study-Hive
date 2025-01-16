@@ -18,7 +18,7 @@ const UploadMetarial = () => {
       `http://localhost:5000/tutors/${user?.email}`
     );
     setTutor(data);
-    console.log();
+
   };
 
   const handleModalOpen = (tutor) => {
