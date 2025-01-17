@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../hook/useAuth";
 
 const DetailsPage = () => {
   const { user } = useAuth();
   const { id } = useParams();
+  const navigate = useNavigate();
   const [session, setSession] = useState({});
   useEffect(() => {
     fetchSessionData();
@@ -15,7 +16,6 @@ const DetailsPage = () => {
 
   const fetchSessionData = async () => {
     const { data } = await axios.get(`http://localhost:5000/tutors/${id}`);
-    console.log(data);
     setSession(data);
   };
   const isRegistrationClosed =
@@ -48,7 +48,7 @@ const DetailsPage = () => {
       console.log(res.data);
       if (res.data.insertedId) {
         toast.success(`${session.sessionTitle}Session is Booked`);
-        // navigate('/dashboard/viewSession')
+        navigate("/");
       }
     } catch (err) {
       toast.error(err.message);
@@ -94,7 +94,8 @@ const DetailsPage = () => {
                   <strong>Class End Date:</strong> {session.classEndTime}
                 </p>
                 <p>
-                  <strong>Session Duration:</strong> {session.sessionDuration}
+                  <strong>Session Duration:</strong> {session.sessionDuration}{" "}
+                  hours
                 </p>
                 <p>
                   <strong>Registration Fee:</strong>$

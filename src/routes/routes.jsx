@@ -10,6 +10,7 @@ import Login from "../page/authentication/Login";
 import Register from "../page/authentication/Register";
 import Home from "../page/Home";
 import DetailsPage from "../page/DetailsPage";
+import VeiwBooked from "../Dashboard/student/VeiwBooked";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
       {
         path: "viewMaterials/updateMetarials/:id",
         element: <UpdateMetarials />,
+      },
+      {
+        path: "viewBooked",
+        element: <VeiwBooked/>
       },
     ],
   },

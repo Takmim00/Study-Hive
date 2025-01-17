@@ -75,7 +75,7 @@ const Dashboard = () => {
           {role === "student" && (
             <>
               <li>
-                <NavLink to="/dashboard/viewBookedSession">
+                <NavLink to="/dashboard/viewBooked">
                   <FaBook />
                   View Booked Session
                 </NavLink>

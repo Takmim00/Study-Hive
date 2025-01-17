@@ -14,7 +14,7 @@ const StudySession = () => {
   const fetchSession = async () => {
     try {
       const { data } = await axios.get(`http://localhost:5000/tutors`);
-      console.log(data);
+
 
       const currentDate = new Date();
       const filteredSessions = data
