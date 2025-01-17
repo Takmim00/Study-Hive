@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../hook/useAuth";
 
 const ViewDetails = () => {
@@ -18,8 +19,40 @@ const ViewDetails = () => {
     console.log(data);
     setSession(data);
   };
+  const handleReview = async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const review = form.review.value;
+    const rating = form.rating.value;
+
+    const reviewPayload = {
+      studentName: user?.displayName,
+      studentEmail: user?.email,
+      sessionId: session._id,
+      review,
+      rating,
+    };
+
+    try {
+      const { data } = await axios.post(
+        "http://localhost:5000/reviews",
+        reviewPayload
+      );
+      console.log(data);
+      if (data.insertedId) {
+        toast.success("Session added successfully!");
+      } else {
+        toast.error("Failed to add the review.");
+      }
+    } catch (error) {
+      console.error("Error submitting review:", error);
+      alert("An error occurred while submitting your review.");
+    }
+  };
   return (
     <div>
+      <ToastContainer />
       <div className="my-2">
         <h2 className="text-2xl font-bold mb-6 text-center">
           Veiw <span className="text-blue-400">Booked Details Session</span>
@@ -105,7 +138,10 @@ const ViewDetails = () => {
             </div>
 
             {/* Form Section */}
-            <form className="mt-6 w-10/12 mx-auto space-y-4">
+            <form
+              onSubmit={handleReview}
+              className="mt-6 w-10/12 mx-auto space-y-4"
+            >
               {/* Student Name */}
               <div>
                 <label
@@ -117,7 +153,7 @@ const ViewDetails = () => {
                 <input
                   id="studentName"
                   type="text"
-                  value={user?.displayName}
+                  defaultValue={user?.displayName}
                   readOnly
                   placeholder="Student Account"
                   className="w-full border cursor-not-allowed border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -134,7 +170,7 @@ const ViewDetails = () => {
                 </label>
                 <input
                   id="studentEmail"
-                  value={user?.email}
+                  defaultValue={user?.email}
                   type="email"
                   placeholder="student@gmail.com"
                   className="w-full border cursor-not-allowed border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -151,6 +187,7 @@ const ViewDetails = () => {
                 </label>
                 <textarea
                   id="review"
+                  name="review"
                   placeholder="Your Review..."
                   className="w-full border border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   rows="5"
@@ -168,6 +205,7 @@ const ViewDetails = () => {
                 <input
                   id="rating"
                   type="number"
+                  name="rating"
                   placeholder="Your Rating..."
                   className="w-full border border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
