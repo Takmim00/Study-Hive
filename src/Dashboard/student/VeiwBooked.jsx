@@ -1,4 +1,27 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../hook/useAuth";
+
 const VeiwBooked = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [session, setSession] = useState([]);
+
+  useEffect(() => {
+    fetchTutor();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.bookedEmail]);
+
+  const fetchTutor = async () => {
+    const { data } = await axios.get(
+      `http://localhost:5000/booked?email=${user?.bookedEmail}`
+    );
+    setSession(data);
+  };
+  const handleReadMore = (id) => {
+    navigate(`viewBookedDetails/${id}`);
+  };
   return (
     <div>
       <div className="my-4">
@@ -10,6 +33,36 @@ const VeiwBooked = () => {
           sessions, creating valuable resources for your students and fellow
           tutors.
         </p>
+      </div>
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4 w-11/12 mx-auto">
+        {session.map((session, i) => (
+          <div
+            key={i}
+            className=" bg-white border rounded-lg shadow-lg overflow-hidden"
+          >
+            <img
+              src={session.sessionImage}
+              alt="Advanced English Course"
+              className="w-full h-48 object-cover"
+            />
+            <div className="p-4">
+              <h2 className="text-gray-800 font-semibold text-lg">
+                {session.sessionTitle}
+              </h2>
+              <p className="text-gray-600 text-sm mb-1">
+                {session.sessionDescription}
+              </p>
+              <div>
+                <button
+                  onClick={() => handleReadMore(session._id)}
+                  className="btn bg-blue-600 text-white font-medium py-2 px-4 rounded hover:bg-blue-700"
+                >
+                  Reade More
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

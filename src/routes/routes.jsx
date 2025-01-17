@@ -1,4 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
+import VeiwBooked from "../Dashboard/student/VeiwBooked";
+import ViewDetails from "../Dashboard/student/ViewDetails";
 import CreateStudy from "../Dashboard/tutor/CreateStudy";
 import UpdateMetarials from "../Dashboard/tutor/UpdateMetarials";
 import UploadMetarial from "../Dashboard/tutor/UploadMetarial";
@@ -8,9 +10,8 @@ import Dashboard from "../layout/Dashboard";
 import Main from "../layout/Main";
 import Login from "../page/authentication/Login";
 import Register from "../page/authentication/Register";
-import Home from "../page/Home";
 import DetailsPage from "../page/DetailsPage";
-import VeiwBooked from "../Dashboard/student/VeiwBooked";
+import Home from "../page/Home";
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/sessionDetail/:id",
-        element: <DetailsPage/>
+        element: <DetailsPage />,
       },
       {
         path: "/login",
@@ -61,7 +62,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "viewBooked",
-        element: <VeiwBooked/>
+        element: <VeiwBooked />,
+      },
+      {
+        path: "viewBooked/viewBookedDetails/:id",
+        element: <ViewDetails />,
       },
     ],
   },
