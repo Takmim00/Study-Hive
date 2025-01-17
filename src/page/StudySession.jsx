@@ -1,8 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../hook/useAuth";
 
 const StudySession = () => {
+  const { user } = useAuth();
   const [session, setSession] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     fetchSession();
   }, []);
@@ -25,6 +29,13 @@ const StudySession = () => {
       setSession(filteredSessions);
     } catch (error) {
       console.error("Error fetching sessions:", error);
+    }
+  };
+  const handleReadMore = (sessionId) => {
+    if (!user) {
+      navigate("/login");
+    } else {
+      navigate(`/sessionDetail/${sessionId}`);
     }
   };
   return (
@@ -50,19 +61,23 @@ const StudySession = () => {
                   {session.sessionDescription}
                 </p>
                 <div className="mt-4 flex justify-between items-center">
-                <button
-                  className={`px-4 py-2 rounded ${
-                    session.isOngoing
-                      ? "bg-green-500 text-white"
-                      : "bg-red-500 text-white"
-                  }`}
-                >
-                  {session.isOngoing ? "Ongoing" : "Closed"}
-                </button>
-                <button className="px-4 py-2 bg-blue-500 text-white rounded">
-                  Read More
-                </button>
-              </div>
+                  <button
+                    className={`px-4 py-2 rounded ${
+                      session.isOngoing
+                        ? "bg-green-500 text-white"
+                        : "bg-red-500 text-white"
+                    }`}
+                  >
+                    {session.isOngoing ? "Ongoing" : "Closed"}
+                  </button>
+
+                  <Link
+                    onClick={() => handleReadMore(session._id)}
+                    className="btn px-4 py-2 bg-blue-500 text-white rounded"
+                  >
+                    Read More
+                  </Link>
+                </div>
               </div>
             </div>
           ))}
