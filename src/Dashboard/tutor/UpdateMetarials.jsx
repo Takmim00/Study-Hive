@@ -1,30 +1,100 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import useAxiosPublic from "../../hook/useAxiosPublic";
+import useAxiosSecure from "../../hook/useAxiosSecure";
 
+const image_hosting_key = import.meta.env.VITE_IMAGE_API;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const UpdateMetarials = () => {
-  const { id } = useParams(); 
-  console.log(id);
-  const [tutor, setTutor] = useState({}); 
+  const { id } = useParams();
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
+  const [tutor, setTutor] = useState({});
 
   useEffect(() => {
-    fetchTutorData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const fetchTutor = async () => {
+      const { data } = await axios.get(
+        `http://localhost:5000/veiwMetarial/tutors/${id}`
+      );
+      setTutor(data);
+    };
+    fetchTutor();
   }, [id]);
- 
-  const fetchTutorData = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const sessionTitle = form.sessionTitle.value;
+    const sessionDescription = form.sessionDescription.value;
+    const sessionImage = form.sessionImage.files[0];
+    const registrationStartDate = form.registrationStartDate.value;
+    const registrationEndDate = form.registrationEndDate.value;
+    const classStartTime = form.classStartTime.value;
+    const classEndTime = form.classEndTime.value;
+    const sessionDuration = form.sessionDuration.value;
+    const registrationFee = form.registrationFee.value;
+
+    let imageUrl = "";
+    if (sessionImage) {
+      const imageFile = new FormData();
+      imageFile.append("image", sessionImage);
+
+      try {
+        const imageRes = await axiosPublic.post(image_hosting_api, imageFile, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        if (imageRes.data.success) {
+          imageUrl = imageRes.data.data.display_url;
+        } else {
+          throw new Error(`Image upload failed: ${imageRes.data.message}`);
+        }
+      } catch (err) {
+        toast.error(`Image upload failed! ${err.message}`);
+        console.error(err.response ? err.response.data : err.message);
+        return;
+      }
+    }
+
+
+    const updatedTutorData = {
+      sessionTitle,
+      sessionDescription,
+      sessionImage: imageUrl,
+      registrationStartDate,
+      registrationEndDate,
+      classStartTime,
+      classEndTime,
+      sessionDuration,
+      registrationFee,
+    };
+
+
     try {
-      const { data } = await axios.get(`http://localhost:5000/tutors/${id}`);
-      console.log(data);
-      setTutor(data); 
-    } catch (error) {
-      console.error("Error fetching tutor data:", error);
+      const res = await axiosSecure.put(
+        `http://localhost:5000/updateMetarials/${id}`,
+        updatedTutorData
+      );
+      console.log(res.data);
+
+      if (res.data.modifiedCount > 0) {
+        console.log(res.data);
+        toast.success("Session updated successfully!");
+        navigate("/dashboard/viewMaterials");
+      } else {
+        toast.error("No changes made or update failed");
+      }
+    } catch (err) {
+      toast.error("Error updating session!");
+      console.error(err);
     }
   };
 
   return (
     <div>
       <div className="my-4">
+        <ToastContainer />
         <h2 className="text-2xl font-bold mb-6 text-center">
           Update Your <span className="text-blue-600">Study Session</span>
         </h2>
@@ -34,7 +104,10 @@ const UpdateMetarials = () => {
           tutors.
         </p>
       </div>
-      <form className="p-6 max-w-4xl mx-auto bg-white rounded shadow-md">
+      <form
+        onSubmit={handleSubmit}
+        className="p-6 max-w-4xl mx-auto bg-white rounded shadow-md"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="">
             <label className="block font-semibold mb-2">Session Title:</label>
