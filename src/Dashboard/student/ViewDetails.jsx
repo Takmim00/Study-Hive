@@ -1,7 +1,26 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import useAuth from "../../hook/useAuth";
+
 const ViewDetails = () => {
+  const { user } = useAuth();
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [session, setSession] = useState({});
+  useEffect(() => {
+    fetchSessionData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  const fetchSessionData = async () => {
+    const { data } = await axios.get(`http://localhost:5000/booked/${id}`);
+    console.log(data);
+    setSession(data);
+  };
   return (
     <div>
-      <div className="my-4">
+      <div className="my-2">
         <h2 className="text-2xl font-bold mb-6 text-center">
           Veiw <span className="text-blue-400">Booked Details Session</span>
         </h2>
@@ -13,60 +32,60 @@ const ViewDetails = () => {
       </div>
       <div className="w-11/12 my-4 mx-auto bg-white shadow-md rounded-lg p-6 flex flex-col  items-center">
         <div>
-        <div className="flex flex-col items-center">
-          {/* Image Section */}
-          <div className="w-full md:w-1/3">
-            <img
-              src="path/to/image" // Replace with your image source
-              alt="Advanced English Course"
-              className="rounded-lg w-full"
-            />
+          <div className="flex flex-col items-center">
+            {/* Image Section */}
+            <div className="w-full  ">
+              <img
+                src={session.sessionImage} // Replace with your image source
+                alt="Advanced English Course"
+                className="rounded-lg w-full lg:h-[50vh] object-cover"
+              />
+            </div>
           </div>
-        </div>
 
-        {/* Course Details */}
-        <div className="mt-6 md:mt-0 md:ml-8">
-          <h3 className="text-xl font-semibold text-gray-700">
-            Advanced English Communication
-          </h3>
-          <p className="text-sm text-gray-600 mt-2">
-            This course is designed to enhance students' proficiency in English,
-            focusing on advanced communication skills for academic,
-            professional, and social contexts. It covers complex grammar
-            structures.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 text-gray-800">
-            <div>
-              <p>
-                <span className="font-semibold">Student Name:</span> Student
-                Account
-              </p>
-              <p>
-                <span className="font-semibold">Student Email:</span>{" "}
-                student@gmail.com
-              </p>
-              <p>
-                <span className="font-semibold">Tutor Name:</span> Tutor
-              </p>
-              <p>
-                <span className="font-semibold">Tutor Email:</span>{" "}
-                tutor@gmail.com
-              </p>
-            </div>
-            <div>
-              <p>
-                <span className="font-semibold">Class Start Time:</span> 07:00
-              </p>
-              <p>
-                <span className="font-semibold">Class End Time:</span> 10:00
-              </p>
-              <p>
-                <span className="font-semibold">Session Duration:</span> 3 hours
-              </p>
-              
+          {/* Course Details */}
+          <div className="mt-6 md:mt-0 md:ml-8">
+            <h3 className="text-xl font-semibold text-gray-700">
+              {session.sessionTitle}
+            </h3>
+            <p className="text-sm text-gray-600 mt-2">
+              {session.sessionDescription}
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 text-gray-800">
+              <div>
+                <p>
+                  <span className="font-semibold">Student Name:</span>{" "}
+                  {session.bookedName}
+                </p>
+                <p>
+                  <span className="font-semibold">Student Email:</span>{" "}
+                  {session.bookedEmail}
+                </p>
+                <p>
+                  <span className="font-semibold">Tutor Name:</span>{" "}
+                  {session.name}
+                </p>
+                <p>
+                  <span className="font-semibold">Tutor Email:</span>{" "}
+                  {session.email}
+                </p>
+              </div>
+              <div>
+                <p>
+                  <span className="font-semibold">Class Start Time:</span>{" "}
+                  {session.classStartTime}
+                </p>
+                <p>
+                  <span className="font-semibold">Class End Time:</span>{" "}
+                  {session.classEndTime}
+                </p>
+                <p>
+                  <span className="font-semibold">Session Duration:</span>{" "}
+                  {session.sessionDuration} hours
+                </p>
+              </div>
             </div>
           </div>
-        </div>
         </div>
 
         <div className="flex justify-center items-center  ">
@@ -98,8 +117,10 @@ const ViewDetails = () => {
                 <input
                   id="studentName"
                   type="text"
+                  value={user?.displayName}
+                  readOnly
                   placeholder="Student Account"
-                  className="w-full border border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border cursor-not-allowed border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -113,9 +134,10 @@ const ViewDetails = () => {
                 </label>
                 <input
                   id="studentEmail"
+                  value={user?.email}
                   type="email"
                   placeholder="student@gmail.com"
-                  className="w-full border border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border cursor-not-allowed border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -145,7 +167,7 @@ const ViewDetails = () => {
                 </label>
                 <input
                   id="rating"
-                  type="text"
+                  type="number"
                   placeholder="Your Rating..."
                   className="w-full border border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
