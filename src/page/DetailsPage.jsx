@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../hook/useAuth";
 
 const DetailsPage = () => {
@@ -21,8 +22,43 @@ const DetailsPage = () => {
     new Date() > new Date(session.registrationEndDate);
   const isDisabled =
     isRegistrationClosed || user?.role === "admin" || user?.role === "tutor";
+
+  const handleBooking = async () => {
+    try {
+      const bookingData = {
+        sessionId: id,
+        sessionTitle: session.sessionTitle,
+        registrationFee: session.registrationFee || 0,
+        bookedAt: new Date().toISOString(),
+        bookedName: user?.displayName,
+        bookedEmail: user?.email,
+        name: session.name,
+        email: session.email,
+        sessionDescription: session.sessionDescription,
+        sessionImage: session.sessionImage,
+        registrationStartDate: session.registrationStartDate,
+        registrationEndDate: session.registrationEndDate,
+        classStartTime: session.classStartTime,
+        classEndTime: session.classEndTime,
+        sessionDuration: parseFloat(session.sessionDuration),
+        status: session.status,
+      };
+
+      const res = await axios.post("http://localhost:5000/booked", bookingData);
+      console.log(res.data);
+      if (res.data.insertedId) {
+        toast.success(`${session.sessionTitle}Session is Booked`);
+        // navigate('/dashboard/viewSession')
+      }
+    } catch (err) {
+      toast.error(err.message);
+      console.error(err);
+    }
+  };
+
   return (
     <>
+      <ToastContainer />
       <div className="w-1/2 mx-auto border-2 shadow-lg rounded-lg my-6 p-4">
         {session && (
           <>
@@ -85,6 +121,7 @@ const DetailsPage = () => {
             </div>
             <button
               disabled={isDisabled}
+              onClick={handleBooking}
               className={`mt-4 px-4 py-2 text-white rounded ${
                 isDisabled
                   ? "bg-gray-400 cursor-not-allowed"
