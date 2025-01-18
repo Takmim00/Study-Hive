@@ -41,7 +41,8 @@ const ViewDetails = () => {
       );
       console.log(data);
       if (data.insertedId) {
-        toast.success("Session added successfully!");
+        form.reset()
+        toast.success("Review added successfully!");
       } else {
         toast.error("Failed to add the review.");
       }

@@ -12,6 +12,7 @@ import Login from "../page/authentication/Login";
 import Register from "../page/authentication/Register";
 import DetailsPage from "../page/DetailsPage";
 import Home from "../page/Home";
+import CreateNote from "../Dashboard/student/CreateNote";
 
 export const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ export const router = createBrowserRouter([
       {
         path: "viewBooked/viewBookedDetails/:id",
         element: <ViewDetails />,
+      },
+      {
+        path: "createNote",
+        element: <CreateNote/>
       },
     ],
   },
