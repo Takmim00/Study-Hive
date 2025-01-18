@@ -13,6 +13,7 @@ import Register from "../page/authentication/Register";
 import DetailsPage from "../page/DetailsPage";
 import Home from "../page/Home";
 import CreateNote from "../Dashboard/student/CreateNote";
+import ManageNote from "../Dashboard/student/ManageNote";
 
 export const router = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ export const router = createBrowserRouter([
       {
         path: "createNote",
         element: <CreateNote/>
+      },
+      {
+        path: "manageNotes",
+        element: <ManageNote/>
       },
     ],
   },
