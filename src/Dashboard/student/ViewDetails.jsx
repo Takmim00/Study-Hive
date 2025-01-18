@@ -43,6 +43,7 @@ const ViewDetails = () => {
       if (data.insertedId) {
         form.reset()
         toast.success("Review added successfully!");
+        navigate('/dashboard/viewBooked')
       } else {
         toast.error("Failed to add the review.");
       }

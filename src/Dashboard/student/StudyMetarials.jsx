@@ -1,9 +1,12 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import useAuth from "../../hook/useAuth";
-import axios from "axios";
+import ViewMetarialsModal from "../../modal/ViewMetarialsModal";
 
 const StudyMetarials = () => {
   const { user } = useAuth();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [viewBooked, setViewBooked] = useState(null);
   const [booked, setBooked] = useState([]);
   useEffect(() => {
     fetchBooked();
@@ -16,6 +19,19 @@ const StudyMetarials = () => {
     );
     console.log(data);
     setBooked(data);
+  };
+  const handleModalOpen = (book) => {
+    setViewBooked(book);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setViewBooked(null);
+    setIsModalOpen(false);
+  };
+
+  const handleSubmit = () => {
+    setIsModalOpen(false);
   };
   return (
     <div>
@@ -68,13 +84,18 @@ const StudyMetarials = () => {
               </h2>
               <div>
                 <button
-                  
+                  onClick={() => handleModalOpen(book)}
                   className="btn bg-blue-600 text-white font-medium py-2 px-4 rounded hover:bg-blue-700"
                 >
                   View Material
                 </button>
 
-                
+                <ViewMetarialsModal
+                  isOpen={isModalOpen}
+                  tutor={viewBooked}
+                  onClose={handleModalClose}
+                  onSubmit={handleSubmit}
+                />
               </div>
             </div>
           </div>
