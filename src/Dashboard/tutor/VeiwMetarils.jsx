@@ -17,6 +17,7 @@ const VeiwMetarils = () => {
     const { data } = await axios.get(
       `http://localhost:5000/veiwMetarial?email=${user?.email}`
     );
+    console.log(data);
     setTutor(data);
   };
   const handleDelete = (_id) => {

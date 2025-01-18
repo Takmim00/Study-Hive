@@ -5,7 +5,7 @@ import useAuth from "../hook/useAuth";
 
 const StudySession = () => {
   const { user } = useAuth();
-  const [session, setSession] = useState([]);
+  const [sessions, setSession] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     fetchSession();
@@ -15,6 +15,7 @@ const StudySession = () => {
     try {
       const { data } = await axios.get(`http://localhost:5000/tutors`);
 
+      console.log(data);
 
       const currentDate = new Date();
       const filteredSessions = data
@@ -25,8 +26,9 @@ const StudySession = () => {
             currentDate >= new Date(session.registrationStartDate) &&
             currentDate <= new Date(session.registrationEndDate),
         }));
-
+      // setSession(data)
       setSession(filteredSessions);
+      console.log(filteredSessions);
     } catch (error) {
       console.error("Error fetching sessions:", error);
     }
@@ -43,7 +45,7 @@ const StudySession = () => {
       <div>Study Session</div>
       <div>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4 w-11/12 mx-auto">
-          {session.map((session, i) => (
+          {sessions.map((session, i) => (
             <div
               key={i}
               className="max-w-md   bg-white border rounded-lg shadow-md overflow-hidden"

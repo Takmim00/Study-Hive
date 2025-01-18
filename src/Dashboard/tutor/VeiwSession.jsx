@@ -8,12 +8,13 @@ const VeiwSession = () => {
   useEffect(() => {
     fetchTutor();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [user?.email]);
 
   const fetchTutor = async () => {
     const { data } = await axios.get(
-      `http://localhost:5000/tutors/${user?.email}`
+      `http://localhost:5000/veiwSession/${user?.email}`
     );
+    console.log(data);
     setTutor(data);
   };
 
@@ -84,7 +85,7 @@ const VeiwSession = () => {
                     tutor.status === "Pending" &&
                     "bg-yellow-100/60 text-yellow-500"
                   } ${
-                    tutor.status === "Confirmed" &&
+                    tutor.status === "Approved" &&
                     "bg-green-100/60 text-green-500"
                   } ${
                     tutor.status === "Rejected" && "bg-red-100/60 text-red-500"
@@ -93,7 +94,7 @@ const VeiwSession = () => {
                   <span
                     className={`h-1.5 w-1.5 rounded-full ${
                       tutor.status === "Pending" && "bg-yellow-500"
-                    }${tutor.status === "Confirmed" && "bg-green-500"} ${
+                    }${tutor.status === "Approved" && "bg-green-500"} ${
                       tutor.status === "Rejected" && "bg-red-500"
                     }`}
                   ></span>

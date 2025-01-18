@@ -11,12 +11,13 @@ const UploadMetarial = () => {
   useEffect(() => {
     fetchTutor();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [user?.email]);
 
   const fetchTutor = async () => {
     const { data } = await axios.get(
-      `http://localhost:5000/tutors/${user?.email}`
+      `http://localhost:5000/veiwSession/${user?.email}`
     );
+    console.log(data);
     setTutor(data);
   };
 
