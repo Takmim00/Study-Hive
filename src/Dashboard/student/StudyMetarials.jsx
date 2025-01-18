@@ -17,7 +17,6 @@ const StudyMetarials = () => {
     const { data } = await axios.get(
       `http://localhost:5000/viewBooked?email=${user?.email}`
     );
-    console.log(data);
     setBooked(data);
   };
   const handleModalOpen = (book) => {
@@ -94,6 +93,7 @@ const StudyMetarials = () => {
                   isOpen={isModalOpen}
                   tutor={viewBooked}
                   onClose={handleModalClose}
+                  sessionTitle={book.sessionTitle}
                   onSubmit={handleSubmit}
                 />
               </div>
