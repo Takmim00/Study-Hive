@@ -67,11 +67,19 @@ const DetailsPage = () => {
         status: session.status,
       };
 
-      const res = await axios.post(`http://localhost:5000/booked`, bookingData);
-      console.log(res.data);
-      if (res.data.insertedId) {
-        toast.success(`${session.sessionTitle}Session is Booked`);
-        navigate("/");
+      if (session.registrationFee > 0) {
+        navigate("/payment", {
+          state: {
+            bookingData,
+            amount: session.registrationFee,
+          },
+        });
+      } else {
+        const res = await axios.post(`http://localhost:5000/booked`, bookingData);
+        if (res.data.insertedId) {
+          toast.success(`${session.sessionTitle} Session is Booked`);
+          navigate("/");
+        }
       }
     } catch (err) {
       toast.error(err.message);

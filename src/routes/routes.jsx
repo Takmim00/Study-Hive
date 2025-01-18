@@ -16,6 +16,7 @@ import Login from "../page/authentication/Login";
 import Register from "../page/authentication/Register";
 import DetailsPage from "../page/DetailsPage";
 import Home from "../page/Home";
+import Payment from "../page/payment/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: "/sessionDetail/:id",
         element: <DetailsPage />,
+      },
+      {
+        path: "/payment",
+        element: <Payment/>
       },
       {
         path: "/login",
