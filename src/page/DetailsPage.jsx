@@ -9,8 +9,11 @@ const DetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [session, setSession] = useState({});
+  const [review, setReview] = useState([]);
+
   useEffect(() => {
     fetchSessionData();
+    fetchReviewsData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -18,6 +21,26 @@ const DetailsPage = () => {
     const { data } = await axios.get(`http://localhost:5000/tutors/${id}`);
     setSession(data);
   };
+  const fetchReviewsData = async (sessionId) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:5000/reviews?sessionId=${sessionId}`
+      );
+      setReview(data);
+      console.log(data);
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+    }
+  };
+  const calculateAverageRating = () => {
+    if (review.length === 0) return "No ratings yet";
+    const total = review.reduce(
+      (sum, review) => sum + parseFloat(review.rating),
+      0
+    );
+    return (total / review.length).toFixed(1);
+  };
+
   const isRegistrationClosed =
     new Date() > new Date(session.registrationEndDate);
   const isDisabled =
@@ -74,7 +97,7 @@ const DetailsPage = () => {
                   <strong>Tutor Name:</strong> {session.name}
                 </p>
                 <p>
-                  <strong>Average Rating:</strong> {session.averageRating}
+                  <strong>Average Rating:</strong> {calculateAverageRating()}
                 </p>
                 <p>
                   <strong>Description:</strong> {session.sessionDescription}
@@ -105,20 +128,14 @@ const DetailsPage = () => {
             </div>
             <div>
               <h2 className="text-xl font-semibold mt-4">Reviews</h2>
-              {/* {reviews.length > 0 ? (
-                reviews.map((review) => (
-                  <div key={review.id} className="border-b py-2">
-                    <p>
-                      <strong>Rating:</strong> {review.rating}
-                    </p>
-                    <p>
-                      <strong>Comment:</strong> {review.comment}
-                    </p>
-                  </div>
-                ))
-              ) : (
-                <p>No reviews yet.</p>
-              )} */}
+              {review.map((review,i) => (
+                <div key={i} className="border-b py-2">
+                  
+                  <p>
+                    <strong>Comment:</strong> {review.review}
+                  </p>
+                </div>
+              ))}
             </div>
             <button
               disabled={isDisabled}
