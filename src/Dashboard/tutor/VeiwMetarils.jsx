@@ -38,7 +38,7 @@ const VeiwMetarils = () => {
             if (data.deletedCount > 0) {
               Swal.fire({
                 title: "Deleted!",
-                text: "Your car has been deleted successfully.",
+                text: "Your metarials has been deleted successfully.",
                 icon: "success",
               });
               const remaining = tutor.filter((tutor) => tutor._id !== _id);

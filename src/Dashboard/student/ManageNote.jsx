@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import useAuth from "../../hook/useAuth";
+import Swal from "sweetalert2";
 
 const ManageNote = () => {
   const { user } = useAuth();
@@ -15,9 +16,39 @@ const ManageNote = () => {
     const { data } = await axios.get(
       `http://localhost:5000/veiwNotes?email=${user?.email}`
     );
-    console.log(data);
     setNote(data);
   };
+
+    const handleDelete = (_id) => {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch(`http://localhost:5000/notes/${_id}`, {
+            method: "DELETE",
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.deletedCount > 0) {
+                Swal.fire({
+                  title: "Deleted!",
+                  text: "Your note has been deleted successfully.",
+                  icon: "success",
+                });
+                const remaining = notes.filter((note) => note._id !== _id);
+                setNote(remaining);
+              }
+            });
+        }
+      });
+    };
+
   return (
     <div>
       <div className="my-4">
@@ -54,7 +85,7 @@ const ManageNote = () => {
                   Update
                 </button>
                 <button
-                  //   onClick={() => handleDelete(tutor._id)}
+                    onClick={() => handleDelete(note._id)}
                   className="btn bg-red-600 text-white font-medium py-2 px-4 rounded hover:bg-red-700"
                 >
                   Delete

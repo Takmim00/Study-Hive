@@ -1,6 +1,6 @@
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../hook/useAuth";
-import { toast } from "react-toastify";
 
 const CreateNote = () => {
   const { user } = useAuth();
@@ -10,32 +10,32 @@ const CreateNote = () => {
     const title = form.title.value;
     const note = form.note.value;
 
-
     const noteData = {
-        studentEmail: user?.email,
-        title,
-        note,
-      };
-  
-      try {
-        const { data } = await axios.post(
-          "http://localhost:5000/notes",
-          noteData
-        );
-        console.log(data);
-        if (data.insertedId) {
-          form.reset()
-          toast.success("Note added successfully!");
-        } else {
-          toast.error("Failed to add the note.");
-        }
-      } catch (error) {
-        console.error("Error submitting note:", error);
-        alert("An error occurred while submitting your note.");
+      studentEmail: user?.email,
+      title,
+      note,
+    };
+
+    try {
+      const { data } = await axios.post(
+        "http://localhost:5000/notes",
+        noteData
+      );
+      console.log(data);
+      if (data.insertedId) {
+        toast.success("Note added successfully!");
+        form.reset();
+      } else {
+        toast.error("Failed to add the note.");
       }
+    } catch (error) {
+      console.error("Error submitting note:", error);
+      alert("An error occurred while submitting your note.");
+    }
   };
   return (
     <div>
+        <ToastContainer/>
       <div className="my-2">
         <h2 className="text-2xl font-bold mb-6 text-center">
           Veiw <span className="text-blue-400">Booked Details Session</span>
