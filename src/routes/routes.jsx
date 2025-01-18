@@ -1,4 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
+import CreateNote from "../Dashboard/student/CreateNote";
+import ManageNote from "../Dashboard/student/ManageNote";
+import StudyMetarials from "../Dashboard/student/StudyMetarials";
+import UpdateNote from "../Dashboard/student/UpdateNote";
 import VeiwBooked from "../Dashboard/student/VeiwBooked";
 import ViewDetails from "../Dashboard/student/ViewDetails";
 import CreateStudy from "../Dashboard/tutor/CreateStudy";
@@ -12,9 +16,6 @@ import Login from "../page/authentication/Login";
 import Register from "../page/authentication/Register";
 import DetailsPage from "../page/DetailsPage";
 import Home from "../page/Home";
-import CreateNote from "../Dashboard/student/CreateNote";
-import ManageNote from "../Dashboard/student/ManageNote";
-import UpdateNote from "../Dashboard/student/UpdateNote";
 
 export const router = createBrowserRouter([
   {
@@ -73,15 +74,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "createNote",
-        element: <CreateNote/>
+        element: <CreateNote />,
       },
       {
         path: "manageNotes",
-        element: <ManageNote/>
+        element: <ManageNote />,
       },
       {
         path: "manageNotes/updateNotes/:id",
-        element: <UpdateNote/>
+        element: <UpdateNote />,
+      },
+      {
+        path: "studyMetarials",
+        element: <StudyMetarials />,
       },
     ],
   },

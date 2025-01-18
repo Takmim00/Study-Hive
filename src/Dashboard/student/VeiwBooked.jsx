@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../hook/useAuth";
 
 const VeiwBooked = () => {
@@ -11,12 +11,13 @@ const VeiwBooked = () => {
   useEffect(() => {
     fetchTutor();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.bookedEmail]);
+  }, [user]);
 
   const fetchTutor = async () => {
     const { data } = await axios.get(
-      `http://localhost:5000/booked?email=${user?.bookedEmail}`
+      `http://localhost:5000/viewBooked?email=${user?.email}`
     );
+    console.log(data);
     setSession(data);
   };
   const handleReadMore = (id) => {

@@ -93,7 +93,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/viewMaterials">
+                <NavLink to="/dashboard/studyMetarials">
                   <FaBook />
                   View All Study Materials
                 </NavLink>

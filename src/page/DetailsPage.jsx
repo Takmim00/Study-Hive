@@ -53,10 +53,10 @@ const DetailsPage = () => {
         sessionTitle: session.sessionTitle,
         registrationFee: session.registrationFee || 0,
         bookedAt: new Date().toISOString(),
-        bookedName: user?.displayName,
-        bookedEmail: user?.email,
-        name: session.name,
-        email: session.email,
+        name: user?.displayName,
+        email: user?.email,
+        tutorName: session.name,
+        tutorEmail: session.email,
         sessionDescription: session.sessionDescription,
         sessionImage: session.sessionImage,
         registrationStartDate: session.registrationStartDate,
@@ -67,7 +67,7 @@ const DetailsPage = () => {
         status: session.status,
       };
 
-      const res = await axios.post("http://localhost:5000/booked", bookingData);
+      const res = await axios.post(`http://localhost:5000/booked`, bookingData);
       console.log(res.data);
       if (res.data.insertedId) {
         toast.success(`${session.sessionTitle}Session is Booked`);
@@ -128,9 +128,8 @@ const DetailsPage = () => {
             </div>
             <div>
               <h2 className="text-xl font-semibold mt-4">Reviews</h2>
-              {review.map((review,i) => (
+              {review.map((review, i) => (
                 <div key={i} className="border-b py-2">
-                  
                   <p>
                     <strong>Comment:</strong> {review.review}
                   </p>
