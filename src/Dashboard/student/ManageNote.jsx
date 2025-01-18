@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import useAuth from "../../hook/useAuth";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAuth from "../../hook/useAuth";
 
 const ManageNote = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const [notes, setNote] = useState([]);
   useEffect(() => {
@@ -19,35 +21,38 @@ const ManageNote = () => {
     setNote(data);
   };
 
-    const handleDelete = (_id) => {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          fetch(`http://localhost:5000/notes/${_id}`, {
-            method: "DELETE",
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              if (data.deletedCount > 0) {
-                Swal.fire({
-                  title: "Deleted!",
-                  text: "Your note has been deleted successfully.",
-                  icon: "success",
-                });
-                const remaining = notes.filter((note) => note._id !== _id);
-                setNote(remaining);
-              }
-            });
-        }
-      });
-    };
+  const handleDelete = (_id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/notes/${_id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your note has been deleted successfully.",
+                icon: "success",
+              });
+              const remaining = notes.filter((note) => note._id !== _id);
+              setNote(remaining);
+            }
+          });
+      }
+    });
+  };
+  const handleUpdate = (id) => {
+    navigate(`updateNotes/${id}`);
+  };
 
   return (
     <div>
@@ -79,13 +84,13 @@ const ManageNote = () => {
               </p>
               <div className="pt-2 text-center">
                 <button
-                  //   onClick={() => handleUpdate(note._id)}
+                  onClick={() => handleUpdate(note._id)}
                   className="btn bg-blue-600 text-white font-medium py-2 px-4 rounded hover:bg-blue-700"
                 >
                   Update
                 </button>
                 <button
-                    onClick={() => handleDelete(note._id)}
+                  onClick={() => handleDelete(note._id)}
                   className="btn bg-red-600 text-white font-medium py-2 px-4 rounded hover:bg-red-700"
                 >
                   Delete

@@ -14,6 +14,7 @@ import DetailsPage from "../page/DetailsPage";
 import Home from "../page/Home";
 import CreateNote from "../Dashboard/student/CreateNote";
 import ManageNote from "../Dashboard/student/ManageNote";
+import UpdateNote from "../Dashboard/student/UpdateNote";
 
 export const router = createBrowserRouter([
   {
@@ -77,6 +78,10 @@ export const router = createBrowserRouter([
       {
         path: "manageNotes",
         element: <ManageNote/>
+      },
+      {
+        path: "manageNotes/updateNotes/:id",
+        element: <UpdateNote/>
       },
     ],
   },

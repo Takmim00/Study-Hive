@@ -1,44 +1,61 @@
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import useAuth from "../../hook/useAuth";
+import useAxiosSecure from "../../hook/useAxiosSecure";
 
-const CreateNote = () => {
-  const { user } = useAuth();
-  const handleNote = async (e) => {
+const UpdateNote = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
+  const [notes, setNotes] = useState({});
+
+  useEffect(() => {
+    const fetchNotes = async () => {
+      const { data } = await axios.get(
+        `http://localhost:5000/veiwNotes/notes/${id}`
+      );
+      setNotes(data);
+      console.log(data);
+    };
+    fetchNotes();
+  }, [id]);
+  const handleUpdateNote = async (e) => {
     e.preventDefault();
     const form = e.target;
     const title = form.title.value;
     const note = form.note.value;
 
-    const noteData = {
-      studentEmail: user?.email,
+    const updatedNoteData = {
       title,
       note,
     };
 
     try {
-      const { data } = await axios.post(
-        "http://localhost:5000/notes",
-        noteData
+      const res = await axiosSecure.put(
+        `http://localhost:5000/updateNotes/${id}`,
+        updatedNoteData
       );
-      console.log(data);
-      if (data.insertedId) {
-        toast.success("Note added successfully!");
-        form.reset();
+      console.log(res.data);
+
+      if (res.data.modifiedCount > 0) {
+        console.log(res.data);
+        toast.success("Note updated successfully!");
+        navigate("/dashboard/manageNotes");
       } else {
-        toast.error("Failed to add the note.");
+        toast.error("No changes made or update failed");
       }
-    } catch (error) {
-      console.error("Error submitting note:", error);
-      alert("An error occurred while submitting your note.");
+    } catch (err) {
+      toast.error("Error updating note!");
+      console.error(err);
     }
   };
   return (
     <div>
-        <ToastContainer/>
-      <div className="my-2">
+      <div className="my-4">
+        <ToastContainer />
         <h2 className="text-2xl font-bold mb-6 text-center">
-          Veiw <span className="text-blue-400">Booked Details Session</span>
+          Update Your <span className="text-blue-600">Notes</span>
         </h2>
         <p className="text-gray-600 mb-8 text-center">
           This intuitive tool allows you to design and share in-depth study
@@ -47,7 +64,10 @@ const CreateNote = () => {
         </p>
       </div>
       {/* Form Section */}
-      <form onSubmit={handleNote} className="mt-6 w-10/12 mx-auto space-y-4">
+      <form
+        onSubmit={handleUpdateNote}
+        className="mt-6 w-10/12 mx-auto space-y-4"
+      >
         {/* Student Email */}
         <div>
           <label
@@ -58,7 +78,7 @@ const CreateNote = () => {
           </label>
           <input
             id="studentEmail"
-            defaultValue={user?.email}
+            defaultValue={notes?.studentEmail}
             type="email"
             placeholder="student@gmail.com"
             className="w-full border cursor-not-allowed border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -70,6 +90,7 @@ const CreateNote = () => {
           <input
             type="text"
             name="title"
+            defaultValue={notes.title}
             placeholder="Note Title..."
             className="w-full border border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
@@ -83,6 +104,7 @@ const CreateNote = () => {
           <textarea
             id="note"
             name="note"
+            defaultValue={notes.note}
             placeholder="Your Note..."
             className="w-full border border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
             rows="5"
@@ -95,7 +117,7 @@ const CreateNote = () => {
             type="submit"
             className="bg-blue-600 text-white font-medium px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            Create Note
+            Update Note
           </button>
         </div>
       </form>
@@ -103,4 +125,4 @@ const CreateNote = () => {
   );
 };
 
-export default CreateNote;
+export default UpdateNote;
