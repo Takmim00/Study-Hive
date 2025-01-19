@@ -17,7 +17,6 @@ const VeiwBooked = () => {
     const { data } = await axios.get(
       `http://localhost:5000/viewBooked?email=${user?.email}`
     );
-    console.log(data);
     setSession(data);
   };
   const handleReadMore = (id) => {

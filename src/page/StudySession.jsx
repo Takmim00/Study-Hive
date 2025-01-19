@@ -15,7 +15,7 @@ const StudySession = () => {
     try {
       const { data } = await axios.get(`http://localhost:5000/tutors`);
 
-      console.log(data);
+
 
       const currentDate = new Date();
       const filteredSessions = data
@@ -28,7 +28,6 @@ const StudySession = () => {
         }));
       // setSession(data)
       setSession(filteredSessions);
-      console.log(filteredSessions);
     } catch (error) {
       console.error("Error fetching sessions:", error);
     }

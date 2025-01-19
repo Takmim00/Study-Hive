@@ -21,7 +21,7 @@ const CreateNote = () => {
         "http://localhost:5000/notes",
         noteData
       );
-      console.log(data);
+
       if (data.insertedId) {
         toast.success("Note added successfully!");
         form.reset();

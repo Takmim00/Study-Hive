@@ -87,7 +87,6 @@ const CreateStudy = () => {
       status: formData.status,
     };
 
-    console.log("Final Data:", tutorData);
 
     // Send the data to the server
     try {
@@ -95,7 +94,6 @@ const CreateStudy = () => {
         "http://localhost:5000/tutors",
         tutorData
       );
-      console.log(res.data);
 
       if (res.data.insertedId) {
         setFormData({

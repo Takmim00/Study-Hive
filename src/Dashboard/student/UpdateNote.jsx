@@ -16,7 +16,7 @@ const UpdateNote = () => {
         `http://localhost:5000/veiwNotes/notes/${id}`
       );
       setNotes(data);
-      console.log(data);
+
     };
     fetchNotes();
   }, [id]);
@@ -36,10 +36,10 @@ const UpdateNote = () => {
         `http://localhost:5000/updateNotes/${id}`,
         updatedNoteData
       );
-      console.log(res.data);
+
 
       if (res.data.modifiedCount > 0) {
-        console.log(res.data);
+
         toast.success("Note updated successfully!");
         navigate("/dashboard/manageNotes");
       } else {

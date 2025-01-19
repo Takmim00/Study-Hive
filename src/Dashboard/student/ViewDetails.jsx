@@ -16,7 +16,6 @@ const ViewDetails = () => {
 
   const fetchSessionData = async () => {
     const { data } = await axios.get(`http://localhost:5000/booked/${id}`);
-    console.log(data);
     setSession(data);
   };
   const handleReview = async (e) => {
@@ -39,7 +38,6 @@ const ViewDetails = () => {
         "http://localhost:5000/reviews",
         reviewPayload
       );
-      console.log(data);
       if (data.insertedId) {
         form.reset()
         toast.success("Review added successfully!");

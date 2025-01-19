@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../hook/useAuth";
+import PurchaseModal from "../modal/Purchasemoda";
 
 const DetailsPage = () => {
   const { user } = useAuth();
@@ -10,6 +11,7 @@ const DetailsPage = () => {
   const navigate = useNavigate();
   const [session, setSession] = useState({});
   const [review, setReview] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     fetchSessionData();
@@ -27,7 +29,7 @@ const DetailsPage = () => {
         `http://localhost:5000/reviews?sessionId=${sessionId}`
       );
       setReview(data);
-      console.log(data);
+
     } catch (error) {
       console.error("Error fetching reviews:", error);
     }
@@ -68,16 +70,20 @@ const DetailsPage = () => {
       };
 
       if (session.registrationFee > 0) {
-        navigate("/payment", {
+        navigate("/", {
           state: {
             bookingData,
             amount: session.registrationFee,
           },
         });
       } else {
-        const res = await axios.post(`http://localhost:5000/booked`, bookingData);
+        const res = await axios.post(
+          `http://localhost:5000/booked`,
+          bookingData
+        );
         if (res.data.insertedId) {
           toast.success(`${session.sessionTitle} Session is Booked`);
+          setIsModalOpen(false);
           navigate("/");
         }
       }
@@ -86,7 +92,42 @@ const DetailsPage = () => {
       console.error(err);
     }
   };
+  const handlePayment= async () => {
+    try {
+      const bookingData = {
+        sessionId: id,
+        sessionTitle: session.sessionTitle,
+        registrationFee: session.registrationFee,
+        bookedAt: new Date().toISOString(),
+        name: user?.displayName,
+        email: user?.email,
+        tutorName: session.name,
+        tutorEmail: session.email,
+        sessionDescription: session.sessionDescription,
+        sessionImage: session.sessionImage,
+        registrationStartDate: session.registrationStartDate,
+        registrationEndDate: session.registrationEndDate,
+        classStartTime: session.classStartTime,
+        classEndTime: session.classEndTime,
+        sessionDuration: parseFloat(session.sessionDuration),
+        status: session.status,
+      };
+  
+      const res = await axios.post(`http://localhost:5000/booked`, bookingData);
+      if (res.data.insertedId) {
+        toast.success(`${session.sessionTitle} Session is Booked`);
+        setIsModalOpen(false);
+        navigate("/"); // Redirect if needed
+      }
+    } catch (err) {
+      toast.error("Booking failed. Please try again.");
+      console.error(err);
+    }
+  };
 
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <ToastContainer />
@@ -144,17 +185,34 @@ const DetailsPage = () => {
                 </div>
               ))}
             </div>
-            <button
-              disabled={isDisabled}
-              onClick={handleBooking}
-              className={`mt-4 px-4 py-2 text-white rounded ${
-                isDisabled
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-blue-500 hover:bg-blue-600 btn"
-              }`}
-            >
-              {isRegistrationClosed ? "Registration Closed" : "Book Now"}
-            </button>
+            <div>
+              <button
+                disabled={isDisabled}
+                onClick={() => {
+                  if (session.registrationFee > 0) {
+                    // Open the modal for paid registration
+                    setIsModalOpen(true);
+                  } else {
+                    handleBooking();
+                  }
+                }}
+                className={`mt-4 px-4 py-2 text-white rounded ${
+                  isDisabled
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-blue-500 hover:bg-blue-600 btn"
+                }`}
+              >
+                {isRegistrationClosed ? "Registration Closed" : "Book Now"}
+              </button>
+
+              {/* Purchase Modal */}
+              <PurchaseModal
+                session={session}
+                isOpen={isModalOpen}
+                closeModal={handleModalClose}
+                handlePayment={handlePayment}
+              />
+            </div>
           </>
         )}
       </div>

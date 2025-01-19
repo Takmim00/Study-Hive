@@ -14,7 +14,7 @@ const VeiwSession = () => {
     const { data } = await axios.get(
       `http://localhost:5000/veiwSession/${user?.email}`
     );
-    console.log(data);
+
     setTutor(data);
   };
 

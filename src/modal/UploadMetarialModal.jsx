@@ -47,13 +47,13 @@ const UploadMetarialModal = ({ isOpen, onClose, onSubmit, tutor }) => {
       materialImage: materialImageUrl,
       googleDriveLink,
     };
-    console.log(materialData);
+
     try {
         const res = await axiosSecure.post(
           "http://localhost:5000/metarial",
           materialData
         );
-        console.log(res.data);
+
   
         if (res.data.insertedId) {
           

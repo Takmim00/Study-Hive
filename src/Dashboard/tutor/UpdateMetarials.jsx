@@ -76,10 +76,10 @@ const UpdateMetarials = () => {
         `http://localhost:5000/updateMetarials/${id}`,
         updatedTutorData
       );
-      console.log(res.data);
+
 
       if (res.data.modifiedCount > 0) {
-        console.log(res.data);
+
         toast.success("Session updated successfully!");
         navigate("/dashboard/viewMaterials");
       } else {

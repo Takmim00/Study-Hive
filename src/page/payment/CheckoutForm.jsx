@@ -1,27 +1,38 @@
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
+import { useEffect, useState } from "react";
+import useAuth from "../../hook/useAuth";
+import useAxiosSecure from "../../hook/useAxiosSecure";
 import "./CheckoutForm.css";
-import { useEffect, useState } from 'react';
-import useAxiosSecure from '../../hook/useAxiosSecure';
-import useTutor from '../../hook/useTutor';
+import { toast } from "react-toastify";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ session, handlePayment, closeModal }) => {
+  const { user } = useAuth();
+  const [error, setError] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
 
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
-    
-      axiosSecure
-        .post("/create-payment-intent")
-        .then((res) => {
-          console.log(res.data.clientSecret);
-          setClientSecret(res.data.clientSecret);
-        });
-    
-  }, [axiosSecure]);
+    getPaymentIntent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const getPaymentIntent = async () => {
+    const registrationFee = parseFloat(session.registrationFee);
+
+    try {
+      const { data } = await axiosSecure.post("/create-payment-intent", {
+        registrationFee,
+      });
+      setClientSecret(data.clientSecret);
+
+    } catch (err) {
+      toast.error(err);
+    }
+  };
 
   const handleSubmit = async (event) => {
     // Block native form submission.
@@ -49,9 +60,11 @@ const CheckoutForm = () => {
     });
 
     if (error) {
-      console.log("[error]", error);
+
+      setError(error.message);
     } else {
-      console.log("[PaymentMethod]", paymentMethod);
+
+      setError("");
     }
   };
 
@@ -73,9 +86,23 @@ const CheckoutForm = () => {
           },
         }}
       />
-      <button type="submit" disabled={!stripe}>
-        Pay
-      </button>
+      <div>
+        <button
+          onClick={handlePayment}
+          className="btn  px-4 py-2 text-white rounded bg-blue-500 hover:bg-blue-600 "
+          type="submit"
+          disabled={!stripe}
+        >
+          Pay
+        </button>
+        <button
+          onClick={closeModal}
+          className="px-4 py-2 bg-red-500 text-white rounded ml-2"
+        >
+          Cancel
+        </button>
+      </div>
+      <p className="text-red-600">{error}</p>
     </form>
   );
 };

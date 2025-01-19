@@ -45,7 +45,7 @@ const Register = () => {
     }
 
     createUser(email, password).then((result) => {
-      console.log(createUser.user);
+
       const loggedUser = result.user;
       updateUserProfile(name, photoURL)
         .then(() => {
@@ -67,7 +67,7 @@ const Register = () => {
               } else {
                 toast.error(data.message);
               }
-              console.log(userInfo);
+
             })
             .catch((error) => {
               console.error(error);

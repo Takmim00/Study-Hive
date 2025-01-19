@@ -12,9 +12,9 @@ const ViewMetarialsModal = ({ isOpen, onClose, sessionTitle }) => {
             `http://localhost:5000/metarials/${sessionTitle}`
           );
           setMaterialData(data);
-          console.log(data);
+
         } catch (err) {
-          console.log(err);
+          console.error(err);
         }
       };
 

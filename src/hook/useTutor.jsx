@@ -1,16 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "./useAxiosSecure";
 import useAuth from "./useAuth";
-
+import useAxiosSecure from "./useAxiosSecure";
 
 const useTutor = () => {
   const axiosSecure = useAxiosSecure();
-  const {user} = useAuth();
-  const {refetch, data: tutor = [] } = useQuery({
-    queryKey: ["cart", user?.email],
+  const { user } = useAuth();
+  const { refetch, data: tutor = [] } = useQuery({
+    queryKey: ["tutor", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/tutors/${user.email}`);
-      console.log(res.data);
+      const res = await axiosSecure.get(`/viewBooked?email=${user?.email}`);
+
       return res.data;
     },
   });

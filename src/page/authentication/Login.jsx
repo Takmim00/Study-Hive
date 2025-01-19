@@ -21,7 +21,6 @@ const Login = () => {
     userLogin(email, password)
       .then((res) => {
         const user = res.user;
-        console.log(user);
         const redirectTo = location.state?.from || "/";
         navigate(redirectTo);
         toast.success("Login successful!");
