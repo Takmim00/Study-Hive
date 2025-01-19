@@ -1,15 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+
 import useAuth from "../../hook/useAuth";
 import ViewMetarialsModal from "../../modal/ViewMetarialsModal";
 
 const StudyMetarials = () => {
   const { user } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [viewBooked, setViewBooked] = useState(null);
+  const [materialData, setMaterialData] = useState([]);
+  const [selectedSession, setSelectedSession] = useState(null);
   const [booked, setBooked] = useState([]);
   useEffect(() => {
     fetchBooked();
+    fetchMaterialData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
@@ -19,19 +22,34 @@ const StudyMetarials = () => {
     );
     setBooked(data);
   };
-  const handleModalOpen = (book) => {
-    setViewBooked(book);
+
+  const fetchMaterialData = async (sessionId) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:5000/metarials/session/${sessionId}`
+      );
+      if (data && data.length > 0) {
+        setMaterialData(data);
+      } else {
+        setMaterialData([]); // Set empty array if no data found for session
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleModalOpen = (sessionId) => {
+    console.log(sessionId);
+    fetchMaterialData(sessionId);
+    setSelectedSession(sessionId);
+
     setIsModalOpen(true);
   };
-
   const handleModalClose = () => {
-    setViewBooked(null);
     setIsModalOpen(false);
+    setSelectedSession(null);
   };
 
-  const handleSubmit = () => {
-    setIsModalOpen(false);
-  };
   return (
     <div>
       <div className="my-4">
@@ -83,7 +101,7 @@ const StudyMetarials = () => {
               </h2>
               <div>
                 <button
-                  onClick={() => handleModalOpen(book)}
+                  onClick={() => handleModalOpen(book.sessionId)}
                   className="btn bg-blue-600 text-white font-medium py-2 px-4 rounded hover:bg-blue-700"
                 >
                   View Material
@@ -91,10 +109,9 @@ const StudyMetarials = () => {
 
                 <ViewMetarialsModal
                   isOpen={isModalOpen}
-                  tutor={viewBooked}
                   onClose={handleModalClose}
-                  sessionTitle={book.sessionTitle}
-                  onSubmit={handleSubmit}
+                  materialData={materialData}
+                  selectedSession={selectedSession}
                 />
               </div>
             </div>

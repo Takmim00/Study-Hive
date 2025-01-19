@@ -15,10 +15,10 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 const PurchaseModal = ({ closeModal, isOpen, session, handlePayment }) => {
   if (!session) {
-
     return null;
   }
-
+  console.log(stripePromise);
+  console.log(session);
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
