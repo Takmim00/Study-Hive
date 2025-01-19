@@ -12,6 +12,7 @@ const DetailsPage = () => {
   const [session, setSession] = useState({});
   const [review, setReview] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchSessionData();
@@ -20,20 +21,27 @@ const DetailsPage = () => {
   }, [id]);
 
   const fetchSessionData = async () => {
-    const { data } = await axios.get(`http://localhost:5000/tutors/${id}`);
-    setSession(data);
+    try {
+      const { data } = await axios.get(`http://localhost:5000/tutors/${id}`);
+      setSession(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching session data:", error);
+      setIsLoading(false);
+    }
   };
-  const fetchReviewsData = async (sessionId) => {
+
+  const fetchReviewsData = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/reviews?sessionId=${sessionId}`
+        `http://localhost:5000/review/session/${id}`
       );
       setReview(data);
-
     } catch (error) {
       console.error("Error fetching reviews:", error);
     }
   };
+
   const calculateAverageRating = () => {
     if (review.length === 0) return "No ratings yet";
     const total = review.reduce(
@@ -83,8 +91,7 @@ const DetailsPage = () => {
         );
         if (res.data.insertedId) {
           toast.success(`${session.sessionTitle} Session is Booked`);
-          setIsModalOpen(false);
-          navigate("/");
+          navigate("/dashboard/viewBooked");
         }
       }
     } catch (err) {
@@ -92,7 +99,10 @@ const DetailsPage = () => {
       console.error(err);
     }
   };
-  const handlePayment= async () => {
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  const handlePayment = async () => {
     try {
       const bookingData = {
         sessionId: id,
@@ -112,12 +122,12 @@ const DetailsPage = () => {
         sessionDuration: parseFloat(session.sessionDuration),
         status: session.status,
       };
-  
+
       const res = await axios.post(`http://localhost:5000/booked`, bookingData);
       if (res.data.insertedId) {
         toast.success(`${session.sessionTitle} Session is Booked`);
         setIsModalOpen(false);
-        navigate("/"); // Redirect if needed
+        navigate("/dashboard/viewBooked");
       }
     } catch (err) {
       toast.error("Booking failed. Please try again.");

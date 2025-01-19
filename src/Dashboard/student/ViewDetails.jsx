@@ -29,6 +29,7 @@ const ViewDetails = () => {
       studentName: user?.displayName,
       studentEmail: user?.email,
       sessionId: session.sessionId,
+      sessionName: session.sessionTitle,
       review,
       rating,
     };
@@ -38,6 +39,7 @@ const ViewDetails = () => {
         "http://localhost:5000/reviews",
         reviewPayload
       );
+      console.log(data);
       if (data.insertedId) {
         form.reset()
         toast.success("Review added successfully!");
@@ -88,19 +90,19 @@ const ViewDetails = () => {
               <div>
                 <p>
                   <span className="font-semibold">Student Name:</span>{" "}
-                  {session.bookedName}
-                </p>
-                <p>
-                  <span className="font-semibold">Student Email:</span>{" "}
-                  {session.bookedEmail}
-                </p>
-                <p>
-                  <span className="font-semibold">Tutor Name:</span>{" "}
                   {session.name}
                 </p>
                 <p>
-                  <span className="font-semibold">Tutor Email:</span>{" "}
+                  <span className="font-semibold">Student Email:</span>{" "}
                   {session.email}
+                </p>
+                <p>
+                  <span className="font-semibold">Tutor Name:</span>{" "}
+                  {session.tutorName}
+                </p>
+                <p>
+                  <span className="font-semibold">Tutor Email:</span>{" "}
+                  {session.tutorEmail}
                 </p>
               </div>
               <div>

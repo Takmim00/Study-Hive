@@ -8,18 +8,16 @@ import {
 } from "@headlessui/react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { Fragment, useState } from "react";
-
-
+import { Fragment } from "react";
 
 import CheckoutForm from "../page/payment/CheckoutForm";
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
-const PurchaseModal = ({ closeModal, isOpen ,session,handlePayment}) => {
 
+const PurchaseModal = ({ closeModal, isOpen, session, handlePayment }) => {
+  if (!session) {
 
- 
-
-
+    return null;
+  }
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
