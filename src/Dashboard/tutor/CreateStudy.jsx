@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../hook/useAuth";
 import useAxiosPublic from "../../hook/useAxiosPublic";
 import useAxiosSecure from "../../hook/useAxiosSecure";
-import { useNavigate } from "react-router-dom";
+import useRole from "../../hook/useRole";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_API;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const CreateStudy = () => {
+  const [role, isLoading] = useRole();
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     sessionTitle: "",
     name: user?.displayName || "",
-    email: user?.email ||  "",
+    email: user?.email || "",
+    role: role,
     sessionDescription: "",
     sessionImage: null,
     registrationStartDate: "",
@@ -27,6 +30,7 @@ const CreateStudy = () => {
     status: "Pending",
   });
 
+  console.log(role);
   useEffect(() => {
     if (user) {
       setFormData((prev) => ({
@@ -85,8 +89,9 @@ const CreateStudy = () => {
       sessionDuration: parseFloat(formData.sessionDuration),
       registrationFee: parseFloat(formData.registrationFee),
       status: formData.status,
+      role: role,
     };
-
+    console.log(tutorData);
 
     // Send the data to the server
     try {
@@ -94,24 +99,11 @@ const CreateStudy = () => {
         "http://localhost:5000/tutors",
         tutorData
       );
+      console.log(res.data);
 
       if (res.data.insertedId) {
-        setFormData({
-          sessionTitle: "",
-          name: user.displayName || "",
-          email: user.email || "",
-          sessionDescription: "",
-          sessionImage: null,
-          registrationStartDate: "",
-          registrationEndDate: "",
-          classStartTime: "",
-          classEndTime: "",
-          sessionDuration: 0,
-          registrationFee: 0,
-          status: "Pending",
-        });
         toast.success("Session added successfully!");
-        navigate('/dashboard/viewSession')
+        navigate("/dashboard/viewSession");
       }
     } catch (err) {
       toast.error(err.message);

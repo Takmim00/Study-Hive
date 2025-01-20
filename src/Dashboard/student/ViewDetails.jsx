@@ -1,5 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../hook/useAuth";
@@ -8,16 +8,16 @@ const ViewDetails = () => {
   const { user } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
-  const [session, setSession] = useState({});
-  useEffect(() => {
-    fetchSessionData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
 
-  const fetchSessionData = async () => {
-    const { data } = await axios.get(`http://localhost:5000/booked/${id}`);
-    setSession(data);
-  };
+  const { data: session, isLoading } = useQuery({
+    queryKey: ["session", id],
+    enabled: !!id,
+    queryFn: async () => {
+      const { data } = await axios.get(`http://localhost:5000/booked/${id}`);
+      console.log(data);
+      return data;
+    },
+  });
   const handleReview = async (e) => {
     e.preventDefault();
 
@@ -41,9 +41,9 @@ const ViewDetails = () => {
       );
       console.log(data);
       if (data.insertedId) {
-        form.reset()
+        form.reset();
         toast.success("Review added successfully!");
-        navigate('/dashboard/viewBooked')
+        navigate("/dashboard/viewBooked");
       } else {
         toast.error("Failed to add the review.");
       }
@@ -52,6 +52,9 @@ const ViewDetails = () => {
       alert("An error occurred while submitting your review.");
     }
   };
+  if (isLoading) {
+    return <span className="loading loading-dots loading-lg"></span>;
+  }
   return (
     <div>
       <ToastContainer />
@@ -71,7 +74,7 @@ const ViewDetails = () => {
             {/* Image Section */}
             <div className="w-full  ">
               <img
-                src={session.sessionImage} // Replace with your image source
+                src={session.sessionImage}
                 alt="Advanced English Course"
                 className="rounded-lg w-full lg:h-[50vh] object-cover"
               />

@@ -1,25 +1,29 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hook/useAuth";
 
 const VeiwMetarils = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
-  const [tutor, setTutor] = useState([]);
-  useEffect(() => {
-    fetchTutor();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
 
-  const fetchTutor = async () => {
-    const { data } = await axios.get(
-      `http://localhost:5000/veiwMetarial?email=${user?.email}`
-    );
-    console.log(data);
-    setTutor(data);
-  };
+  const {
+    data: tutor = [],
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["tutor", user?.email],
+    enabled: !loading && !!user?.email,
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `http://localhost:5000/veiwMetarial?email=${user?.email}`
+      );
+      console.log(data);
+      return data;
+    },
+  });
+
   const handleDelete = (_id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -42,8 +46,9 @@ const VeiwMetarils = () => {
                 text: "Your metarials has been deleted successfully.",
                 icon: "success",
               });
-              const remaining = tutor.filter((tutor) => tutor._id !== _id);
-              setTutor(remaining);
+              // const remaining = tutor.filter((tutor) => tutor._id !== _id);
+              // setTutor(remaining);
+              refetch();
             }
           });
       }
@@ -52,6 +57,9 @@ const VeiwMetarils = () => {
   const handleUpdate = (id) => {
     navigate(`updateMetarials/${id}`);
   };
+  if (isLoading) {
+    return <span className="loading loading-dots loading-lg"></span>;
+  }
 
   return (
     <div>

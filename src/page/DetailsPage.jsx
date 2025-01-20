@@ -1,46 +1,40 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../hook/useAuth";
 import PurchaseModal from "../modal/Purchasemoda";
+import useRole from "../hook/useRole";
 
 const DetailsPage = () => {
+  const [role, isLoading] =useRole()
   const { user } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
-  const [session, setSession] = useState({});
-  const [review, setReview] = useState([]);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    fetchSessionData();
-    fetchReviewsData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
-
-  const fetchSessionData = async () => {
-    try {
+  const { data: session, isLoading: isSessionLoading } = useQuery({
+    queryKey: ["session", id],
+    enabled: !!id,
+    queryFn: async () => {
       const { data } = await axios.get(`http://localhost:5000/tutors/${id}`);
-      setSession(data);
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Error fetching session data:", error);
-      setIsLoading(false);
-    }
-  };
-
-  const fetchReviewsData = async () => {
-    try {
+      console.log(data);
+      return data;
+    },
+  });
+  const { data: review, isLoading: isReviewLoading } = useQuery({
+    queryKey: ["review", id],
+    enabled: !!id,
+    queryFn: async () => {
       const { data } = await axios.get(
         `http://localhost:5000/review/session/${id}`
       );
-      setReview(data);
-    } catch (error) {
-      console.error("Error fetching reviews:", error);
-    }
-  };
+      console.log(data);
+      return data;
+    },
+  });
 
   const calculateAverageRating = () => {
     if (review.length === 0) return "No ratings yet";
@@ -52,9 +46,9 @@ const DetailsPage = () => {
   };
 
   const isRegistrationClosed =
-    new Date() > new Date(session.registrationEndDate);
+    new Date() > new Date(session?.registrationEndDate);
   const isDisabled =
-    isRegistrationClosed || user?.role === "admin" || user?.role === "tutor";
+    isRegistrationClosed || role === "admin" || role === "tutor";
 
   const handleBooking = async () => {
     try {
@@ -99,8 +93,8 @@ const DetailsPage = () => {
       console.error(err);
     }
   };
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (isSessionLoading || isReviewLoading) {
+    return <span className="loading loading-dots loading-lg"></span>;
   }
   const handlePayment = async () => {
     try {

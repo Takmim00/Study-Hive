@@ -1,25 +1,25 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAuth from "../../hook/useAuth";
 import UploadMetarialModal from "../../modal/UploadMetarialModal";
 
 const UploadMetarial = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTutor, setSelectedTutor] = useState(null);
-  const [tutor, setTutor] = useState([]);
-  useEffect(() => {
-    fetchTutor();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.email]);
 
-  const fetchTutor = async () => {
-    const { data } = await axios.get(
-      `http://localhost:5000/veiwSession/${user?.email}`
-    );
+  const { data: tutor = [], isLoading } = useQuery({
+    queryKey: ["tutor", user?.email],
+    enabled: !loading && !!user?.email,
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `http://localhost:5000/veiwSession/${user?.email}`
+      );
 
-    setTutor(data);
-  };
+      return data;
+    },
+  });
 
   const handleModalOpen = (tutor) => {
     setSelectedTutor(tutor);
@@ -34,6 +34,9 @@ const UploadMetarial = () => {
   const handleSubmit = () => {
     setIsModalOpen(false);
   };
+  if (isLoading) {
+    return <span className="loading loading-dots loading-lg"></span>;
+  }
 
   return (
     <div>

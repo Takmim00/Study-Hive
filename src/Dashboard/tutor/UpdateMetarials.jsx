@@ -1,5 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAxiosPublic from "../../hook/useAxiosPublic";
@@ -12,17 +12,19 @@ const UpdateMetarials = () => {
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
-  const [tutor, setTutor] = useState({});
 
-  useEffect(() => {
-    const fetchTutor = async () => {
+
+  const { data: tutors, isLoading } = useQuery({
+    queryKey: ["totor", id],
+    enabled: !!id,
+    queryFn: async () => {
       const { data } = await axios.get(
         `http://localhost:5000/veiwMetarial/tutors/${id}`
       );
-      setTutor(data);
-    };
-    fetchTutor();
-  }, [id]);
+
+      return data;
+    },
+  });
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -57,7 +59,6 @@ const UpdateMetarials = () => {
       }
     }
 
-
     const updatedTutorData = {
       sessionTitle,
       sessionDescription,
@@ -70,16 +71,13 @@ const UpdateMetarials = () => {
       registrationFee,
     };
 
-
     try {
       const res = await axiosSecure.put(
         `http://localhost:5000/updateMetarials/${id}`,
         updatedTutorData
       );
 
-
       if (res.data.modifiedCount > 0) {
-
         toast.success("Session updated successfully!");
         navigate("/dashboard/viewMaterials");
       } else {
@@ -91,6 +89,9 @@ const UpdateMetarials = () => {
     }
   };
 
+  if (isLoading) {
+    return <span className="loading loading-dots loading-lg"></span>;
+  }
   return (
     <div>
       <div className="my-4">
@@ -115,7 +116,7 @@ const UpdateMetarials = () => {
               type="text"
               name="sessionTitle"
               placeholder="Session Title..."
-              defaultValue={tutor?.sessionTitle}
+              defaultValue={tutors?.sessionTitle}
               required
               className="w-full p-2 border rounded"
             />
@@ -125,7 +126,7 @@ const UpdateMetarials = () => {
             <input
               type="text"
               name="name"
-              defaultValue={tutor?.name || ""}
+              defaultValue={tutors?.name || ""}
               readOnly
               className="w-full p-2 border rounded bg-gray-100"
             />
@@ -135,7 +136,7 @@ const UpdateMetarials = () => {
             <input
               type="email"
               name="email"
-              defaultValue={tutor?.email || ""}
+              defaultValue={tutors?.email || ""}
               readOnly
               className="w-full p-2 border rounded bg-gray-100"
             />
@@ -146,8 +147,19 @@ const UpdateMetarials = () => {
               type="file"
               name="sessionImage"
               className="w-full p-2 border rounded"
-              defaultValue={tutor?.sessionImage}
             />
+            {tutors?.sessionImage && (
+              <div className="mb-4">
+                <label className="block font-semibold mb-2">
+                  Current Session Image:
+                </label>
+                <img
+                  src={tutors.sessionImage}
+                  alt="Current Session"
+                  className="h-32 object-cover rounded"
+                />
+              </div>
+            )}
           </div>
           <div className=" col-span-2">
             <label className="block font-semibold mb-2">
@@ -156,7 +168,7 @@ const UpdateMetarials = () => {
             <textarea
               name="sessionDescription"
               placeholder="Session Description..."
-              defaultValue={tutor?.sessionDescription}
+              defaultValue={tutors?.sessionDescription}
               required
               className="w-full p-2 border rounded"
             />
@@ -169,7 +181,7 @@ const UpdateMetarials = () => {
             <input
               type="date"
               name="registrationStartDate"
-              defaultValue={tutor?.registrationStartDate}
+              defaultValue={tutors?.registrationStartDate}
               required
               className="w-full p-2 border rounded"
             />
@@ -181,7 +193,7 @@ const UpdateMetarials = () => {
             <input
               type="date"
               name="registrationEndDate"
-              defaultValue={tutor?.registrationEndDate}
+              defaultValue={tutors?.registrationEndDate}
               required
               className="w-full p-2 border rounded"
             />
@@ -193,7 +205,7 @@ const UpdateMetarials = () => {
             <input
               type="time"
               name="classStartTime"
-              defaultValue={tutor?.classStartTime}
+              defaultValue={tutors?.classStartTime}
               required
               className="w-full p-2 border rounded"
             />
@@ -203,7 +215,7 @@ const UpdateMetarials = () => {
             <input
               type="time"
               name="classEndTime"
-              defaultValue={tutor?.classEndTime}
+              defaultValue={tutors?.classEndTime}
               required
               className="w-full p-2 border rounded"
             />
@@ -215,7 +227,7 @@ const UpdateMetarials = () => {
             <input
               type="number"
               name="sessionDuration"
-              defaultValue={tutor?.sessionDuration}
+              defaultValue={tutors?.sessionDuration}
               required
               className="w-full p-2 border rounded"
             />
@@ -228,7 +240,7 @@ const UpdateMetarials = () => {
             <input
               type="number"
               name="registrationFee"
-              defaultValue={tutor?.registrationFee}
+              defaultValue={tutors?.registrationFee}
               readOnly
               className="w-full p-2 border rounded bg-gray-100"
             />

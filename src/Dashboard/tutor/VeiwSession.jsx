@@ -1,23 +1,24 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import useAuth from "../../hook/useAuth";
 
 const VeiwSession = () => {
-  const { user } = useAuth();
-  const [tutor, setTutor] = useState([]);
-  useEffect(() => {
-    fetchTutor();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.email]);
+  const { user, loading } = useAuth();
 
-  const fetchTutor = async () => {
-    const { data } = await axios.get(
-      `http://localhost:5000/veiwSession/${user?.email}`
-    );
-
-    setTutor(data);
-  };
-
+  const { data: tutor = [], isLoading } = useQuery({
+    queryKey: ["tutor", user?.email],
+    enabled: !loading && !!user?.email,
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `http://localhost:5000/veiwSession/${user?.email}`
+      );
+      console.log(data);
+      return data;
+    },
+  });
+  if (isLoading) {
+    return <span className="loading loading-dots loading-lg"></span>;
+  }
   return (
     <div>
       <div className="my-4">
