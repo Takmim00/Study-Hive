@@ -16,6 +16,7 @@ import Login from "../page/authentication/Login";
 import Register from "../page/authentication/Register";
 import DetailsPage from "../page/DetailsPage";
 import Home from "../page/Home";
+import ViewUser from "../Dashboard/admin/ViewUser";
 
 export const router = createBrowserRouter([
   {
@@ -88,6 +89,10 @@ export const router = createBrowserRouter([
       {
         path: "studyMetarials",
         element: <StudyMetarials />,
+      },
+      {
+        path: "viewUsers",
+        element: <ViewUser/>
       },
     ],
   },

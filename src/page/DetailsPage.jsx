@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../hook/useAuth";
-import PurchaseModal from "../modal/Purchasemoda";
+import PurchaseModal from "../modal/Purchasemodal";
 import useRole from "../hook/useRole";
 
 const DetailsPage = () => {
@@ -13,6 +13,7 @@ const DetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data: session, isLoading: isSessionLoading } = useQuery({
@@ -20,7 +21,7 @@ const DetailsPage = () => {
     enabled: !!id,
     queryFn: async () => {
       const { data } = await axios.get(`http://localhost:5000/tutors/${id}`);
-      console.log(data);
+
       return data;
     },
   });
@@ -31,7 +32,6 @@ const DetailsPage = () => {
       const { data } = await axios.get(
         `http://localhost:5000/review/session/${id}`
       );
-      console.log(data);
       return data;
     },
   });

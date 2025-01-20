@@ -15,8 +15,6 @@ const StudySession = () => {
     try {
       const { data } = await axios.get(`http://localhost:5000/tutors`);
 
-
-
       const currentDate = new Date();
       const filteredSessions = data
         .filter((session) => session.status === "Approved")
