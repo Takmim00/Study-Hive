@@ -41,9 +41,6 @@ const ViewUser = () => {
     e.preventDefault();
   };
 
-  if (isLoading) {
-    return <span className="loading loading-dots loading-lg"></span>;
-  }
   return (
     <div>
       <div className="my-2">
@@ -58,7 +55,7 @@ const ViewUser = () => {
       </div>
       {/* Search Bar */}
       <div className="mb-4 flex justify-center">
-        <form onSubmit={handleSearchSubmit} className="w-full max-w-sm">
+        <form onSubmit={handleSearchSubmit} className="w-full md:max-w-sm flex gap-2">
           <input
             type="text"
             value={search}
@@ -66,6 +63,9 @@ const ViewUser = () => {
             placeholder="Search users..."
             className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
+          <button className="px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:bg-blue-600 focus:outline-none">
+            Search
+          </button>
         </form>
       </div>
 
@@ -104,13 +104,21 @@ const ViewUser = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((user) => (
-                    <UserDataRow
-                      refetch={refetch}
-                      key={user?._id}
-                      userData={user}
-                    />
-                  ))}
+                  {isLoading ? (
+                    <tr>
+                      <td colSpan="4" className="text-center py-4">
+                        <span className="loading loading-dots loading-lg"></span>
+                      </td>
+                    </tr>
+                  ) : (
+                    users.map((user) => (
+                      <UserDataRow
+                        refetch={refetch}
+                        key={user?._id}
+                        userData={user}
+                      />
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
