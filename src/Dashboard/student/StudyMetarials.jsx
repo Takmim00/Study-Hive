@@ -1,50 +1,48 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
+import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hook/useAuth";
 import ViewMetarialsModal from "../../modal/ViewMetarialsModal";
 
 const StudyMetarials = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [materialData, setMaterialData] = useState([]);
   const [selectedSession, setSelectedSession] = useState(null);
-  const [booked, setBooked] = useState([]);
-  useEffect(() => {
-    fetchBooked();
-    fetchMaterialData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
 
-  const fetchBooked = async () => {
-    const { data } = await axios.get(
-      `http://localhost:5000/viewBooked?email=${user?.email}`
-    );
-    setBooked(data);
-  };
-
-  const fetchMaterialData = async (sessionId) => {
-    try {
+  const { data: booked = [], isLoading } = useQuery({
+    queryKey: ["bookedSessions", user?.email],
+    enabled: !loading && !!user?.email,
+    queryFn: async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/metarials/session/${sessionId}`
+        `http://localhost:5000/viewBooked?email=${user?.email}`
       );
-      if (data && data.length > 0) {
-        setMaterialData(data);
-      } else {
-        setMaterialData([]); // Set empty array if no data found for session
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
+
+      return data;
+    },
+  });
+
+  const { data: materialData = [], refetch: refetchMaterialData } = useQuery({
+    queryKey: ["sessionMaterials", selectedSession],
+    enabled: !loading && !!selectedSession,
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `http://localhost:5000/metarials/session/${selectedSession}`
+      );
+
+      return data || [];
+    },
+  });
+  if (isLoading) {
+    return <span className="loading loading-dots loading-lg"></span>;
+  }
 
   const handleModalOpen = (sessionId) => {
-    console.log(sessionId);
-    fetchMaterialData(sessionId);
     setSelectedSession(sessionId);
-
     setIsModalOpen(true);
+    refetchMaterialData();
   };
+
   const handleModalClose = () => {
     setIsModalOpen(false);
     setSelectedSession(null);

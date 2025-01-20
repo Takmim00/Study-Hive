@@ -1,25 +1,25 @@
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hook/useAuth";
 
 const ManageNote = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  const [notes, setNote] = useState([]);
-  useEffect(() => {
-    fetchNote();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
 
-  const fetchNote = async () => {
-    const { data } = await axios.get(
-      `http://localhost:5000/veiwNotes?email=${user?.email}`
-    );
-    setNote(data);
-  };
+  const { data: notes = [], isLoading } = useQuery({
+    queryKey: ["notes", user?.email],
+    enabled: !loading && !!user?.email,
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `http://localhost:5000/veiwNotes?email=${user?.email}`
+      );
+      return data;
+    },
+  });
 
   const handleDelete = (_id) => {
     Swal.fire({
@@ -43,8 +43,7 @@ const ManageNote = () => {
                 text: "Your note has been deleted successfully.",
                 icon: "success",
               });
-              const remaining = notes.filter((note) => note._id !== _id);
-              setNote(remaining);
+              queryClient.invalidateQueries(["notes", user?.email]);
             }
           });
       }
@@ -53,6 +52,9 @@ const ManageNote = () => {
   const handleUpdate = (id) => {
     navigate(`updateNotes/${id}`);
   };
+  if (isLoading) {
+    return <span className="loading loading-dots loading-lg"></span>;
+  }
 
   return (
     <div>

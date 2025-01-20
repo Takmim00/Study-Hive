@@ -1,27 +1,28 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hook/useAuth";
 
 const VeiwBooked = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
-  const [session, setSession] = useState([]);
 
-  useEffect(() => {
-    fetchTutor();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
-  const fetchTutor = async () => {
-    const { data } = await axios.get(
-      `http://localhost:5000/viewBooked?email=${user?.email}`
-    );
-    setSession(data);
-  };
+  const { data: session = [], isLoading } = useQuery({
+    queryKey: ["session", user?.email],
+    enabled: !loading && !!user?.email,
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `http://localhost:5000/viewBooked?email=${user?.email}`
+      );
+      return data;
+    },
+  });
   const handleReadMore = (id) => {
     navigate(`viewBookedDetails/${id}`);
   };
+  if (isLoading) {
+    return <span className="loading loading-dots loading-lg"></span>;
+  }
   return (
     <div>
       <div className="my-4">

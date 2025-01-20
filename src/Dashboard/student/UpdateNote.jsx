@@ -1,5 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAxiosSecure from "../../hook/useAxiosSecure";
@@ -8,18 +8,19 @@ const UpdateNote = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
-  const [notes, setNotes] = useState({});
 
-  useEffect(() => {
-    const fetchNotes = async () => {
+  const { data: notes, isLoading } = useQuery({
+    queryKey: ["note", id],
+    enabled: !!id,
+    queryFn: async () => {
       const { data } = await axios.get(
         `http://localhost:5000/veiwNotes/notes/${id}`
       );
-      setNotes(data);
 
-    };
-    fetchNotes();
-  }, [id]);
+      return data;
+    },
+  });
+
   const handleUpdateNote = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -37,9 +38,7 @@ const UpdateNote = () => {
         updatedNoteData
       );
 
-
       if (res.data.modifiedCount > 0) {
-
         toast.success("Note updated successfully!");
         navigate("/dashboard/manageNotes");
       } else {
@@ -50,6 +49,9 @@ const UpdateNote = () => {
       console.error(err);
     }
   };
+  if (isLoading) {
+    return <span className="loading loading-dots loading-lg"></span>;
+  }
   return (
     <div>
       <div className="my-4">
