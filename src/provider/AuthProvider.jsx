@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -10,12 +11,14 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { app } from "../firebase/firebase.config";
 import useAxiosPublic from "../hook/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 export const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
+  // const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
@@ -37,10 +40,68 @@ const AuthProvider = ({ children }) => {
   };
   const googleSignIn = () => {
     setLoading(true);
-    return signInWithPopup(auth, googleProvider);
+    return signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const loggedUser = result.user;
+        const userInfo = {
+          name: loggedUser.displayName,
+          email: loggedUser.email,
+          photo: loggedUser.photoURL,
+          role: "student",
+        };
+
+        return axios
+          .post("https://study-hive-server-three.vercel.app/users", userInfo)
+          .then((response) => {
+            const data = response.data;
+            if (data.success) {
+              toast.success(data.message);
+              setUser(userInfo);
+            } else {
+              toast.error(data.message);
+            }
+          })
+          .catch((error) => {
+            toast.error("Failed to save user to the database: ", error);
+          });
+      })
+      .catch((error) => {
+        toast.error("Google Sign-In failed.");
+      })
+      .finally(() => setLoading(false));
   };
+
   const handleGithubLogin = () => {
-    signInWithPopup(auth, githubProvider);
+    setLoading(true);
+    signInWithPopup(auth, githubProvider)
+      .then(async (result) => {
+        const loggedUser = result.user;
+        const userInfo = {
+          name: loggedUser.displayName,
+          email: loggedUser.email,
+          photo: loggedUser.photoURL,
+          role: "student",
+        };
+
+        return axios
+          .post("https://study-hive-server-three.vercel.app/users", userInfo)
+          .then((response) => {
+            const data = response.data;
+            if (data.success) {
+              toast.success(data.message);
+              setUser(userInfo);
+            } else {
+              toast.error(data.message);
+            }
+          })
+          .catch((error) => {
+            toast.error("Failed to save user to the database.");
+          });
+      })
+      .catch((error) => {
+        toast.error("GitHub Sign-In failed.");
+      })
+      .finally(() => setLoading(false));
   };
 
   const updateUserProfile = (name, photo) => {

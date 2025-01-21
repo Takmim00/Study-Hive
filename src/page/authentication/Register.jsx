@@ -45,7 +45,6 @@ const Register = () => {
     }
 
     createUser(email, password).then((result) => {
-
       const loggedUser = result.user;
       updateUserProfile(name, photoURL)
         .then(() => {
@@ -57,7 +56,7 @@ const Register = () => {
           };
 
           axios
-            .post("http://localhost:5000/users", userInfo)
+            .post("https://study-hive-server-three.vercel.app/users", userInfo)
             .then((response) => {
               const data = response.data;
               if (data.success) {
@@ -67,10 +66,8 @@ const Register = () => {
               } else {
                 toast.error(data.message);
               }
-
             })
             .catch((error) => {
-              console.error(error);
               toast.error("Failed to save user to the database.");
             });
         })

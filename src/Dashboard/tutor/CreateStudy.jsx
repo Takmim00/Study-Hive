@@ -30,7 +30,6 @@ const CreateStudy = () => {
     status: "Pending",
   });
 
-  console.log(role);
   useEffect(() => {
     if (user) {
       setFormData((prev) => ({
@@ -70,8 +69,8 @@ const CreateStudy = () => {
           throw new Error("Image upload failed");
         }
       } catch (err) {
-        toast.error("Image upload failed!");
-        console.error(err);
+        toast.error("Image upload failed! : ", err);
+
         return;
       }
     }
@@ -91,15 +90,13 @@ const CreateStudy = () => {
       status: formData.status,
       role: role,
     };
-    console.log(tutorData);
 
     // Send the data to the server
     try {
       const res = await axiosSecure.post(
-        "http://localhost:5000/tutors",
+        "https://study-hive-server-three.vercel.app/tutors",
         tutorData
       );
-      console.log(res.data);
 
       if (res.data.insertedId) {
         toast.success("Session added successfully!");
@@ -107,7 +104,6 @@ const CreateStudy = () => {
       }
     } catch (err) {
       toast.error(err.message);
-      console.error(err);
     }
   };
 
@@ -257,7 +253,7 @@ const CreateStudy = () => {
               type="number"
               name="registrationFee"
               value={formData.registrationFee}
-              readOnly={role !== 'admin'}
+              readOnly={role !== "admin"}
               className="w-full p-2 border rounded bg-gray-100"
             />
           </div>

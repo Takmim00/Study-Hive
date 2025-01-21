@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 import Swal from "sweetalert2";
 
@@ -16,7 +17,9 @@ const ViewAllSession = () => {
   } = useQuery({
     queryKey: ["tutor"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:5000/tutors`);
+      const { data } = await axios.get(
+        `https://study-hive-server-three.vercel.app/tutors`
+      );
       return data;
     },
   });
@@ -34,48 +37,44 @@ const ViewAllSession = () => {
   };
   const handleApprove = async () => {
     if (!selectedSession) return;
-    console.log(selectedSession);
+
     const registrationFee = isPaid ? Number(fee) : 0;
-    console.log({
-      status: "Approved",
-      registrationFee,
-    });
+
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/tutors/${selectedSession._id}`,
+        `https://study-hive-server-three.vercel.app/tutors/${selectedSession._id}`,
         {
           status: "Approved",
           registrationFee,
         }
       );
-      console.log(data);
+
       if (data.modifiedCount > 0) {
-        console.log("Session updated successfully!");
+        toast.success("Session updated successfully!");
       } else {
-        console.log("No changes made or update failed");
+        toast.error("No changes made or update failed");
       }
-      console.log(data);
 
       refetch();
       closeModal();
     } catch (error) {
-      console.error("Error updating session:", error);
+      toast.error("Error updating session:", error);
     }
   };
   const handleReject = async (sessionId) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/tutors/${sessionId}`,
+        `https://study-hive-server-three.vercel.app/tutors/${sessionId}`,
         { status: "Rejected" }
       );
       if (data.modifiedCount > 0) {
-        console.log("Session rejected successfully!");
+        toast.success("Session rejected successfully!");
         refetch(); // Re-fetch data to update the list
       } else {
-        console.log("No changes made or rejection failed");
+        toast.error("No changes made or rejection failed");
       }
     } catch (error) {
-      console.error("Error rejecting session:", error);
+      toast.error("Error rejecting session:", error);
     }
   };
   const handleDelete = (_id) => {
@@ -89,7 +88,7 @@ const ViewAllSession = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/tutors/${_id}`, {
+        fetch(`https://study-hive-server-three.vercel.app/tutors/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -224,6 +223,7 @@ const ViewAllSession = () => {
 
   return (
     <div className="md:w-11/12 mx-auto my-4">
+      <ToastContainer />
       <h2 className="text-2xl font-bold mb-6 text-center">
         ALL Study Sessions :{" "}
         <span className="text-blue-600 bg-blue-100 rounded-full px-2 py-1">
@@ -239,7 +239,9 @@ const ViewAllSession = () => {
             {pendingSessions.length}
           </span>
         </h3>
-        <div className="overflow-x-auto">{renderTable(pendingSessions, true)}</div>
+        <div className="overflow-x-auto">
+          {renderTable(pendingSessions, true)}
+        </div>
       </div>
       {/* Approved Sessions */}
       <div className="mb-8">
@@ -249,7 +251,9 @@ const ViewAllSession = () => {
             {approvedSessions.length}
           </span>
         </h3>
-        <div className="overflow-x-auto">{renderTable(approvedSessions,  false, true)}</div>
+        <div className="overflow-x-auto">
+          {renderTable(approvedSessions, false, true)}
+        </div>
       </div>
 
       {/* Rejected Sessions */}

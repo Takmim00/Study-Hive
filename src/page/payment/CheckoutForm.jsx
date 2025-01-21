@@ -9,7 +9,7 @@ import useAxiosSecure from "../../hook/useAxiosSecure";
 import "./CheckoutForm.css";
 
 const CheckoutForm = ({ session, handlePayment, closeModal }) => {
-  const {id }= useParams()
+  const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
   const [error, setError] = useState("");
@@ -70,9 +70,10 @@ const CheckoutForm = ({ session, handlePayment, closeModal }) => {
 
     if (error) {
       setProcessing(false);
-      return
+      return;
     } else {
       console.log("[PaymentMethod]", paymentMethod);
+      setError("");
     }
     // confirm payment
     const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
@@ -108,7 +109,7 @@ const CheckoutForm = ({ session, handlePayment, closeModal }) => {
         };
 
         const res = await axios.post(
-          `http://localhost:5000/booked`,
+          `https://study-hive-server-three.vercel.app/booked`,
           bookingData
         );
         if (res.data.insertedId) {
@@ -117,15 +118,12 @@ const CheckoutForm = ({ session, handlePayment, closeModal }) => {
         }
       } catch (err) {
         toast.error("Booking failed. Please try again.");
-
-      }
-      finally {
-        setProcessing(false)
-        closeModal()
+      } finally {
+        setProcessing(false);
+        closeModal();
       }
     }
   };
-
 
   return (
     <form onSubmit={handleSubmit}>

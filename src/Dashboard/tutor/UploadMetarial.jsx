@@ -14,7 +14,7 @@ const UploadMetarial = () => {
     enabled: !loading && !!user?.email,
     queryFn: async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/veiwSession/${user?.email}`
+        `https://study-hive-server-three.vercel.app/veiwSession/${user?.email}`
       );
 
       return data;

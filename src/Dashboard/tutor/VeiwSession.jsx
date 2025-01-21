@@ -1,31 +1,42 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../hook/useAuth";
 
 const VeiwSession = () => {
   const { user, loading } = useAuth();
 
-  const { data: tutor = [],refetch, isLoading } = useQuery({
+  const {
+    data: tutor = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["tutor", user?.email],
     enabled: !loading && !!user?.email,
     queryFn: async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/veiwSession/${user?.email}`
+        `https://study-hive-server-three.vercel.app/veiwSession/${user?.email}`
       );
-      console.log(data);
+
       return data;
     },
   });
   const handleRequestApproval = async (sessionId) => {
     try {
-      const data =await axios.put(`http://localhost:5000/tutors/${sessionId}`, {
-        status: "Pending",
-      });
-      console.log(data);
-      // Refetch the sessions to reflect the updated status
+      const { data } = await axios.put(
+        `https://study-hive-server-three.vercel.app/tutors/${sessionId}`,
+        {
+          status: "Pending",
+        }
+      );
+      if (data.modifiedCount > 0) {
+        toast.success("Request successfully!");
+      } else {
+        toast.error("No changes made or update failed");
+      }
       refetch();
     } catch (error) {
-      console.error("Failed to update status:", error);
+      toast.error("Failed to update status:", error);
     }
   };
   if (isLoading) {
@@ -33,6 +44,7 @@ const VeiwSession = () => {
   }
   return (
     <div>
+      <ToastContainer />
       <div className="my-4">
         <h2 className="text-2xl font-bold mb-6 text-center">
           Veiw Your <span className="text-blue-400">Study Session</span>

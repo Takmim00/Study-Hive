@@ -1,8 +1,10 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../hook/useAuth";
 
 const CreateNote = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const handleNote = async (e) => {
     e.preventDefault();
@@ -18,24 +20,24 @@ const CreateNote = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/notes",
+        "https://study-hive-server-three.vercel.app/notes",
         noteData
       );
 
       if (data.insertedId) {
         toast.success("Note added successfully!");
+        navigate("/dashboard/manageNotes");
         form.reset();
       } else {
         toast.error("Failed to add the note.");
       }
     } catch (error) {
-      console.error("Error submitting note:", error);
-      alert("An error occurred while submitting your note.");
+      toast.error("Error submitting note:", error);
     }
   };
   return (
     <div>
-        <ToastContainer/>
+      <ToastContainer />
       <div className="my-2">
         <h2 className="text-2xl font-bold mb-6 text-center">
           Veiw <span className="text-blue-400">Booked Details Session</span>

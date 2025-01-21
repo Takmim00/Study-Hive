@@ -19,7 +19,9 @@ const DetailsPage = () => {
     queryKey: ["session", id],
     enabled: !!id,
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:5000/tutors/${id}`);
+      const { data } = await axios.get(
+        `https://study-hive-server-three.vercel.app/tutors/${id}`
+      );
 
       return data;
     },
@@ -29,7 +31,7 @@ const DetailsPage = () => {
     enabled: !!id,
     queryFn: async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/review/session/${id}`
+        `https://study-hive-server-three.vercel.app/review/session/${id}`
       );
       return data;
     },
@@ -79,7 +81,7 @@ const DetailsPage = () => {
         });
       } else {
         const res = await axios.post(
-          `http://localhost:5000/booked`,
+          `https://study-hive-server-three.vercel.app/booked`,
           bookingData
         );
         if (res.data.insertedId) {
@@ -89,7 +91,6 @@ const DetailsPage = () => {
       }
     } catch (err) {
       toast.error(err.message);
-      console.error(err);
     }
   };
   if (isSessionLoading || isReviewLoading) {
@@ -116,7 +117,10 @@ const DetailsPage = () => {
         status: session.status,
       };
 
-      const res = await axios.post(`http://localhost:5000/booked`, bookingData);
+      const res = await axios.post(
+        `https://study-hive-server-three.vercel.app/booked`,
+        bookingData
+      );
       if (res.data.insertedId) {
         toast.success(`${session.sessionTitle} Session is Booked`);
         setIsModalOpen(false);
@@ -124,7 +128,6 @@ const DetailsPage = () => {
       }
     } catch (err) {
       toast.error("Booking failed. Please try again.");
-      console.error(err);
     }
   };
 
@@ -154,7 +157,7 @@ const DetailsPage = () => {
                 <p className=" text-sm font-medium">
                   <strong>Average Rating:</strong>{" "}
                   <span className="rating font-normal">
-                    {calculateAverageRating()} {" "}
+                    {calculateAverageRating()}{" "}
                     <input
                       type="radio"
                       name="rating-2"

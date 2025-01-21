@@ -40,18 +40,16 @@ const UpdateMetarialModal = ({ isOpen, onClose, onSubmit, tutor }) => {
     }
 
     const materialData = {
-      
       materialImage: materialImageUrl,
       googleDriveLink,
     };
 
     try {
-      // Use PUT request to update the existing material data
       const res = await axiosSecure.put(
-        `http://localhost:5000/VeiwMetarils/${tutor._id}`,
+        `https://study-hive-server-three.vercel.app/VeiwMetarils/${tutor._id}`,
         materialData
       );
-      console.log(res.data);
+
       if (res.data.modifiedCount > 0) {
         toast.success("Material updated successfully!");
       } else {
@@ -59,7 +57,6 @@ const UpdateMetarialModal = ({ isOpen, onClose, onSubmit, tutor }) => {
       }
     } catch (err) {
       toast.error(err.message);
-      console.error(err);
     }
 
     onSubmit(materialData);
@@ -69,7 +66,7 @@ const UpdateMetarialModal = ({ isOpen, onClose, onSubmit, tutor }) => {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-        <ToastContainer/>
+      <ToastContainer />
       <div className="bg-white rounded-lg w-96 shadow-lg p-6 relative">
         <button
           className="absolute top-3 right-3 text-gray-500 border-2 rounded-full  px-2 hover:text-red-500 text-2xl text-center bg-red-100"
@@ -91,7 +88,7 @@ const UpdateMetarialModal = ({ isOpen, onClose, onSubmit, tutor }) => {
               <span className="font-bold">Session ID:</span> {tutor._id}
             </p>
             <p>
-              <span className="font-bold">Tutor Email:</span> {tutor.email}
+              <span className="font-bold">Tutor Email:</span> {tutor.tutorEmail}
             </p>
           </div>
         )}

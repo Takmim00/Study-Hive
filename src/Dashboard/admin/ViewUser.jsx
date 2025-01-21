@@ -29,7 +29,7 @@ const ViewUser = () => {
       const { data } = await axiosSecure.get(
         `/all-users/${user?.email}?search=${debouncedSearch}`
       );
-      console.log(data);
+
       return data;
     },
   });

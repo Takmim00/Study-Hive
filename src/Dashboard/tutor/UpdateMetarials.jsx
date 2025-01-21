@@ -13,13 +13,12 @@ const UpdateMetarials = () => {
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
 
-
   const { data: tutors, isLoading } = useQuery({
     queryKey: ["totor", id],
     enabled: !!id,
     queryFn: async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/veiwMetarial/tutors/${id}`
+        `https://study-hive-server-three.vercel.app/veiwMetarial/tutors/${id}`
       );
 
       return data;
@@ -54,7 +53,7 @@ const UpdateMetarials = () => {
         }
       } catch (err) {
         toast.error(`Image upload failed! ${err.message}`);
-        console.error(err.response ? err.response.data : err.message);
+
         return;
       }
     }
@@ -73,7 +72,7 @@ const UpdateMetarials = () => {
 
     try {
       const res = await axiosSecure.put(
-        `http://localhost:5000/updateMetarials/${id}`,
+        `https://study-hive-server-three.vercel.app/updateMetarials/${id}`,
         updatedTutorData
       );
 
@@ -84,8 +83,7 @@ const UpdateMetarials = () => {
         toast.error("No changes made or update failed");
       }
     } catch (err) {
-      toast.error("Error updating session!");
-      console.error(err);
+      toast.error("Error updating session :", err);
     }
   };
 

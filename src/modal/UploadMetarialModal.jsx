@@ -39,7 +39,6 @@ const UploadMetarialModal = ({ isOpen, onClose, onSubmit, tutor }) => {
       }
     }
 
-
     const materialData = {
       sessionId: tutor._id,
       sessionTitle: tutor.sessionTitle,
@@ -49,23 +48,18 @@ const UploadMetarialModal = ({ isOpen, onClose, onSubmit, tutor }) => {
     };
 
     try {
-        const res = await axiosSecure.post(
-          "http://localhost:5000/metarial",
-          materialData
-        );
+      const res = await axiosSecure.post(
+        "https://study-hive-server-three.vercel.app/metarial",
+        materialData
+      );
 
-  
-        if (res.data.insertedId) {
-          
-          toast.success("Session added successfully!");
-
-        }
-      } catch (err) {
-        toast.error(err.message);
-        console.error(err);
+      if (res.data.insertedId) {
+        toast.success("Session added successfully!");
       }
+    } catch (err) {
+      toast.error(err.message);
+    }
     onSubmit(materialData);
-
 
     onClose();
   };

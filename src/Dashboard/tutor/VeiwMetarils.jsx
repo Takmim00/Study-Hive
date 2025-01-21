@@ -22,9 +22,9 @@ const VeiwMetarils = () => {
     enabled: !loading && !!user?.email,
     queryFn: async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/veiwMetarial?email=${user?.email}`
+        `https://study-hive-server-three.vercel.app/veiwMetarial?email=${user?.email}`
       );
-      console.log(data);
+
       return data;
     },
   });
@@ -37,9 +37,9 @@ const VeiwMetarils = () => {
     enabled: !loading && !!user?.email,
     queryFn: async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/veiwSession/${user?.email}`
+        `https://study-hive-server-three.vercel.app/veiwSession/${user?.email}`
       );
-      console.log(data);
+
       return data;
     },
   });
@@ -55,9 +55,12 @@ const VeiwMetarils = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/veiwMetarial/${_id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://study-hive-server-three.vercel.app/veiwMetarial/${_id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
@@ -83,7 +86,7 @@ const VeiwMetarils = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/tutors/${_id}`, {
+        fetch(`https://study-hive-server-three.vercel.app/tutors/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

@@ -13,8 +13,10 @@ const ViewDetails = () => {
     queryKey: ["session", id],
     enabled: !!id,
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:5000/booked/${id}`);
-      console.log(data);
+      const { data } = await axios.get(
+        `https://study-hive-server-three.vercel.app/booked/${id}`
+      );
+
       return data;
     },
   });
@@ -36,10 +38,10 @@ const ViewDetails = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/reviews",
+        "https://study-hive-server-three.vercel.app/reviews",
         reviewPayload
       );
-      console.log(data);
+
       if (data.insertedId) {
         form.reset();
         toast.success("Review added successfully!");
@@ -48,8 +50,7 @@ const ViewDetails = () => {
         toast.error("Failed to add the review.");
       }
     } catch (error) {
-      console.error("Error submitting review:", error);
-      alert("An error occurred while submitting your review.");
+      toast.error("Error submitting review:", error);
     }
   };
   if (isLoading) {
