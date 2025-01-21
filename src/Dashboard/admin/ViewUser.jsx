@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hook/useAuth";
 import useAxiosSecure from "../../hook/useAxiosSecure";
 import UserDataRow from "./UserDataRow";
+import { ToastContainer } from "react-toastify";
 
 const ViewUser = () => {
   const { user, loading } = useAuth();
@@ -43,6 +44,7 @@ const ViewUser = () => {
 
   return (
     <div>
+      <ToastContainer />
       <div className="my-2">
         <h2 className="text-2xl font-bold mb-6 text-center">
           Veiw <span className="text-blue-400">All Users</span>
@@ -55,7 +57,10 @@ const ViewUser = () => {
       </div>
       {/* Search Bar */}
       <div className="mb-4 flex justify-center">
-        <form onSubmit={handleSearchSubmit} className="w-full md:max-w-sm flex gap-2">
+        <form
+          onSubmit={handleSearchSubmit}
+          className="w-full md:max-w-sm flex gap-2"
+        >
           <input
             type="text"
             value={search}

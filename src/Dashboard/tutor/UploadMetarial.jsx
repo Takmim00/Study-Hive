@@ -51,60 +51,63 @@ const UploadMetarial = () => {
         </p>
       </div>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4 w-11/12 mx-auto">
-        {tutor.map((tutor, i) => (
-          <div
-            key={i}
-            className=" bg-white border rounded-lg shadow-lg overflow-hidden"
-          >
-            <img
-              src={tutor.sessionImage}
-              alt="Advanced English Course"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <div>
-                <div
-                  className={`inline-flex items-center px-3 py-1 rounded-full gap-x-2 ${
-                    tutor.status === "Pending" &&
-                    "bg-yellow-100/60 text-yellow-500"
-                  } ${
-                    tutor.status === "Approved" &&
-                    "bg-green-100/60 text-green-500"
-                  } ${
-                    tutor.status === "Rejected" && "bg-red-100/60 text-red-500"
-                  }`}
-                >
-                  <span
-                    className={`h-1.5 w-1.5 rounded-full ${
-                      tutor.status === "Pending" && "bg-yellow-500"
-                    }${tutor.status === "Approved" && "bg-green-500"} ${
-                      tutor.status === "Rejected" && "bg-red-500"
+        {tutor
+          .filter((tutor) => tutor.status === "Approved")
+          .map((tutor, i) => (
+            <div
+              key={i}
+              className=" bg-white border rounded-lg shadow-lg overflow-hidden"
+            >
+              <img
+                src={tutor.sessionImage}
+                alt="Advanced English Course"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <div>
+                  <div
+                    className={`inline-flex items-center px-3 py-1 rounded-full gap-x-2 ${
+                      tutor.status === "Pending" &&
+                      "bg-yellow-100/60 text-yellow-500"
+                    } ${
+                      tutor.status === "Approved" &&
+                      "bg-green-100/60 text-green-500"
+                    } ${
+                      tutor.status === "Rejected" &&
+                      "bg-red-100/60 text-red-500"
                     }`}
-                  ></span>
-                  <h2 className="text-sm font-normal">{tutor.status}</h2>
+                  >
+                    <span
+                      className={`h-1.5 w-1.5 rounded-full ${
+                        tutor.status === "Pending" && "bg-yellow-500"
+                      }${tutor.status === "Approved" && "bg-green-500"} ${
+                        tutor.status === "Rejected" && "bg-red-500"
+                      }`}
+                    ></span>
+                    <h2 className="text-sm font-normal">{tutor.status}</h2>
+                  </div>
+                </div>
+                <h2 className="text-gray-800 font-semibold text-lg mb-4">
+                  {tutor.sessionTitle}
+                </h2>
+                <div>
+                  <button
+                    onClick={() => handleModalOpen(tutor)}
+                    className="btn bg-blue-600 text-white font-medium py-2 px-4 rounded hover:bg-blue-700"
+                  >
+                    Upload Material
+                  </button>
+
+                  <UploadMetarialModal
+                    isOpen={isModalOpen}
+                    tutor={selectedTutor}
+                    onClose={handleModalClose}
+                    onSubmit={handleSubmit}
+                  />
                 </div>
               </div>
-              <h2 className="text-gray-800 font-semibold text-lg mb-4">
-                {tutor.sessionTitle}
-              </h2>
-              <div>
-                <button
-                  onClick={() => handleModalOpen(tutor)}
-                  className="btn bg-blue-600 text-white font-medium py-2 px-4 rounded hover:bg-blue-700"
-                >
-                  Upload Material
-                </button>
-
-                <UploadMetarialModal
-                  isOpen={isModalOpen}
-                  tutor={selectedTutor}
-                  onClose={handleModalClose}
-                  onSubmit={handleSubmit}
-                />
-              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

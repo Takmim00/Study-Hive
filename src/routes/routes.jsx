@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import ViewAllMetarials from "../Dashboard/admin/ViewAllMetarials";
 import ViewAllSession from "../Dashboard/admin/ViewAllSession";
 import ViewUser from "../Dashboard/admin/ViewUser";
 import CreateNote from "../Dashboard/student/CreateNote";
@@ -18,6 +19,10 @@ import Login from "../page/authentication/Login";
 import Register from "../page/authentication/Register";
 import DetailsPage from "../page/DetailsPage";
 import Home from "../page/Home";
+import AdminRoute from "./AdminRoute";
+import PrivateRoute from "./PrivateRoute";
+import StudentRoute from "./StudentRoute";
+import TutorRoute from "./TutorRoute";
 
 export const router = createBrowserRouter([
   {
@@ -30,7 +35,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/sessionDetail/:id",
-        element: <DetailsPage />,
+        element: (
+          <PrivateRoute>
+            <DetailsPage />
+          </PrivateRoute>
+        ),
       },
 
       {
@@ -49,55 +58,144 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "createStudy",
-        element: <CreateStudy />,
+        element: (
+          <PrivateRoute>
+            <TutorRoute>
+              <CreateStudy />
+            </TutorRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "viewSession",
-        element: <VeiwSession />,
+
+        element: (
+          <PrivateRoute>
+            <TutorRoute>
+              <VeiwSession />
+            </TutorRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "uploadMaterial",
-        element: <UploadMetarial />,
+        element: (
+          <PrivateRoute>
+            <TutorRoute>
+              <UploadMetarial />
+            </TutorRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "viewMaterials",
-        element: <VeiwMetarils />,
+        element: (
+          <PrivateRoute>
+            <TutorRoute>
+              <VeiwMetarils />
+            </TutorRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "viewMaterials/updateMetarials/:id",
-        element: <UpdateMetarials />,
+        element: (
+          <PrivateRoute>
+            <TutorRoute>
+              <UpdateMetarials />
+            </TutorRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "viewBooked",
-        element: <VeiwBooked />,
+        element: (
+          <PrivateRoute>
+            <StudentRoute>
+              <VeiwBooked />
+            </StudentRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "viewBooked/viewBookedDetails/:id",
-        element: <ViewDetails />,
+        element: (
+          <PrivateRoute>
+            <StudentRoute>
+              <ViewDetails />
+            </StudentRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "createNote",
-        element: <CreateNote />,
+        element: (
+          <PrivateRoute>
+            <StudentRoute>
+              <CreateNote />
+            </StudentRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "manageNotes",
-        element: <ManageNote />,
+        element: (
+          <PrivateRoute>
+            <StudentRoute>
+              <ManageNote />
+            </StudentRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "manageNotes/updateNotes/:id",
-        element: <UpdateNote />,
+        element: (
+          <PrivateRoute>
+            <StudentRoute>
+              <UpdateNote />
+            </StudentRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "studyMetarials",
-        element: <StudyMetarials />,
+        element: (
+          <PrivateRoute>
+            <StudentRoute>
+              <StudyMetarials />
+            </StudentRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "viewUsers",
-        element: <ViewUser />,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <ViewUser />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "viewAllSessions",
-        element: <ViewAllSession />,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <ViewAllSession />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "viewAllMaterials",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <ViewAllMetarials />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
     ],
   },
