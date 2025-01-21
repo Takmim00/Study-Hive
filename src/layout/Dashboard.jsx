@@ -1,6 +1,7 @@
 import { AiFillHome } from "react-icons/ai";
 import { FaBook, FaList, FaUsers } from "react-icons/fa6";
 import { GrLogout } from "react-icons/gr";
+import { ImProfile } from "react-icons/im";
 import { NavLink, Outlet } from "react-router-dom";
 import useAuth from "../hook/useAuth";
 import useRole from "../hook/useRole";
@@ -101,6 +102,12 @@ const Dashboard = () => {
             </>
           )}
           <hr className="my-4 border-t border-stone-400" />
+
+          <li>
+            <NavLink to="/dashboard/profile">
+              <ImProfile /> Profile
+            </NavLink>
+          </li>
           <li>
             <NavLink to="/">
               <AiFillHome /> Home

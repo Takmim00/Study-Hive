@@ -47,7 +47,7 @@ const Navbar = () => {
           {user ? (
             <>
               <li>
-                <NavLink to="dashboard">Dashboard</NavLink>
+                <NavLink to="/dashboard/profile">Dashboard</NavLink>
               </li>
               <li>
                 <button onClick={handleLogOut} className="btn transition ">
@@ -86,7 +86,7 @@ const Navbar = () => {
           {user ? (
             <>
               <li>
-                <NavLink to="/dashboard">Dashboard</NavLink>
+                <NavLink to="/dashboard/profile">Dashboard</NavLink>
               </li>
 
               <div className="dropdown dropdown-end">

@@ -23,6 +23,7 @@ import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import StudentRoute from "./StudentRoute";
 import TutorRoute from "./TutorRoute";
+import Profile from "../page/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
     path: "dashboard",
     element: <Dashboard />,
     children: [
+      {
+        path:'profile',
+        element:<Profile/>
+      },
       {
         path: "createStudy",
         element: (
