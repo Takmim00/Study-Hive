@@ -4,15 +4,14 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../hook/useAuth";
-import PurchaseModal from "../modal/Purchasemodal";
 import useRole from "../hook/useRole";
+import PurchaseModal from "../modal/Purchasemodal";
 
 const DetailsPage = () => {
-  const [role, isLoading] =useRole()
+  const [role, isLoading] = useRole();
   const { user } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
-
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -135,7 +134,7 @@ const DetailsPage = () => {
   return (
     <>
       <ToastContainer />
-      <div className="w-1/2 mx-auto border-2 shadow-lg rounded-lg my-6 p-4">
+      <div className="md:w-1/2 mx-auto border-2 shadow-lg rounded-lg my-6 p-4">
         {session && (
           <>
             <div className="flex flex-col items-start gap-4">
@@ -150,32 +149,48 @@ const DetailsPage = () => {
                   <strong>Tutor Name:</strong> {session.name}
                 </p>
                 <p>
-                  <strong>Average Rating:</strong> {calculateAverageRating()}
-                </p>
-                <p>
                   <strong>Description:</strong> {session.sessionDescription}
                 </p>
-                <p>
+                <p className=" text-sm font-medium">
+                  <strong>Average Rating:</strong>{" "}
+                  <span className="rating font-normal">
+                    {calculateAverageRating()} {" "}
+                    <input
+                      type="radio"
+                      name="rating-2"
+                      className="mask mask-star-2 bg-orange-400"
+                    />
+                  </span>
+                </p>
+
+                <p className="text-orange-600 text-sm font-medium">
                   <strong>Registration Start Date:</strong>{" "}
-                  {session.registrationStartDate}
+                  <span className="font-normal">
+                    {session.registrationStartDate}
+                  </span>
                 </p>
-                <p>
+                <p className="text-orange-600 text-sm font-medium">
                   <strong>Registration End Date:</strong>{" "}
-                  {session.registrationEndDate}
+                  <span className="font-normal">
+                    {session.registrationEndDate}
+                  </span>
                 </p>
-                <p>
-                  <strong>Class Start Time:</strong> {session.classStartTime}
+                <p className="text-pink-600 text-sm font-medium">
+                  <strong>Class Start Time:</strong>{" "}
+                  <span className="font-normal">{session.classStartTime}</span>
                 </p>
-                <p>
-                  <strong>Class End Date:</strong> {session.classEndTime}
+                <p className="text-pink-600 text-sm font-medium">
+                  <strong>Class End Time:</strong>{" "}
+                  <span className="font-normal">{session.classEndTime}</span>
                 </p>
-                <p>
-                  <strong>Session Duration:</strong> {session.sessionDuration}{" "}
-                  hours
+                <p className="text-blue-600 text-sm font-medium">
+                  <strong>Session Duration:</strong>{" "}
+                  <span className="font-normal">
+                    {session.sessionDuration}hours
+                  </span>
                 </p>
-                <p>
-                  <strong>Registration Fee:</strong>$
-                  {session.registrationFee || "Free"}
+                <p className="text-green-600 text-lg font-semibold mt-2">
+                  <strong>Registration Fee: $</strong> {session.registrationFee}
                 </p>
               </div>
             </div>
@@ -194,7 +209,6 @@ const DetailsPage = () => {
                 disabled={isDisabled}
                 onClick={() => {
                   if (session.registrationFee > 0) {
-                 
                     setIsModalOpen(true);
                   } else {
                     handleBooking();

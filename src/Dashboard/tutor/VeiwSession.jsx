@@ -5,7 +5,7 @@ import useAuth from "../../hook/useAuth";
 const VeiwSession = () => {
   const { user, loading } = useAuth();
 
-  const { data: tutor = [], isLoading } = useQuery({
+  const { data: tutor = [],refetch, isLoading } = useQuery({
     queryKey: ["tutor", user?.email],
     enabled: !loading && !!user?.email,
     queryFn: async () => {
@@ -16,6 +16,18 @@ const VeiwSession = () => {
       return data;
     },
   });
+  const handleRequestApproval = async (sessionId) => {
+    try {
+      const data =await axios.put(`http://localhost:5000/tutors/${sessionId}`, {
+        status: "Pending",
+      });
+      console.log(data);
+      // Refetch the sessions to reflect the updated status
+      refetch();
+    } catch (error) {
+      console.error("Failed to update status:", error);
+    }
+  };
   if (isLoading) {
     return <span className="loading loading-dots loading-lg"></span>;
   }
@@ -80,7 +92,7 @@ const VeiwSession = () => {
                   Fee: ${tutor.registrationFee}
                 </p>
               </div>
-              <div className="mt-4">
+              <div className="mt-4  ">
                 <div
                   className={`inline-flex items-center px-3 py-1 rounded-full gap-x-2 ${
                     tutor.status === "Pending" &&
@@ -95,12 +107,21 @@ const VeiwSession = () => {
                   <span
                     className={`h-1.5 w-1.5 rounded-full ${
                       tutor.status === "Pending" && "bg-yellow-500"
-                    }${tutor.status === "Approved" && "bg-green-500"} ${
+                    } ${tutor.status === "Approved" && "bg-green-500"} ${
                       tutor.status === "Rejected" && "bg-red-500"
                     }`}
                   ></span>
                   <h2 className="text-sm font-normal">{tutor.status}</h2>
                 </div>
+                {tutor.status === "Rejected" && (
+                  <span
+                    onClick={() => handleRequestApproval(tutor._id)}
+                    className="btn  px-4 py-2 bg-blue-500  text-white text-sm font-medium rounded-full hover:bg-blue-600 transition"
+                    disabled={tutor.isLoading}
+                  >
+                    Request Approval
+                  </span>
+                )}
               </div>
             </div>
           </div>

@@ -125,7 +125,7 @@ const CreateStudy = () => {
       </div>
       <form
         onSubmit={handleSubmit}
-        className="p-6 max-w-4xl mx-auto bg-white rounded shadow-md"
+        className="p-6 md:max-w-4xl mx-auto bg-white rounded shadow-md"
       >
         <ToastContainer />
 

@@ -223,7 +223,7 @@ const ViewAllSession = () => {
   );
 
   return (
-    <div className="w-11/12 mx-auto my-4">
+    <div className="md:w-11/12 mx-auto my-4">
       <h2 className="text-2xl font-bold mb-6 text-center">
         ALL Study Sessions :{" "}
         <span className="text-blue-600 bg-blue-100 rounded-full px-2 py-1">
@@ -239,7 +239,7 @@ const ViewAllSession = () => {
             {pendingSessions.length}
           </span>
         </h3>
-        {renderTable(pendingSessions, true)}
+        <div className="overflow-x-auto">{renderTable(pendingSessions, true)}</div>
       </div>
       {/* Approved Sessions */}
       <div className="mb-8">
@@ -249,7 +249,7 @@ const ViewAllSession = () => {
             {approvedSessions.length}
           </span>
         </h3>
-        {renderTable(approvedSessions,  false, true)}
+        <div className="overflow-x-auto">{renderTable(approvedSessions,  false, true)}</div>
       </div>
 
       {/* Rejected Sessions */}
@@ -260,7 +260,7 @@ const ViewAllSession = () => {
             {rejectedSessions.length}
           </span>
         </h3>
-        {renderTable(rejectedSessions)}
+        <div className="overflow-x-auto">{renderTable(rejectedSessions)}</div>
       </div>
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">

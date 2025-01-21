@@ -20,7 +20,7 @@ const Banner = () => {
           Find the Right Tutor in Your Area
         </p>
         <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full shadow-md hover:opacity-90 transition">
-          🔍 FIND A TUTOR
+          🔍 FIND A TUTOR & BEST SESSION
         </button>
       </div>
     </div>
