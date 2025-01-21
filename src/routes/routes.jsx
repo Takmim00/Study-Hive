@@ -1,4 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
+import ViewAllSession from "../Dashboard/admin/ViewAllSession";
+import ViewUser from "../Dashboard/admin/ViewUser";
 import CreateNote from "../Dashboard/student/CreateNote";
 import ManageNote from "../Dashboard/student/ManageNote";
 import StudyMetarials from "../Dashboard/student/StudyMetarials";
@@ -16,7 +18,6 @@ import Login from "../page/authentication/Login";
 import Register from "../page/authentication/Register";
 import DetailsPage from "../page/DetailsPage";
 import Home from "../page/Home";
-import ViewUser from "../Dashboard/admin/ViewUser";
 
 export const router = createBrowserRouter([
   {
@@ -31,7 +32,7 @@ export const router = createBrowserRouter([
         path: "/sessionDetail/:id",
         element: <DetailsPage />,
       },
-      
+
       {
         path: "/login",
         element: <Login />,
@@ -92,7 +93,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "viewUsers",
-        element: <ViewUser/>
+        element: <ViewUser />,
+      },
+      {
+        path: "viewAllSessions",
+        element: <ViewAllSession />,
       },
     ],
   },

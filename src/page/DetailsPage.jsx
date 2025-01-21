@@ -194,7 +194,7 @@ const DetailsPage = () => {
                 disabled={isDisabled}
                 onClick={() => {
                   if (session.registrationFee > 0) {
-                    // Open the modal for paid registration
+                 
                     setIsModalOpen(true);
                   } else {
                     handleBooking();

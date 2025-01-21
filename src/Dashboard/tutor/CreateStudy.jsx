@@ -87,7 +87,7 @@ const CreateStudy = () => {
       classStartTime: formData.classStartTime,
       classEndTime: formData.classEndTime,
       sessionDuration: parseFloat(formData.sessionDuration),
-      registrationFee: parseFloat(formData.registrationFee),
+      registrationFee: formData.registrationFee,
       status: formData.status,
       role: role,
     };
@@ -257,7 +257,7 @@ const CreateStudy = () => {
               type="number"
               name="registrationFee"
               value={formData.registrationFee}
-              readOnly
+              readOnly={role !== 'admin'}
               className="w-full p-2 border rounded bg-gray-100"
             />
           </div>

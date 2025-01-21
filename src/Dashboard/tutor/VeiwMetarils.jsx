@@ -46,8 +46,6 @@ const VeiwMetarils = () => {
                 text: "Your metarials has been deleted successfully.",
                 icon: "success",
               });
-              // const remaining = tutor.filter((tutor) => tutor._id !== _id);
-              // setTutor(remaining);
               refetch();
             }
           });

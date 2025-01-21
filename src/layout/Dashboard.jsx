@@ -27,7 +27,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/viewSessions">
+                <NavLink to="/dashboard/viewAllSessions">
                   <FaList />
                   View All Study Sessions
                 </NavLink>
