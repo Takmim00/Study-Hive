@@ -1,8 +1,20 @@
-# React + Vite
+# Project Name
+ - Study Hive
+ - AdminName : Admin
+ - AdminEmail : admin@gmail.com
+ - AdminPass : Aa123?
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Project Link
+ - https://study-hive-9b382.web.app/
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Key Feature
+ - User Friendly Website
+ - A user who is a tutor can apply for their course, and the admin will receive it.
+ - If the user is a student, they can take the approved course.
+ - If the course is free, clicking "Book now" will book it for free. If it requires payment, the user must make the payment to book it.
+ - The admin can change any user's role from student to tutor if they wish.
+ - The admin can approve a course requested by a tutor, and if they wish, they can reject it as well, providing a reason for the rejection.
+ - If a tutor wishes, they can update a rejected course and submit a request again.
+ - Students can write and collect their notes if they wish.
+ - Students can remove or update their collected notes if they wish.
+ - The tutor can provide materials for their approved sessions.
