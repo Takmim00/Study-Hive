@@ -11,7 +11,9 @@ const ViewAllMetarials = () => {
   } = useQuery({
     queryKey: ["tutor"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:5000/metarial`);
+      const { data } = await axios.get(
+        `https://study-hive-server-three.vercel.app/metarial`
+      );
 
       return data;
     },
@@ -27,9 +29,12 @@ const ViewAllMetarials = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/veiwMetarial/${_id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://study-hive-server-three.vercel.app/veiwMetarial/${_id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {

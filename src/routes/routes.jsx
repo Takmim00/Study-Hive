@@ -24,6 +24,7 @@ import PrivateRoute from "./PrivateRoute";
 import StudentRoute from "./StudentRoute";
 import TutorRoute from "./TutorRoute";
 import Profile from "../page/Profile";
+import RejectSession from "../Dashboard/tutor/RejectSession";
 
 export const router = createBrowserRouter([
   {
@@ -98,6 +99,16 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <TutorRoute>
               <VeiwMetarils />
+            </TutorRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "rejectDashboard",
+        element: (
+          <PrivateRoute>
+            <TutorRoute>
+              <RejectSession/>
             </TutorRoute>
           </PrivateRoute>
         ),

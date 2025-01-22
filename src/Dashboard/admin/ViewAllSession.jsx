@@ -21,7 +21,9 @@ const ViewAllSession = () => {
   } = useQuery({
     queryKey: ["tutor"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:5000/tutors`);
+      const { data } = await axios.get(
+        `https://study-hive-server-three.vercel.app/tutors`
+      );
       return data;
     },
   });
@@ -56,7 +58,7 @@ const ViewAllSession = () => {
 
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/tutors/${selectedSession._id}`,
+        `https://study-hive-server-three.vercel.app/tutors/${selectedSession._id}`,
         {
           status: "Approved",
           registrationFee,
@@ -78,11 +80,11 @@ const ViewAllSession = () => {
   const handleReject = async () => {
     if (!feedback) {
       toast.error("Please provide feedback before rejecting.");
-      return; 
+      return;
     }
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/tutors/${selectedSession._id}`,
+        `https://study-hive-server-three.vercel.app/tutors/${selectedSession._id}`,
         { status: "Rejected" }
       );
       if (data.modifiedCount > 0) {
@@ -91,11 +93,15 @@ const ViewAllSession = () => {
         toast.error("No changes made or rejection failed");
       }
 
-      const { rjData } = await axios.post("http://localhost:5000/rejects", {
-        sessionId: selectedSession._id,
-        rejectionReason,
-        feedback,
-      });
+      const { rjData } = await axios.post(
+        "https://study-hive-server-three.vercel.app/rejects",
+        {
+          tutorEmail: selectedSession.email,
+          sessionId: selectedSession._id,
+          rejectionReason,
+          feedback,
+        }
+      );
 
       refetch();
       closeRejectModal();
@@ -114,7 +120,7 @@ const ViewAllSession = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/tutors/${_id}`, {
+        fetch(`https://study-hive-server-three.vercel.app/tutors/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

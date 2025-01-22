@@ -3,6 +3,7 @@ import { AiFillHome } from "react-icons/ai";
 import { FaBars, FaBook, FaList, FaUsers } from "react-icons/fa6";
 import { GrLogout } from "react-icons/gr";
 import { ImProfile } from "react-icons/im";
+import { LuLayoutDashboard } from "react-icons/lu";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import logo from "../assets/studyHive.png";
 import useAuth from "../hook/useAuth";
@@ -136,7 +137,15 @@ const Dashboard = () => {
             </>
           )}
           <hr className="my-4 border-t border-stone-400" />
-
+          {role === "tutor" && (
+            <>
+              <li>
+                <NavLink to="/dashboard/rejectDashboard">
+                  <LuLayoutDashboard /> Dashboard
+                </NavLink>
+              </li>
+            </>
+          )}
           <li>
             <NavLink to="/dashboard/profile">
               <ImProfile /> Profile

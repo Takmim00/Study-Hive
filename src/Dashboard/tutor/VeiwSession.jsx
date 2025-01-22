@@ -16,7 +16,7 @@ const VeiwSession = () => {
     enabled: !loading && !!user?.email,
     queryFn: async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/veiwSession/${user?.email}`
+        `https://study-hive-server-three.vercel.app/veiwSession/${user?.email}`
       );
 
       return data;
@@ -25,7 +25,7 @@ const VeiwSession = () => {
   const handleRequestApproval = async (sessionId) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/tutors/${sessionId}`,
+        `https://study-hive-server-three.vercel.app/tutors/${sessionId}`,
         {
           status: "Pending",
         }
