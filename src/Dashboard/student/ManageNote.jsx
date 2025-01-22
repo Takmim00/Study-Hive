@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hook/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const ManageNote = () => {
   const { user, loading } = useAuth();
@@ -57,6 +58,9 @@ const ManageNote = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Dashboard || Manage Notes</title>
+      </Helmet>
       <div className="my-4">
         <h2 className="text-2xl font-bold mb-6 text-center">
           Manage your <span className="text-blue-400">Notes</span>

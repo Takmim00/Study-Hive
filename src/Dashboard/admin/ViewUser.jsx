@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
 import useAuth from "../../hook/useAuth";
 import useAxiosSecure from "../../hook/useAxiosSecure";
 import UserDataRow from "./UserDataRow";
-import { ToastContainer } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const ViewUser = () => {
   const { user, loading } = useAuth();
@@ -44,6 +45,9 @@ const ViewUser = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Dashboard || All Users</title>
+      </Helmet>
       <ToastContainer />
       <div className="my-2">
         <h2 className="text-2xl font-bold mb-6 text-center">

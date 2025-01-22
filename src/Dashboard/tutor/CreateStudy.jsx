@@ -5,6 +5,7 @@ import useAuth from "../../hook/useAuth";
 import useAxiosPublic from "../../hook/useAxiosPublic";
 import useAxiosSecure from "../../hook/useAxiosSecure";
 import useRole from "../../hook/useRole";
+import { Helmet } from "react-helmet-async";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_API;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -109,6 +110,9 @@ const CreateStudy = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Dashboard || Create Session</title>
+      </Helmet>
       <div className="my-4">
         <h2 className="text-2xl font-bold mb-6 text-center">
           Create a <span className="text-blue-600">New Study Session</span>

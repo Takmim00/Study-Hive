@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { toast, ToastContainer } from "react-toastify";
 
 import Swal from "sweetalert2";
@@ -69,7 +70,7 @@ const ViewAllSession = () => {
       );
       if (data.modifiedCount > 0) {
         toast.success("Session rejected successfully!");
-        refetch(); // Re-fetch data to update the list
+        refetch(); 
       } else {
         toast.error("No changes made or rejection failed");
       }
@@ -223,6 +224,9 @@ const ViewAllSession = () => {
 
   return (
     <div className="md:w-11/12 mx-auto my-4">
+      <Helmet>
+        <title>Dashboard || All Session</title>
+      </Helmet>
       <ToastContainer />
       <h2 className="text-2xl font-bold mb-6 text-center">
         ALL Study Sessions :{" "}

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../hook/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const ViewDetails = () => {
   const { user } = useAuth();
@@ -58,6 +59,9 @@ const ViewDetails = () => {
   }
   return (
     <div>
+      <Helmet>
+        <title>Dashboard || Booked Details</title>
+      </Helmet>
       <ToastContainer />
       <div className="my-2">
         <h2 className="text-2xl font-bold mb-6 text-center">

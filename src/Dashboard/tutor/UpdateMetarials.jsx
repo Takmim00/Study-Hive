@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAxiosPublic from "../../hook/useAxiosPublic";
 import useAxiosSecure from "../../hook/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_API;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -92,6 +93,9 @@ const UpdateMetarials = () => {
   }
   return (
     <div>
+      <Helmet>
+        <title>Dashboard || Update Session</title>
+      </Helmet>
       <div className="my-4">
         <ToastContainer />
         <h2 className="text-2xl font-bold mb-6 text-center">

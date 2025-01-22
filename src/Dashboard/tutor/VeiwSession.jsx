@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../hook/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const VeiwSession = () => {
   const { user, loading } = useAuth();
@@ -44,6 +45,9 @@ const VeiwSession = () => {
   }
   return (
     <div>
+      <Helmet>
+        <title>Dashboard || View Session</title>
+      </Helmet>
       <ToastContainer />
       <div className="my-4">
         <h2 className="text-2xl font-bold mb-6 text-center">

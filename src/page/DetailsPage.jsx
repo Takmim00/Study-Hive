@@ -6,6 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../hook/useAuth";
 import useRole from "../hook/useRole";
 import PurchaseModal from "../modal/Purchasemodal";
+import { Helmet } from "react-helmet-async";
 
 const DetailsPage = () => {
   const [role, isLoading] = useRole();
@@ -93,7 +94,7 @@ const DetailsPage = () => {
       toast.error(err.message);
     }
   };
-  if (isSessionLoading || isReviewLoading) {
+  if (isSessionLoading || isReviewLoading || isLoading) {
     return <span className="loading loading-dots loading-lg"></span>;
   }
   const handlePayment = async () => {
@@ -137,6 +138,9 @@ const DetailsPage = () => {
   return (
     <>
       <ToastContainer />
+      <Helmet>
+        <title>Study Hive || DetailsPage</title>
+      </Helmet>
       <div className="md:w-1/2 mx-auto border-2 shadow-lg rounded-lg my-6 p-4">
         {session && (
           <>

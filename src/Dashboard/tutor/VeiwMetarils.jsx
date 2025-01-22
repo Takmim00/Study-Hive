@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 import useAuth from "../../hook/useAuth";
 import UpdateMetarialModal from "../../modal/UpdateMetarialModal";
+import { Helmet } from "react-helmet-async";
 
 const VeiwMetarils = () => {
   const { user, loading } = useAuth();
@@ -125,6 +126,9 @@ const VeiwMetarils = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Dashboard || View Metarial</title>
+      </Helmet>
       <ToastContainer />
       <div className="my-4">
         <h2 className="text-2xl font-bold mb-6 text-center">

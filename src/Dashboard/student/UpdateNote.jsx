@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAxiosSecure from "../../hook/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const UpdateNote = () => {
   const { id } = useParams();
@@ -54,6 +55,9 @@ const UpdateNote = () => {
   }
   return (
     <div>
+      <Helmet>
+        <title>Dashboard || Update notes</title>
+      </Helmet>
       <div className="my-4">
         <ToastContainer />
         <h2 className="text-2xl font-bold mb-6 text-center">

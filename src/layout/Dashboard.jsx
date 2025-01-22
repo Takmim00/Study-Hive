@@ -1,17 +1,26 @@
+import { useState } from "react";
 import { AiFillHome } from "react-icons/ai";
 import { FaBars, FaBook, FaList, FaUsers } from "react-icons/fa6";
 import { GrLogout } from "react-icons/gr";
 import { ImProfile } from "react-icons/im";
-import { NavLink, Outlet } from "react-router-dom";
-import { useState } from "react";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import useAuth from "../hook/useAuth";
 import useRole from "../hook/useRole";
 
 const Dashboard = () => {
   const { logOut } = useAuth();
+  const navigate = useNavigate()
   const [role, isLoading] = useRole();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+  if (isLoading) {
+    return <span className="loading loading-dots loading-lg"></span>;
+  }
+  const handleLogOut = () => {
+    logOut()
+    navigate('/')
+      .then(() => {})
+      .catch((err) => console.error(err));
+  };
   return (
     <div className="flex flex-col lg:flex-row">
       <button
@@ -128,7 +137,7 @@ const Dashboard = () => {
           </li>
           <li>
             <button
-              onClick={logOut}
+              onClick={handleLogOut}
               className="flex w-full items-center px-4 py-2 text-gray-600 hover:bg-gray-300 hover:text-gray-700 transition-colors duration-300 transform"
             >
               <GrLogout className="w-5 h-5" />

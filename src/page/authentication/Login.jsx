@@ -3,7 +3,8 @@ import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import {  AuthContext } from "../../provider/AuthProvider";
+import { AuthContext } from "../../provider/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const { userLogin, googleSignIn, handleGithubLogin } =
@@ -11,7 +12,7 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -30,7 +31,6 @@ const Login = () => {
           toast.error("No account found with this email. Please register.");
         }
       });
-      
   };
   const googleLogIngHandler = () => {
     googleSignIn().then((res) => {
@@ -47,6 +47,9 @@ const Login = () => {
   return (
     <div>
       <ToastContainer />
+      <Helmet>
+        <title>Study Hive || Login</title>
+      </Helmet>
       <div className=" card bg-base-100 w-full max-w-lg mx-auto shrink-0 rounded-none p-10 border-2">
         <h2 className="text-4xl font-bold mb-4 text-gray-800 text-center">
           Login
@@ -100,7 +103,6 @@ const Login = () => {
           />
         </form>
 
-       
         <div className="mt-4 text-center">
           <p className="text-sm text-gray-600">
             New here?{" "}
@@ -114,7 +116,6 @@ const Login = () => {
           </p>
         </div>
 
-       
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">Or sign in with</p>
           <div className="flex justify-center mt-2 space-x-4">

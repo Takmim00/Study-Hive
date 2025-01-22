@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import useAuth from "../../hook/useAuth";
 import UploadMetarialModal from "../../modal/UploadMetarialModal";
+import { Helmet } from "react-helmet-async";
 
 const UploadMetarial = () => {
   const { user, loading } = useAuth();
@@ -40,6 +41,9 @@ const UploadMetarial = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Dashboard || Upload Metarial</title>
+      </Helmet>
       <div className="my-4">
         <h2 className="text-2xl font-bold mb-6 text-center">
           Upload Your <span className="text-blue-400">Metarials</span>

@@ -1,14 +1,15 @@
 import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa6";
-
+import logo from "../../assets/studyHive.png";
 const Footer = () => {
   return (
     <div>
       <footer className="bg-gray-100 text-gray-700">
         <div className="w-11/12 mx-auto px-4 py-8 grid grid-cols-1  md:grid-cols-3 justify-around ">
-        
           <div className="">
-            {/* <img src="/logo.png" alt="Tutor Sheba" className="w-32 mb-4" /> */}
-            <p>StudyHive</p>
+            <div className="flex items-center gap-2">
+              <p className="text-2xl font-semibold text-gray-800">StudyHive</p>
+              <img src={logo} alt="Tutor Sheba" className="w-12 mb-4" />
+            </div>
             <p className="text-sm">
               StudyHive.com is a platform where parents, students, and tutors
               can easily connect with each other. We provide qualified
@@ -19,18 +20,17 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4 mt-4">
               <a href="#" className="text-blue-500 text-2xl">
-                <FaFacebook/>
+                <FaFacebook />
               </a>
               <a href="#" className="text-green-500 text-2xl">
-                <FaWhatsapp/>
+                <FaWhatsapp />
               </a>
               <a href="#" className="text-red-500 text-2xl">
-                <FaInstagram/>
+                <FaInstagram />
               </a>
             </div>
           </div>
 
-          
           <div>
             <h5 className="text-center font-semibold mb-4">Resources</h5>
             <ul className="space-y-2 text-sm text-center">
@@ -57,7 +57,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          
           <div>
             <h5 className="text-center font-semibold mb-4">More</h5>
             <ul className="space-y-2 text-sm text-center">

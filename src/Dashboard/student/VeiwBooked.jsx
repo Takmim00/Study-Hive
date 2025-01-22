@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hook/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const VeiwBooked = () => {
   const { user, loading } = useAuth();
@@ -25,6 +26,9 @@ const VeiwBooked = () => {
   }
   return (
     <div>
+      <Helmet>
+        <title>Dashboard || Booked Session</title>
+      </Helmet>
       <div className="my-4">
         <h2 className="text-2xl font-bold mb-6 text-center">
           Veiw Your <span className="text-blue-400">Booked Session</span>

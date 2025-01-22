@@ -5,6 +5,7 @@ import { FaGoogle } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../../provider/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const {
@@ -92,6 +93,9 @@ const Register = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Study Hive || Register</title>
+      </Helmet>
       <ToastContainer />
       <div className="card bg-base-100 w-full max-w-lg mx-auto shrink-0 rounded-none p-10 border-2">
         <h2 className="text-4xl font-bold mb-4 text-gray-800 text-center">

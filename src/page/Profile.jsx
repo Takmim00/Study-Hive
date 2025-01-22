@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import useAuth from "../hook/useAuth";
 import useRole from "../hook/useRole";
 
@@ -9,6 +10,9 @@ const Profile = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
+      <Helmet>
+        <title>Dashboard || Profile</title>
+      </Helmet>
       <div className="bg-white shadow-lg rounded-2xl md:w-4/5 lg:w-3/5 w-11/12">
         <img
           alt="cover photo"

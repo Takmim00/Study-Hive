@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hook/useAuth";
 import ViewMetarialsModal from "../../modal/ViewMetarialsModal";
+import { Helmet } from "react-helmet-async";
 
 const StudyMetarials = () => {
   const { user, loading } = useAuth();
@@ -50,6 +51,9 @@ const StudyMetarials = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Dashboard || View Metarial</title>
+      </Helmet>
       <div className="my-4">
         <h2 className="text-2xl font-bold mb-6 text-center">
           View Your <span className="text-blue-400">Booked Metarials</span>

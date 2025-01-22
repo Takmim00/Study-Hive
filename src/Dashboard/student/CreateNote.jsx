@@ -2,6 +2,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../hook/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const CreateNote = () => {
   const navigate = useNavigate();
@@ -37,10 +38,13 @@ const CreateNote = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Dashboard || Create Notes</title>
+      </Helmet>
       <ToastContainer />
       <div className="my-2">
         <h2 className="text-2xl font-bold mb-6 text-center">
-          Veiw <span className="text-blue-400">Booked Details Session</span>
+          Create <span className="text-blue-400">Your Notes</span>
         </h2>
         <p className="text-gray-600 mb-8 text-center">
           This intuitive tool allows you to design and share in-depth study

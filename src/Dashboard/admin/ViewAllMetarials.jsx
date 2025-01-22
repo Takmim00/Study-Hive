@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 
 const ViewAllMetarials = () => {
@@ -53,6 +54,9 @@ const ViewAllMetarials = () => {
   }
   return (
     <div>
+      <Helmet>
+        <title>Dashboard || All Metarial</title>
+      </Helmet>
       <div className="my-4">
         <h2 className="text-2xl font-bold mb-6 text-center">
           Veiw All <span className="text-blue-400">Metarials</span>
