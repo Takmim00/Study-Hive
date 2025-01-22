@@ -197,7 +197,10 @@ const DetailsPage = () => {
                   </span>
                 </p>
                 <p className="text-green-600 text-lg font-semibold mt-2">
-                  <strong>Registration Fee: $</strong> {session.registrationFee}
+                  <strong>Registration Fee: $</strong>{" "}
+                  {session.registrationFee > 0
+                    ? `${session.registrationFee}`
+                    : "Free"}
                 </p>
               </div>
             </div>
