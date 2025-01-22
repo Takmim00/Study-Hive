@@ -109,7 +109,7 @@ const CheckoutForm = ({ session, handlePayment, closeModal }) => {
         };
 
         const res = await axios.post(
-          `https://study-hive-server-three.vercel.app/booked`,
+          `http://localhost:5000/booked`,
           bookingData
         );
         if (res.data.insertedId) {

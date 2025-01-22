@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAxiosPublic from "../../hook/useAxiosPublic";
 import useAxiosSecure from "../../hook/useAxiosSecure";
-import { Helmet } from "react-helmet-async";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_API;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -19,7 +19,7 @@ const UpdateMetarials = () => {
     enabled: !!id,
     queryFn: async () => {
       const { data } = await axios.get(
-        `https://study-hive-server-three.vercel.app/veiwMetarial/tutors/${id}`
+        `http://localhost:5000/veiwMetarial/tutors/${id}`
       );
 
       return data;
@@ -68,12 +68,11 @@ const UpdateMetarials = () => {
       classStartTime,
       classEndTime,
       sessionDuration,
-      registrationFee,
     };
 
     try {
       const res = await axiosSecure.put(
-        `https://study-hive-server-three.vercel.app/updateMetarials/${id}`,
+        `http://localhost:5000/updateMetarials/${id}`,
         updatedTutorData
       );
 

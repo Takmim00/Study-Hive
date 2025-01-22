@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../hook/useAuth";
 import useRole from "../hook/useRole";
 import PurchaseModal from "../modal/Purchasemodal";
-import { Helmet } from "react-helmet-async";
 
 const DetailsPage = () => {
   const [role, isLoading] = useRole();
@@ -20,9 +20,7 @@ const DetailsPage = () => {
     queryKey: ["session", id],
     enabled: !!id,
     queryFn: async () => {
-      const { data } = await axios.get(
-        `https://study-hive-server-three.vercel.app/tutors/${id}`
-      );
+      const { data } = await axios.get(`http://localhost:5000/tutors/${id}`);
 
       return data;
     },
@@ -32,7 +30,7 @@ const DetailsPage = () => {
     enabled: !!id,
     queryFn: async () => {
       const { data } = await axios.get(
-        `https://study-hive-server-three.vercel.app/review/session/${id}`
+        `http://localhost:5000/review/session/${id}`
       );
       return data;
     },
@@ -82,7 +80,7 @@ const DetailsPage = () => {
         });
       } else {
         const res = await axios.post(
-          `https://study-hive-server-three.vercel.app/booked`,
+          `http://localhost:5000/booked`,
           bookingData
         );
         if (res.data.insertedId) {
@@ -118,10 +116,7 @@ const DetailsPage = () => {
         status: session.status,
       };
 
-      const res = await axios.post(
-        `https://study-hive-server-three.vercel.app/booked`,
-        bookingData
-      );
+      const res = await axios.post(`http://localhost:5000/booked`, bookingData);
       if (res.data.insertedId) {
         toast.success(`${session.sessionTitle} Session is Booked`);
         setIsModalOpen(false);

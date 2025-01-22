@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../hook/useAuth";
-import { Helmet } from "react-helmet-async";
 
 const ViewDetails = () => {
   const { user } = useAuth();
@@ -14,9 +14,7 @@ const ViewDetails = () => {
     queryKey: ["session", id],
     enabled: !!id,
     queryFn: async () => {
-      const { data } = await axios.get(
-        `https://study-hive-server-three.vercel.app/booked/${id}`
-      );
+      const { data } = await axios.get(`http://localhost:5000/booked/${id}`);
 
       return data;
     },
@@ -39,7 +37,7 @@ const ViewDetails = () => {
 
     try {
       const { data } = await axios.post(
-        "https://study-hive-server-three.vercel.app/reviews",
+        "http://localhost:5000/reviews",
         reviewPayload
       );
 

@@ -1,8 +1,8 @@
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../hook/useAuth";
-import { Helmet } from "react-helmet-async";
 
 const CreateNote = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const CreateNote = () => {
 
     try {
       const { data } = await axios.post(
-        "https://study-hive-server-three.vercel.app/notes",
+        "http://localhost:5000/notes",
         noteData
       );
 

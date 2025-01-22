@@ -2,9 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 import useAuth from "../../hook/useAuth";
 import ViewMetarialsModal from "../../modal/ViewMetarialsModal";
-import { Helmet } from "react-helmet-async";
 
 const StudyMetarials = () => {
   const { user, loading } = useAuth();
@@ -16,7 +16,7 @@ const StudyMetarials = () => {
     enabled: !loading && !!user?.email,
     queryFn: async () => {
       const { data } = await axios.get(
-        `https://study-hive-server-three.vercel.app/viewBooked?email=${user?.email}`
+        `http://localhost:5000/viewBooked?email=${user?.email}`
       );
 
       return data;
@@ -28,7 +28,7 @@ const StudyMetarials = () => {
     enabled: !loading && !!selectedSession,
     queryFn: async () => {
       const { data } = await axios.get(
-        `https://study-hive-server-three.vercel.app/metarials/session/${selectedSession}`
+        `http://localhost:5000/metarials/session/${selectedSession}`
       );
 
       return data || [];

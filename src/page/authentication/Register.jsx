@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useContext, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../../provider/AuthProvider";
-import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const {
@@ -57,7 +57,7 @@ const Register = () => {
           };
 
           axios
-            .post("https://study-hive-server-three.vercel.app/users", userInfo)
+            .post("http://localhost:5000/users", userInfo)
             .then((response) => {
               const data = response.data;
               if (data.success) {

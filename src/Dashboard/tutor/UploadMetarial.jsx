@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import useAuth from "../../hook/useAuth";
 import UploadMetarialModal from "../../modal/UploadMetarialModal";
-import { Helmet } from "react-helmet-async";
 
 const UploadMetarial = () => {
   const { user, loading } = useAuth();
@@ -15,7 +15,7 @@ const UploadMetarial = () => {
     enabled: !loading && !!user?.email,
     queryFn: async () => {
       const { data } = await axios.get(
-        `https://study-hive-server-three.vercel.app/veiwSession/${user?.email}`
+        `http://localhost:5000/veiwSession/${user?.email}`
       );
 
       return data;

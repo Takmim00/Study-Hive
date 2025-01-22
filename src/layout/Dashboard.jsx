@@ -3,21 +3,22 @@ import { AiFillHome } from "react-icons/ai";
 import { FaBars, FaBook, FaList, FaUsers } from "react-icons/fa6";
 import { GrLogout } from "react-icons/gr";
 import { ImProfile } from "react-icons/im";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import logo from "../assets/studyHive.png";
 import useAuth from "../hook/useAuth";
 import useRole from "../hook/useRole";
 
 const Dashboard = () => {
   const { logOut } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [role, isLoading] = useRole();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   if (isLoading) {
     return <span className="loading loading-dots loading-lg"></span>;
   }
   const handleLogOut = () => {
-    logOut()
-    navigate('/')
+    logOut();
+    navigate("/")
       .then(() => {})
       .catch((err) => console.error(err));
   };
@@ -36,10 +37,21 @@ const Dashboard = () => {
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 lg:translate-x-0`}
       >
-        <div className="p-4 ">
-          <h1 className="text-xl font-bold">Study Hive</h1>
+        <div>
+          <Link
+            to="/dashboard"
+            className="flex flex-1 gap-2 items-center ml-4 mt-4"
+          >
+            <p className="text-2xl font-semibold text-gray-800">StudyHive</p>
+            <img src={logo} alt="" className="h-8" />
+          </Link>
         </div>
+
         <ul className="menu p-4 space-y-2">
+          <hr className="my-4 border-t border-stone-400" />
+          <p className="text-end text-xl font-semibold">
+            You Are<span className="text-blue-400"> {role}</span>
+          </p>
           {/* Admin Routes */}
           {role === "admin" && (
             <>

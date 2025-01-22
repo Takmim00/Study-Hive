@@ -5,9 +5,7 @@ const AllTutor = () => {
   const { data: users = [], isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
-      const { data } = await axios.get(
-        `https://study-hive-server-three.vercel.app/users`
-      );
+      const { data } = await axios.get(`http://localhost:5000/users`);
       return data;
     },
   });

@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../hook/useAuth";
-import { Helmet } from "react-helmet-async";
 
 const VeiwSession = () => {
   const { user, loading } = useAuth();
@@ -16,7 +16,7 @@ const VeiwSession = () => {
     enabled: !loading && !!user?.email,
     queryFn: async () => {
       const { data } = await axios.get(
-        `https://study-hive-server-three.vercel.app/veiwSession/${user?.email}`
+        `http://localhost:5000/veiwSession/${user?.email}`
       );
 
       return data;
@@ -25,7 +25,7 @@ const VeiwSession = () => {
   const handleRequestApproval = async (sessionId) => {
     try {
       const { data } = await axios.put(
-        `https://study-hive-server-three.vercel.app/tutors/${sessionId}`,
+        `http://localhost:5000/tutors/${sessionId}`,
         {
           status: "Pending",
         }

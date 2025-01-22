@@ -46,7 +46,7 @@ const UpdateMetarialModal = ({ isOpen, onClose, onSubmit, tutor }) => {
 
     try {
       const res = await axiosSecure.put(
-        `https://study-hive-server-three.vercel.app/VeiwMetarils/${tutor._id}`,
+        `http://localhost:5000/VeiwMetarils/${tutor._id}`,
         materialData
       );
 

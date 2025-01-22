@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../hook/useAuth";
 import useAxiosPublic from "../../hook/useAxiosPublic";
 import useAxiosSecure from "../../hook/useAxiosSecure";
 import useRole from "../../hook/useRole";
-import { Helmet } from "react-helmet-async";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_API;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -95,7 +95,7 @@ const CreateStudy = () => {
     // Send the data to the server
     try {
       const res = await axiosSecure.post(
-        "https://study-hive-server-three.vercel.app/tutors",
+        "http://localhost:5000/tutors",
         tutorData
       );
 
@@ -257,7 +257,7 @@ const CreateStudy = () => {
               type="number"
               name="registrationFee"
               value={formData.registrationFee}
-              readOnly={role !== "admin"}
+              readOnly
               className="w-full p-2 border rounded bg-gray-100"
             />
           </div>

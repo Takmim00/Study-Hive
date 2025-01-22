@@ -9,6 +9,9 @@ import Swal from "sweetalert2";
 const ViewAllSession = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSession, setSelectedSession] = useState(null);
+  const [rejectionReason, setRejectionReason] = useState("");
+  const [feedback, setFeedback] = useState("");
+  const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
   const [isPaid, setIsPaid] = useState(false);
   const [fee, setFee] = useState(0);
   const {
@@ -18,9 +21,7 @@ const ViewAllSession = () => {
   } = useQuery({
     queryKey: ["tutor"],
     queryFn: async () => {
-      const { data } = await axios.get(
-        `https://study-hive-server-three.vercel.app/tutors`
-      );
+      const { data } = await axios.get(`http://localhost:5000/tutors`);
       return data;
     },
   });
@@ -36,6 +37,18 @@ const ViewAllSession = () => {
     setIsPaid(false);
     setFee();
   };
+  const openRejectModal = (session) => {
+    setSelectedSession(session);
+    setIsRejectModalOpen(true);
+  };
+
+  const closeRejectModal = () => {
+    setSelectedSession(null);
+    setRejectionReason("");
+    setFeedback("");
+    setIsRejectModalOpen(false);
+  };
+
   const handleApprove = async () => {
     if (!selectedSession) return;
 
@@ -43,7 +56,7 @@ const ViewAllSession = () => {
 
     try {
       const { data } = await axios.put(
-        `https://study-hive-server-three.vercel.app/tutors/${selectedSession._id}`,
+        `http://localhost:5000/tutors/${selectedSession._id}`,
         {
           status: "Approved",
           registrationFee,
@@ -62,18 +75,30 @@ const ViewAllSession = () => {
       toast.error("Error updating session:", error);
     }
   };
-  const handleReject = async (sessionId) => {
+  const handleReject = async () => {
+    if (!feedback) {
+      toast.error("Please provide feedback before rejecting.");
+      return; 
+    }
     try {
       const { data } = await axios.put(
-        `https://study-hive-server-three.vercel.app/tutors/${sessionId}`,
+        `http://localhost:5000/tutors/${selectedSession._id}`,
         { status: "Rejected" }
       );
       if (data.modifiedCount > 0) {
         toast.success("Session rejected successfully!");
-        refetch(); 
       } else {
         toast.error("No changes made or rejection failed");
       }
+
+      const { rjData } = await axios.post("http://localhost:5000/rejects", {
+        sessionId: selectedSession._id,
+        rejectionReason,
+        feedback,
+      });
+
+      refetch();
+      closeRejectModal();
     } catch (error) {
       toast.error("Error rejecting session:", error);
     }
@@ -89,7 +114,7 @@ const ViewAllSession = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://study-hive-server-three.vercel.app/tutors/${_id}`, {
+        fetch(`http://localhost:5000/tutors/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -191,7 +216,7 @@ const ViewAllSession = () => {
                       Approve
                     </button>
                     <button
-                      onClick={() => handleReject(session._id)}
+                      onClick={() => openRejectModal(session)}
                       className="cursor-pointer rounded-full bg-red-100 px-3 py-1 font-semibold text-red-700"
                     >
                       Reject
@@ -311,6 +336,51 @@ const ViewAllSession = () => {
                 className="px-4 py-2 bg-blue-500 text-white rounded"
               >
                 Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {isRejectModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-96">
+            <h2 className="text-lg font-bold mb-4">Reject Session</h2>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">
+                Rejection Reason
+              </label>
+              <input
+                type="text"
+                value={rejectionReason}
+                required
+                onChange={(e) => setRejectionReason(e.target.value)}
+                className="block w-full border border-gray-300 rounded px-3 py-2"
+                placeholder="Enter the reason for rejection"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Feedback</label>
+              <textarea
+                value={feedback}
+                onChange={(e) => setFeedback(e.target.value)}
+                className="block w-full border border-gray-300 rounded px-3 py-2"
+                rows="3"
+                required
+                placeholder="Provide feedback for the tutor"
+              ></textarea>
+            </div>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={closeRejectModal}
+                className="px-4 py-2 bg-gray-200 text-gray-700 rounded"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleReject}
+                className="px-4 py-2 bg-red-500 text-white rounded"
+              >
+                Confirm Reject
               </button>
             </div>
           </div>
