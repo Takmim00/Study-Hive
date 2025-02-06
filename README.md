@@ -52,4 +52,5 @@
 
 ## Live Project Links & Other Resources:
 - **Live Project Link:** [Study Hive](https://study-hive-9b382.web.app/)
+- - **Backend Repository:** [Study Hive Backend](https://github.com/Takmim00/study-Hive-Server)
 - **Admin:** admin@gmail.com (Password: Aa123?)
