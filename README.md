@@ -53,7 +53,3 @@
 ## Live Project Links & Other Resources:
 - **Live Project Link:** [Study Hive](https://study-hive-9b382.web.app/)
 - **Admin:** admin@gmail.com (Password: Aa123?)
-
----
-
-Feel free to add the appropriate screenshot link where mentioned!
