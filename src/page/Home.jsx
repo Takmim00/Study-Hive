@@ -4,6 +4,7 @@ import Banner from "./Banner";
 import StudySession from "./StudySession";
 
 
+
 const Home = () => {
     return (
         <div>
@@ -12,6 +13,7 @@ const Home = () => {
             </Helmet>
             <Banner/>
             <StudySession/>
+
             <AllTutor/>
         </div>
     );

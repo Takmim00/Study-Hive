@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 import logo from '../../assets/studyHive.png'
+import './navbar.css'
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -13,7 +14,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar  shadow-sm px-6 py-2">
+    <div className="navbar  shadow-sm w-11/12 mx-auto py-2">
       <div className="flex-1">
         <Link to="/" className="flex gap-2 items-center">
           <img src={logo} alt="" className="h-8" />
@@ -44,6 +45,12 @@ const Navbar = () => {
         >
           <li>
             <NavLink to="/">Home</NavLink>
+          </li>
+          <li>
+            <NavLink to="/course">Courses</NavLink>
+          </li>
+          <li>
+            <NavLink to="/tutor">Tutor</NavLink>
           </li>
           {user ? (
             <>
@@ -80,9 +87,18 @@ const Navbar = () => {
       </div>
 
       <div className="hidden md:flex md:items-center">
-        <ul className="menu menu-horizontal items-center px-1 space-x-4">
+        <ul className="flex gap-4 justify-center items-center py-2">
           <li>
             <NavLink to="/">Home</NavLink>
+          </li>
+          <li>
+            <NavLink to="/course">Courses</NavLink>
+          </li>
+          <li>
+            <NavLink to="/tutor">Tutor</NavLink>
+          </li>
+          <li>
+            <NavLink to="/support">Support</NavLink>
           </li>
           {user ? (
             <>

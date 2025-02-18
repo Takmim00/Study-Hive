@@ -25,6 +25,9 @@ import StudentRoute from "./StudentRoute";
 import TutorRoute from "./TutorRoute";
 import Profile from "../page/Profile";
 import RejectSession from "../Dashboard/tutor/RejectSession";
+import Courses from "../page/Courses";
+import Tutor from "../page/Tutor";
+import Support from "../page/Support";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +37,18 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/course",
+        element: <Courses/>
+      },
+      {
+        path: "/tutor",
+        element: <Tutor/>
+      },
+      {
+        path: "/support",
+        element: <Support/>
       },
       {
         path: "/sessionDetail/:id",
