@@ -31,8 +31,10 @@ const Courses = () => {
   };
 
   return (
-    <div>
-      <h2 className="text-2xl text-center font-bold mb-6">Available Corse</h2>
+    <div className="my-4">
+      <h2 className="text-2xl text-center font-bold mb-6">
+        Available <span className="text-blue-400">Course</span>
+      </h2>
 
       <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
         <div className="flex p-1 overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300">

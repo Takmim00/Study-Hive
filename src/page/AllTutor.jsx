@@ -10,13 +10,13 @@ const AllTutor = () => {
     },
   });
 
-  const tutors = users.filter((user) => user.role === "tutor");
+  const tutors = users.filter((user) => user.role === "tutor").slice(0, 4);
 
   return (
     <div className="w-11/12 mx-auto my-4">
       <div>
         <h2 className="text-2xl font-bold mb-6 text-center">
-          All <span className="text-blue-400">Tutors</span>
+          <span className="text-blue-400">Tutors</span>
         </h2>
       </div>
 
