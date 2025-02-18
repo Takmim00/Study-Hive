@@ -23,11 +23,10 @@ const Courses = () => {
   });
 
   const handleReadMore = (sessionId) => {
-    if (!user) {
-      navigate("/login");
-    } else {
+    
+    
       navigate(`/sessionDetail/${sessionId}`);
-    }
+    
   };
 
   return (
@@ -116,20 +115,20 @@ const Courses = () => {
                         <strong>Tutor Name:</strong> {session.name}
                       </p>
 
-                      <p className="text-orange-600 text-sm font-medium">
+                      <p className=" text-sm font-medium">
                         <strong>Registration Start Date:</strong>{" "}
-                        <span className="font-normal">
+                        <span className="font-normal text-orange-600">
                           {session.registrationStartDate}
                         </span>
                       </p>
-                      <p className="text-orange-600 text-sm font-medium">
+                      <p className=" text-sm font-medium">
                         <strong>Registration End Date:</strong>{" "}
-                        <span className="font-normal">
+                        <span className="font-normal text-orange-600">
                           {session.registrationEndDate}
                         </span>
                       </p>
 
-                      <p className="text-green-600 text-lg font-semibold mt-2">
+                      <p className="  font-semibold mt-2">
                         <strong>Registration Fee: $</strong>{" "}
                         {session.registrationFee > 0
                           ? `${session.registrationFee}`

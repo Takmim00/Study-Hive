@@ -143,7 +143,7 @@ const DetailsPage = () => {
               <img
                 src={session.sessionImage}
                 alt={session.title}
-                className="w-full  object-cover rounded shadow"
+                className="w-full h-96  object-cover rounded shadow"
               />
               <div className="flex-1">
                 <h1 className="text-2xl font-bold">{session.sessionTitle}</h1>

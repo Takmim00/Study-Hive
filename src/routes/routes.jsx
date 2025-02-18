@@ -9,6 +9,7 @@ import UpdateNote from "../Dashboard/student/UpdateNote";
 import VeiwBooked from "../Dashboard/student/VeiwBooked";
 import ViewDetails from "../Dashboard/student/ViewDetails";
 import CreateStudy from "../Dashboard/tutor/CreateStudy";
+import RejectSession from "../Dashboard/tutor/RejectSession";
 import UpdateMetarials from "../Dashboard/tutor/UpdateMetarials";
 import UploadMetarial from "../Dashboard/tutor/UploadMetarial";
 import VeiwMetarils from "../Dashboard/tutor/VeiwMetarils";
@@ -17,17 +18,16 @@ import Dashboard from "../layout/Dashboard";
 import Main from "../layout/Main";
 import Login from "../page/authentication/Login";
 import Register from "../page/authentication/Register";
+import Courses from "../page/Courses";
 import DetailsPage from "../page/DetailsPage";
 import Home from "../page/Home";
+import Profile from "../page/Profile";
+import Support from "../page/Support";
+import Tutor from "../page/Tutor";
 import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import StudentRoute from "./StudentRoute";
 import TutorRoute from "./TutorRoute";
-import Profile from "../page/Profile";
-import RejectSession from "../Dashboard/tutor/RejectSession";
-import Courses from "../page/Courses";
-import Tutor from "../page/Tutor";
-import Support from "../page/Support";
 
 export const router = createBrowserRouter([
   {
@@ -40,23 +40,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/course",
-        element: <Courses/>
+        element: <Courses />,
       },
       {
         path: "/tutor",
-        element: <Tutor/>
+        element: <Tutor />,
       },
       {
         path: "/support",
-        element: <Support/>
+        element: <Support />,
       },
       {
         path: "/sessionDetail/:id",
-        element: (
-          <PrivateRoute>
-            <DetailsPage />
-          </PrivateRoute>
-        ),
+        element: <DetailsPage />,
       },
 
       {
@@ -74,8 +70,8 @@ export const router = createBrowserRouter([
     element: <Dashboard />,
     children: [
       {
-        path:'profile',
-        element:<Profile/>
+        path: "profile",
+        element: <Profile />,
       },
       {
         path: "createStudy",
@@ -123,7 +119,7 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <TutorRoute>
-              <RejectSession/>
+              <RejectSession />
             </TutorRoute>
           </PrivateRoute>
         ),

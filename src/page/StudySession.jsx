@@ -16,11 +16,9 @@ const StudySession = () => {
     },
   });
   const handleReadMore = (sessionId) => {
-    if (!user) {
-      navigate("/login");
-    } else {
+    
       navigate(`/sessionDetail/${sessionId}`);
-    }
+    
   };
   if (isLoading) {
     return <span className="loading loading-dots loading-lg"></span>;
