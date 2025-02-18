@@ -13,7 +13,6 @@ const Home = () => {
             </Helmet>
             <Banner/>
             <StudySession/>
-
             <AllTutor/>
         </div>
     );

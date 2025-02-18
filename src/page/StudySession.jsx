@@ -11,9 +11,7 @@ const StudySession = () => {
     queryKey: ["session"],
 
     queryFn: async () => {
-      const { data } = await axios.get(
-        `https://study-hive-server-three.vercel.app/tutors`
-      );
+      const { data } = await axios.get(`http://localhost:5000/tutors/limit`);
       return data;
     },
   });
@@ -51,7 +49,7 @@ const StudySession = () => {
               return (
                 <div
                   key={i}
-                  className="max-w-md bg-white border rounded-lg shadow-md overflow-hidden"
+                  className=" bg-white border flex flex-col rounded-lg shadow-md overflow-hidden"
                 >
                   <img
                     className="w-full h-48 object-cover"
@@ -62,12 +60,12 @@ const StudySession = () => {
                     <h3 className="text-xl font-bold text-blue-700">
                       {session.sessionTitle}
                     </h3>
-                    <p className="text-gray-600 text-sm mt-2">
+                    <p className="text-gray-600  text-sm mt-2 line-clamp-2">
                       {session.sessionDescription}
                     </p>
-                    <div className="mt-4 flex justify-between items-center">
+                    <div className="mt-2 flex justify-between items-center">
                       <button
-                        className={`px-4 py-2 rounded ${
+                        className={`px-4 py-2 rounded-xl ${
                           isRegistrationOngoing
                             ? "bg-green-500 text-white"
                             : "bg-red-500 text-white"
@@ -78,7 +76,7 @@ const StudySession = () => {
 
                       <Link
                         onClick={() => handleReadMore(session._id)}
-                        className="btn px-4 py-2 bg-blue-500 text-white rounded"
+                        className="btn px-4 py-2 bg-blue-500 text-white rounded-xl"
                       >
                         Read More
                       </Link>

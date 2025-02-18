@@ -95,7 +95,7 @@ const CreateStudy = () => {
     // Send the data to the server
     try {
       const res = await axiosSecure.post(
-        "https://study-hive-server-three.vercel.app/tutors",
+        "http://localhost:5000/tutors",
         tutorData
       );
 

@@ -15,7 +15,7 @@ const ManageNote = () => {
     enabled: !loading && !!user?.email,
     queryFn: async () => {
       const { data } = await axios.get(
-        `https://study-hive-server-three.vercel.app/veiwNotes?email=${user?.email}`
+        `http://localhost:5000/veiwNotes?email=${user?.email}`
       );
       return data;
     },
@@ -32,7 +32,7 @@ const ManageNote = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://study-hive-server-three.vercel.app/notes/${_id}`, {
+        fetch(`http://localhost:5000/notes/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

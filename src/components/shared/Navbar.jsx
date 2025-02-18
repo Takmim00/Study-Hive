@@ -66,21 +66,14 @@ const Navbar = () => {
           ) : (
             <>
               <li>
-                <NavLink
+                <Link
                   to="/login"
                   className="btn bg-blue-500 hover:bg-blue-700 transition text-white"
                 >
                   Log-in
-                </NavLink>
+                </Link>
               </li>
-              <li>
-                <NavLink
-                  to="/register"
-                  className="btn bg-green-500 hover:bg-green-700 transition text-white"
-                >
-                  Sign-up
-                </NavLink>
-              </li>
+              
             </>
           )}
         </ul>
@@ -138,21 +131,14 @@ const Navbar = () => {
           ) : (
             <>
               <li>
-                <NavLink
+                <Link
                   to="/login"
                   className="btn bg-blue-500 hover:bg-blue-700 transition text-white"
                 >
                   Log-in
-                </NavLink>
+                </Link>
               </li>
-              <li>
-                <NavLink
-                  to="/register"
-                  className="btn bg-green-500 hover:bg-green-700 transition text-white"
-                >
-                  Sign-up
-                </NavLink>
-              </li>
+              
             </>
           )}
         </ul>

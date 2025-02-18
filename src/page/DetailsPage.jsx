@@ -20,9 +20,7 @@ const DetailsPage = () => {
     queryKey: ["session", id],
     enabled: !!id,
     queryFn: async () => {
-      const { data } = await axios.get(
-        `https://study-hive-server-three.vercel.app/tutors/${id}`
-      );
+      const { data } = await axios.get(`http://localhost:5000/tutors/${id}`);
 
       return data;
     },
@@ -32,7 +30,7 @@ const DetailsPage = () => {
     enabled: !!id,
     queryFn: async () => {
       const { data } = await axios.get(
-        `https://study-hive-server-three.vercel.app/review/session/${id}`
+        `http://localhost:5000/review/session/${id}`
       );
       return data;
     },
@@ -82,7 +80,7 @@ const DetailsPage = () => {
         });
       } else {
         const res = await axios.post(
-          `https://study-hive-server-three.vercel.app/booked`,
+          `http://localhost:5000/booked`,
           bookingData
         );
         if (res.data.insertedId) {
@@ -118,10 +116,7 @@ const DetailsPage = () => {
         status: session.status,
       };
 
-      const res = await axios.post(
-        `https://study-hive-server-three.vercel.app/booked`,
-        bookingData
-      );
+      const res = await axios.post(`http://localhost:5000/booked`, bookingData);
       if (res.data.insertedId) {
         toast.success(`${session.sessionTitle} Session is Booked`);
         setIsModalOpen(false);

@@ -14,9 +14,7 @@ const ViewDetails = () => {
     queryKey: ["session", id],
     enabled: !!id,
     queryFn: async () => {
-      const { data } = await axios.get(
-        `https://study-hive-server-three.vercel.app/booked/${id}`
-      );
+      const { data } = await axios.get(`http://localhost:5000/booked/${id}`);
 
       return data;
     },
@@ -39,7 +37,7 @@ const ViewDetails = () => {
 
     try {
       const { data } = await axios.post(
-        "https://study-hive-server-three.vercel.app/reviews",
+        "http://localhost:5000/reviews",
         reviewPayload
       );
 

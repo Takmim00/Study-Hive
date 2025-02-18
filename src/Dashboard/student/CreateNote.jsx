@@ -21,7 +21,7 @@ const CreateNote = () => {
 
     try {
       const { data } = await axios.post(
-        "https://study-hive-server-three.vercel.app/notes",
+        "http://localhost:5000/notes",
         noteData
       );
 

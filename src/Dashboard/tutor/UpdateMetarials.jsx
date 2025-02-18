@@ -19,7 +19,7 @@ const UpdateMetarials = () => {
     enabled: !!id,
     queryFn: async () => {
       const { data } = await axios.get(
-        `https://study-hive-server-three.vercel.app/veiwMetarial/tutors/${id}`
+        `http://localhost:5000/veiwMetarial/tutors/${id}`
       );
 
       return data;
@@ -72,7 +72,7 @@ const UpdateMetarials = () => {
 
     try {
       const res = await axiosSecure.put(
-        `https://study-hive-server-three.vercel.app/updateMetarials/${id}`,
+        `http://localhost:5000/updateMetarials/${id}`,
         updatedTutorData
       );
 
