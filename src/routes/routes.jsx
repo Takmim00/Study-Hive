@@ -28,6 +28,7 @@ import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import StudentRoute from "./StudentRoute";
 import TutorRoute from "./TutorRoute";
+import AdminDashboard from "../Dashboard/admin/AdminDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -200,6 +201,16 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <AdminRoute>
               <ViewUser />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "adminDashboard",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AdminDashboard/>
             </AdminRoute>
           </PrivateRoute>
         ),

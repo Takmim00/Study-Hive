@@ -4,6 +4,7 @@ import { FaBars, FaBook, FaList, FaUsers } from "react-icons/fa6";
 import { GrLogout } from "react-icons/gr";
 import { ImProfile } from "react-icons/im";
 import { LuLayoutDashboard } from "react-icons/lu";
+import { MdSpaceDashboard } from "react-icons/md";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import logo from "../assets/studyHive.png";
 import useAuth from "../hook/useAuth";
@@ -57,79 +58,143 @@ const Dashboard = () => {
           {role === "admin" && (
             <>
               <li>
-                <NavLink to="/dashboard/viewUsers">
+                <NavLink
+                  to="/dashboard/adminDashboard"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-500" : "text-gray-700"
+                  }
+                >
+                  <MdSpaceDashboard />
+                  Dashboard
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/viewUsers"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-500" : "text-gray-700"
+                  }
+                >
                   <FaUsers />
                   View All Users
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/viewAllSessions">
+                <NavLink
+                  to="/dashboard/viewAllSessions"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-500" : "text-gray-700"
+                  }
+                >
                   <FaList />
                   View All Study Sessions
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/viewAllMaterials">
+                <NavLink
+                  to="/dashboard/viewAllMaterials"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-500" : "text-gray-700"
+                  }
+                >
                   <FaBook />
                   View All Materials
                 </NavLink>
               </li>
             </>
           )}
-
           {/* Tutor Routes */}
           {role === "tutor" && (
             <>
               <li>
-                <NavLink to="/dashboard/createStudy">
+                <NavLink
+                  to="/dashboard/createStudy"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-500" : "text-gray-700"
+                  }
+                >
                   <FaBook />
                   Create Study Session
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/viewSession">
+                <NavLink
+                  to="/dashboard/viewSession"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-500" : "text-gray-700"
+                  }
+                >
                   <FaList />
                   View My Study Sessions
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/uploadMaterial">
+                <NavLink
+                  to="/dashboard/uploadMaterial"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-500" : "text-gray-700"
+                  }
+                >
                   <FaBook />
                   Upload Materials
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/viewMaterials">
+                <NavLink
+                  to="/dashboard/viewMaterials"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-500" : "text-gray-700"
+                  }
+                >
                   <FaList />
                   View All Materials
                 </NavLink>
               </li>
             </>
           )}
-
           {/* Student Routes */}
           {role === "student" && (
             <>
               <li>
-                <NavLink to="/dashboard/viewBooked">
+                <NavLink
+                  to="/dashboard/viewBooked"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-500" : "text-gray-700"
+                  }
+                >
                   <FaBook />
                   View Booked Session
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/createNote">
+                <NavLink
+                  to="/dashboard/createNote"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-500" : "text-gray-700"
+                  }
+                >
                   <FaList />
                   Create Note
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/manageNotes">
+                <NavLink
+                  to="/dashboard/manageNotes"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-500" : "text-gray-700"
+                  }
+                >
                   <FaList />
                   Manage Personal Notes
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/studyMetarials">
+                <NavLink
+                  to="/dashboard/studyMetarials"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-500" : "text-gray-700"
+                  }
+                >
                   <FaBook />
                   View All Study Materials
                 </NavLink>
@@ -140,19 +205,34 @@ const Dashboard = () => {
           {role === "tutor" && (
             <>
               <li>
-                <NavLink to="/dashboard/rejectDashboard">
+                <NavLink
+                  to="/dashboard/rejectDashboard"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-500" : "text-gray-700"
+                  }
+                >
                   <LuLayoutDashboard /> Dashboard
                 </NavLink>
               </li>
             </>
           )}
           <li>
-            <NavLink to="/dashboard/profile">
+            <NavLink
+              to="/dashboard/profile"
+              className={({ isActive }) =>
+                isActive ? "text-blue-500" : "text-gray-700"
+              }
+            >
               <ImProfile /> Profile
             </NavLink>
           </li>
           <li>
-            <NavLink to="/">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? "text-blue-500" : "text-gray-700"
+              }
+            >
               <AiFillHome /> Home
             </NavLink>
           </li>
@@ -169,7 +249,10 @@ const Dashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-4">
+      <div
+        className="flex-1 p-4  overflow-auto"
+        style={{ height: "100vh", overflowY: "auto" }}
+      >
         <Outlet />
       </div>
 
