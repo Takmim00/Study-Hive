@@ -9,7 +9,9 @@ const RejectSession = () => {
   const { data: reject = [], isLoading: rejectLoading } = useQuery({
     queryKey: ["reject"],
     queryFn: async () => {
-      const { data } = await axios.get("http://localhost:5000/rejects");
+      const { data } = await axios.get(
+        "https://study-hive-server-three.vercel.app/rejects"
+      );
       return data;
     },
   });
@@ -17,7 +19,9 @@ const RejectSession = () => {
   const { data: tutors = [], isLoading: tutorsLoading } = useQuery({
     queryKey: ["tutors"],
     queryFn: async () => {
-      const { data } = await axios.get("http://localhost:5000/tutors");
+      const { data } = await axios.get(
+        "https://study-hive-server-three.vercel.app/tutors"
+      );
       return data;
     },
   });

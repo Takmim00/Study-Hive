@@ -11,14 +11,14 @@ const StudySession = () => {
     queryKey: ["session"],
 
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:5000/tutors/limit`);
+      const { data } = await axios.get(
+        `https://study-hive-server-three.vercel.app/tutors/limit`
+      );
       return data;
     },
   });
   const handleReadMore = (sessionId) => {
-    
-      navigate(`/sessionDetail/${sessionId}`);
-    
+    navigate(`/sessionDetail/${sessionId}`);
   };
   if (isLoading) {
     return <span className="loading loading-dots loading-lg"></span>;

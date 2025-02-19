@@ -51,7 +51,7 @@ const AuthProvider = ({ children }) => {
         };
 
         return axios
-          .post("http://localhost:5000/users", userInfo)
+          .post("https://study-hive-server-three.vercel.app/users", userInfo)
           .then((response) => {
             const data = response.data;
             if (data.success) {
@@ -84,7 +84,7 @@ const AuthProvider = ({ children }) => {
         };
 
         return axios
-          .post("http://localhost:5000/users", userInfo)
+          .post("https://study-hive-server-three.vercel.app/users", userInfo)
           .then((response) => {
             const data = response.data;
             if (data.success) {

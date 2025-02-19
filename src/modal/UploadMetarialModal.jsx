@@ -49,7 +49,7 @@ const UploadMetarialModal = ({ isOpen, onClose, onSubmit, tutor }) => {
 
     try {
       const res = await axiosSecure.post(
-        "http://localhost:5000/metarial",
+        "https://study-hive-server-three.vercel.app/metarial",
         materialData
       );
 

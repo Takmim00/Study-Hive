@@ -15,7 +15,7 @@ const Courses = () => {
     queryKey: ["tutors", search, sortBy, order],
     queryFn: async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/tutor?search=${search}&sortBy=${sortBy}&order=${order}`
+        `https://study-hive-server-three.vercel.app/tutor?search=${search}&sortBy=${sortBy}&order=${order}`
       );
       console.log(data);
       return data;

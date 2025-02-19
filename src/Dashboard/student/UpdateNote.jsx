@@ -15,7 +15,7 @@ const UpdateNote = () => {
     enabled: !!id,
     queryFn: async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/veiwNotes/notes/${id}`
+        `https://study-hive-server-three.vercel.app/veiwNotes/notes/${id}`
       );
 
       return data;
@@ -35,7 +35,7 @@ const UpdateNote = () => {
 
     try {
       const res = await axiosSecure.put(
-        `http://localhost:5000/updateNotes/${id}`,
+        `https://study-hive-server-three.vercel.app/updateNotes/${id}`,
         updatedNoteData
       );
 
