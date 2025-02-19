@@ -3,3 +3,50 @@
     font-weight: bold;
     transition: color 0.3s ease-in-out;
   }
+
+
+body.light-theme {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.light-theme .white-box {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.dark-theme {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+body.dark-theme .white-box {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+
+body {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.white-box {
+  background-color: #ffffff;
+  color: #000000;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+
+
+
+
+
+
+body.dark-theme a {
+  color: white;  
+}
+
+body.dark-theme .active {
+  color: white;
+}

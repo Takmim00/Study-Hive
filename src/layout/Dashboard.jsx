@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiFillHome } from "react-icons/ai";
 import { FaBars, FaBook, FaList, FaUsers } from "react-icons/fa6";
 import { GrLogout } from "react-icons/gr";
 import { ImProfile } from "react-icons/im";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { MdSpaceDashboard } from "react-icons/md";
+import {
+  MdDarkMode,
+  MdOutlineLightMode,
+  MdSpaceDashboard,
+} from "react-icons/md";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import logo from "../assets/studyHive.png";
 import useAuth from "../hook/useAuth";
@@ -15,6 +19,15 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [role, isLoading] = useRole();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  useEffect(() => {
+    document.body.className = theme === "dark" ? "dark-theme" : "light-theme";
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
   if (isLoading) {
     return <span className="loading loading-dots loading-lg"></span>;
   }
@@ -24,6 +37,7 @@ const Dashboard = () => {
       .then(() => {})
       .catch((err) => console.error(err));
   };
+
   return (
     <div className="flex flex-col lg:flex-row">
       <button
@@ -35,18 +49,30 @@ const Dashboard = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed lg:static top-0 left-0 z-50 h-full w-64 min-h-screen bg-white shadow-lg border-r border-stone-300 flex flex-col transform ${
+        className={`fixed lg:static top-0 left-0 z-50 h-full w-64 min-h-screen flex flex-col transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 lg:translate-x-0`}
+        } transition-transform duration-300 lg:translate-x-0 ${
+          theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"
+        }`}
       >
-        <div>
-          <Link
-            to="/dashboard"
-            className="flex flex-1 gap-2 items-center ml-4 mt-4"
-          >
-            <p className="text-2xl font-semibold text-gray-800">StudyHive</p>
-            <img src={logo} alt="" className="h-8" />
-          </Link>
+        <div className="flex">
+          <div>
+            <Link
+              to="/dashboard"
+              className="flex flex-1 gap-2 items-center ml-4 mt-4"
+            >
+              <p className="text-2xl font-semibold ">StudyHive</p>
+              <img src={logo} alt="" className="h-8" />
+            </Link>
+          </div>
+          <div className="flex justify-end p-4">
+            <button
+              onClick={toggleTheme}
+              className="px-3 py-3 rounded-full bg-gray-800 text-white dark:bg-gray-300 dark:text-black transition-colors"
+            >
+              {theme === "light" ? <MdDarkMode /> : <MdOutlineLightMode />}
+            </button>
+          </div>
         </div>
 
         <ul className="menu p-4 space-y-2">

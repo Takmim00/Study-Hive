@@ -1,11 +1,21 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { Link, NavLink } from "react-router-dom";
+import logo from "../../assets/studyHive.png";
 import { AuthContext } from "../../provider/AuthProvider";
-import logo from '../../assets/studyHive.png'
-import './navbar.css'
+import "./navbar.css";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  useEffect(() => {
+    document.body.className = theme === "dark" ? "dark-theme" : "light-theme";
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
 
   const handleLogOut = () => {
     logOut()
@@ -73,13 +83,20 @@ const Navbar = () => {
                   Log-in
                 </Link>
               </li>
-              
             </>
           )}
         </ul>
       </div>
 
       <div className="hidden md:flex md:items-center">
+        <div className="flex justify-end p-4">
+          <button
+            onClick={toggleTheme}
+            className="px-3 py-3 rounded-full bg-gray-800 text-white dark:bg-gray-300 dark:text-black transition-colors"
+          >
+            {theme === "light" ? <MdDarkMode /> : <MdOutlineLightMode />}
+          </button>
+        </div>
         <ul className="flex gap-4 justify-center items-center py-2">
           <li>
             <NavLink to="/">Home</NavLink>
@@ -138,7 +155,6 @@ const Navbar = () => {
                   Log-in
                 </Link>
               </li>
-              
             </>
           )}
         </ul>
