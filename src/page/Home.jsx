@@ -6,6 +6,7 @@ import Blog from "./Blog";
 import StudentSays from "./StudentSays";
 import HowWorks from "./HowWorks";
 import Faq from "./Faq";
+import Achievement from "./Achievement";
 
 
 
@@ -22,6 +23,7 @@ const Home = () => {
             <HowWorks/>
             <Blog/>
             <Faq/>
+            <Achievement/>
         </div>
     );
 };
