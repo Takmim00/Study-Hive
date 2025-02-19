@@ -78,13 +78,13 @@ const ManageNote = () => {
             className=" bg-white border rounded-lg shadow-lg overflow-hidden"
           >
             <div className="p-4">
-              <h2 className="text-gray-800 font-semibold  mb-4">
+              <h2 className="text-black font-semibold  mb-4">
                 <strong>Your email:</strong> {note.studentEmail}
               </h2>
-              <p>
+              <p className="text-black">
                 <strong>Note Title:</strong> {note.title}
               </p>
-              <p>
+              <p className="text-black">
                 <strong>Note Description:</strong> {note.note}
               </p>
               <div className="pt-2 text-center">

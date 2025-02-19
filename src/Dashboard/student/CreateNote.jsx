@@ -57,7 +57,7 @@ const CreateNote = () => {
         {/* Student Email */}
         <div>
           <label
-            className="block text-gray-700 font-medium"
+            className="block  font-medium"
             htmlFor="studentEmail"
           >
             Student Email:
@@ -67,12 +67,12 @@ const CreateNote = () => {
             defaultValue={user?.email}
             type="email"
             placeholder="student@gmail.com"
-            className="w-full border cursor-not-allowed border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border cursor-not-allowed text-black border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         {/* Note Title */}
         <div>
-          <label className="block text-gray-700 font-medium">Note Title:</label>
+          <label className="block  font-medium">Note Title:</label>
           <input
             type="text"
             name="title"
@@ -83,7 +83,7 @@ const CreateNote = () => {
 
         {/* Note Descriptions */}
         <div>
-          <label className="block text-gray-700 font-medium">
+          <label className="block  font-medium">
             Note Descriptions:
           </label>
           <textarea
