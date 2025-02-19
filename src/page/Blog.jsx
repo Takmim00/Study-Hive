@@ -3,31 +3,7 @@ const Blog = () => {
     <div>
       
 
-      <section className="py-12 bg-white">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">How It Works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 bg-gray-100 rounded-lg">
-              <h3 className="font-semibold text-lg">1. Sign Up</h3>
-              <p className="text-gray-700">
-                Create an account as a student or tutor.
-              </p>
-            </div>
-            <div className="p-6 bg-gray-100 rounded-lg">
-              <h3 className="font-semibold text-lg">2. Choose a Session</h3>
-              <p className="text-gray-700">
-                Browse and book the best tutoring sessions.
-              </p>
-            </div>
-            <div className="p-6 bg-gray-100 rounded-lg">
-              <h3 className="font-semibold text-lg">3. Start Learning</h3>
-              <p className="text-gray-700">
-                Join sessions and enhance your skills.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       <section className="py-12 bg-gray-100">
         <div className="container mx-auto text-center">

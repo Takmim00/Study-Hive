@@ -4,6 +4,7 @@ import Banner from "./Banner";
 import StudySession from "./StudySession";
 import Blog from "./Blog";
 import StudentSays from "./StudentSays";
+import HowWorks from "./HowWorks";
 
 
 
@@ -17,6 +18,7 @@ const Home = () => {
             <StudySession/>
             <AllTutor/>
             <StudentSays/>
+            <HowWorks/>
             <Blog/>
         </div>
     );
