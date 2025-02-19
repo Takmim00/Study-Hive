@@ -52,7 +52,7 @@ const Dashboard = () => {
         className={`fixed lg:static top-0 left-0 z-50 h-full w-64 min-h-screen flex flex-col transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 lg:translate-x-0 ${
-          theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"
+          theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black border-r border-gray-300"
         }`}
       >
         <div className="flex">
@@ -250,21 +250,7 @@ const Dashboard = () => {
             </>
           )}
           <hr className="my-4 border-t border-stone-400" />
-          {role === "tutor" && (
-            <>
-              <li>
-                <NavLink
-                  to="/dashboard/rejectDashboard"
-                  className={({ isActive }) =>
-                    isActive ? "text-blue-500" : "text-gray-700"
-                  }
-                >
-                  <LuLayoutDashboard />
-                  Rejected Dashboard
-                </NavLink>
-              </li>
-            </>
-          )}
+          
           <li>
             <NavLink
               to="/dashboard/profile"
@@ -288,7 +274,7 @@ const Dashboard = () => {
           <li>
             <button
               onClick={handleLogOut}
-              className="flex w-full items-center px-4 py-2 text-gray-600 hover:bg-gray-300 hover:text-gray-700 transition-colors duration-300 transform"
+              className="flex w-full items-center px-4 py-2  hover:bg-gray-300 text-gray-700  transition-colors duration-300 transform"
             >
               <GrLogout className="w-5 h-5" />
               <span className="font-medium">Logout</span>

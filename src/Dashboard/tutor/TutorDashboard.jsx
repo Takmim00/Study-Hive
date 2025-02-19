@@ -13,10 +13,13 @@ import {
 } from "recharts";
 import useAuth from "../../hook/useAuth";
 import useAxiosSecure from "../../hook/useAxiosSecure";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
 
 const TutorDashboard = () => {
+  const [sessionsWithRejects, setSessionsWithRejects] = useState([]);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { data: stats = [] } = useQuery({
@@ -26,6 +29,45 @@ const TutorDashboard = () => {
       return res.data;
     },
   });
+  const { data: reject = [], isLoading: rejectLoading } = useQuery({
+    queryKey: ["reject"],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        "https://study-hive-server-three.vercel.app/rejects"
+      );
+      return data;
+    },
+  });
+
+  const { data: tutors = [], isLoading: tutorsLoading } = useQuery({
+    queryKey: ["tutors"],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        "https://study-hive-server-three.vercel.app/tutors"
+      );
+      return data;
+    },
+  });
+
+  useEffect(() => {
+    if (reject.length > 0 && tutors.length > 0) {
+      const sessionsWithRejectsData = reject.map((rejection) => {
+        const matchingTutor = tutors.find(
+          (tutor) => tutor._id === rejection.sessionId
+        );
+        return {
+          ...rejection,
+          tutor: matchingTutor || null,
+        };
+      });
+
+      setSessionsWithRejects(sessionsWithRejectsData);
+    }
+  }, [reject, tutors]);
+
+  if (rejectLoading || tutorsLoading) {
+    return <div>Loading...</div>;
+  }
 
   const statsArray = [
     { category: "Users", quantity: stats.user },
@@ -108,6 +150,41 @@ const TutorDashboard = () => {
             </Bar>
           </BarChart>
         </ResponsiveContainer>
+      </div>
+      <div className="w-11/12 mx-auto">
+        <div className="my-4">
+          <h2 className="text-2xl font-bold mb-6 text-center">
+            All <span className="text-blue-600">Reject Reason</span>
+          </h2>
+          <p className="text-gray-600 mb-8 text-center">
+            This intuitive tool allows you to design and share in-depth study
+            sessions, creating valuable resources for your students and fellow
+            tutors.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3  gap-6">
+          {sessionsWithRejects.length > 0 ? (
+            sessionsWithRejects.map((session) => (
+              <div
+                key={session._id}
+                className=" bg-white border text-black  rounded-lg shadow-lg p-4"
+              >
+                <h3>
+                  <strong>Name : </strong>{" "}
+                  {session.tutor ? session.tutor.name : "Tutor not found"}
+                </h3>
+                <p>
+                  <strong>Rejection Reason : </strong> {session.rejectionReason}
+                </p>
+                <p>
+                  <strong>Feedback : </strong> {session.feedback}
+                </p>
+              </div>
+            ))
+          ) : (
+            <p>No rejected sessions found</p>
+          )}
+        </div>
       </div>
     </div>
   );

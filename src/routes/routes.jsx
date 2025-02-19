@@ -1,15 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
+import AdminDashboard from "../Dashboard/admin/AdminDashboard";
 import ViewAllMetarials from "../Dashboard/admin/ViewAllMetarials";
 import ViewAllSession from "../Dashboard/admin/ViewAllSession";
 import ViewUser from "../Dashboard/admin/ViewUser";
 import CreateNote from "../Dashboard/student/CreateNote";
 import ManageNote from "../Dashboard/student/ManageNote";
+import StudentDashboard from "../Dashboard/student/StudentDashboard";
 import StudyMetarials from "../Dashboard/student/StudyMetarials";
 import UpdateNote from "../Dashboard/student/UpdateNote";
 import VeiwBooked from "../Dashboard/student/VeiwBooked";
 import ViewDetails from "../Dashboard/student/ViewDetails";
 import CreateStudy from "../Dashboard/tutor/CreateStudy";
-import RejectSession from "../Dashboard/tutor/RejectSession";
+import TutorDashboard from "../Dashboard/tutor/TutorDashboard";
 import UpdateMetarials from "../Dashboard/tutor/UpdateMetarials";
 import UploadMetarial from "../Dashboard/tutor/UploadMetarial";
 import VeiwMetarils from "../Dashboard/tutor/VeiwMetarils";
@@ -28,9 +30,6 @@ import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import StudentRoute from "./StudentRoute";
 import TutorRoute from "./TutorRoute";
-import AdminDashboard from "../Dashboard/admin/AdminDashboard";
-import TutorDashboard from "../Dashboard/tutor/TutorDashboard";
-import StudentDashboard from "../Dashboard/student/StudentDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -91,7 +90,7 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <TutorRoute>
-              <TutorDashboard/>
+              <TutorDashboard />
             </TutorRoute>
           </PrivateRoute>
         ),
@@ -127,16 +126,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "rejectDashboard",
-        element: (
-          <PrivateRoute>
-            <TutorRoute>
-              <RejectSession />
-            </TutorRoute>
-          </PrivateRoute>
-        ),
-      },
+
       {
         path: "viewMaterials/updateMetarials/:id",
         element: (
@@ -162,7 +152,7 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <StudentRoute>
-              <StudentDashboard/>
+              <StudentDashboard />
             </StudentRoute>
           </PrivateRoute>
         ),
@@ -232,7 +222,7 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AdminRoute>
-              <AdminDashboard/>
+              <AdminDashboard />
             </AdminRoute>
           </PrivateRoute>
         ),

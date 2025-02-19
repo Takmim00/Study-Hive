@@ -114,13 +114,13 @@ const Courses = () => {
 
                       <p className=" text-sm font-medium">
                         <strong>Registration Start Date:</strong>{" "}
-                        <span className="font-normal text-orange-600">
+                        <span className="font-normal ">
                           {session.registrationStartDate}
                         </span>
                       </p>
                       <p className=" text-sm font-medium">
                         <strong>Registration End Date:</strong>{" "}
-                        <span className="font-normal text-orange-600">
+                        <span className="font-normal ">
                           {session.registrationEndDate}
                         </span>
                       </p>
