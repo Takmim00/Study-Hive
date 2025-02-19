@@ -3,7 +3,6 @@ import { AiFillHome } from "react-icons/ai";
 import { FaBars, FaBook, FaList, FaUsers } from "react-icons/fa6";
 import { GrLogout } from "react-icons/gr";
 import { ImProfile } from "react-icons/im";
-import { LuLayoutDashboard } from "react-icons/lu";
 import {
   MdDarkMode,
   MdOutlineLightMode,
@@ -52,15 +51,14 @@ const Dashboard = () => {
         className={`fixed lg:static top-0 left-0 z-50 h-full w-64 min-h-screen flex flex-col transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 lg:translate-x-0 ${
-          theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black border-r border-gray-300"
+          theme === "dark"
+            ? "bg-gray-800 text-white"
+            : "bg-white text-black border-r border-gray-300"
         }`}
       >
         <div className="flex">
           <div>
-            <Link
-              to="/"
-              className="flex flex-1 gap-2 items-center ml-4 mt-4"
-            >
+            <Link to="/" className="flex flex-1 gap-2 items-center ml-4 mt-4">
               <p className="text-2xl font-semibold ">StudyHive</p>
               <img src={logo} alt="" className="h-8" />
             </Link>
@@ -250,7 +248,7 @@ const Dashboard = () => {
             </>
           )}
           <hr className="my-4 border-t border-stone-400" />
-          
+
           <li>
             <NavLink
               to="/dashboard/profile"

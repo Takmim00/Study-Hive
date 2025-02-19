@@ -208,13 +208,13 @@ const VeiwMetarils = () => {
                 <div>
                   <button
                     onClick={() => handleUpdate(sessionData._id)}
-                    className="btn bg-blue-600 text-white font-medium py-2 px-4 rounded hover:bg-blue-700"
+                    className="btn bg-blue-600 text-white font-medium  px-4 rounded hover:bg-blue-700"
                   >
                     Update
                   </button>
                   <button
                     onClick={() => handleSessionDelete(sessionData._id)}
-                    className="btn bg-red-600 text-white font-medium py-2 px-4 rounded hover:bg-red-700"
+                    className="btn bg-red-600 text-white font-medium  px-4 rounded hover:bg-red-700"
                   >
                     Delete
                   </button>

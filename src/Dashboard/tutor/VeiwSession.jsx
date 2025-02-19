@@ -78,27 +78,27 @@ const VeiwSession = () => {
                 {tutor.sessionDescription}
               </p>
               <div className="mt-4">
-                <p className="text-orange-600 text-sm font-medium">
+                <p className=" text-sm font-medium">
                   Registration Start Date:{" "}
                   <span className="font-normal">
                     {tutor.registrationStartDate}
                   </span>
                 </p>
-                <p className="text-orange-600 text-sm font-medium">
+                <p className=" text-sm font-medium">
                   Registration End Date:{" "}
                   <span className="font-normal">
                     {tutor.registrationEndDate}
                   </span>
                 </p>
-                <p className="text-pink-600 text-sm font-medium">
+                <p className=" text-sm font-medium">
                   Class Start Time:{" "}
                   <span className="font-normal">{tutor.classStartTime}</span>
                 </p>
-                <p className="text-pink-600 text-sm font-medium">
+                <p className=" text-sm font-medium">
                   Class End Time:{" "}
                   <span className="font-normal">{tutor.classEndTime}</span>
                 </p>
-                <p className="text-blue-600 text-sm font-medium">
+                <p className=" text-sm font-medium">
                   Session Duration:{" "}
                   <span className="font-normal">
                     {tutor.sessionDuration}hours
