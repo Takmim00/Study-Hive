@@ -2,6 +2,8 @@ import { Helmet } from "react-helmet-async";
 import AllTutor from "./AllTutor";
 import Banner from "./Banner";
 import StudySession from "./StudySession";
+import Blog from "./Blog";
+import StudentSays from "./StudentSays";
 
 
 
@@ -14,6 +16,8 @@ const Home = () => {
             <Banner/>
             <StudySession/>
             <AllTutor/>
+            <StudentSays/>
+            <Blog/>
         </div>
     );
 };
