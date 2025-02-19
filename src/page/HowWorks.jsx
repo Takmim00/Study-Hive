@@ -32,7 +32,7 @@ const HowItWorks = () => {
     <section className="py-4 px-6">
       <div className="max-w-4xl mx-auto text-center mb-10">
         <h2 className="text-3xl font-bold text-gray-800">
-          How <span className="text-blue-600">it Works?</span>
+          How <span className="text-blue-400">it Works?</span>
         </h2>
         <p className="text-gray-600">
           Here's how it works for <span className="text-blue-600 font-medium">Tutors</span>

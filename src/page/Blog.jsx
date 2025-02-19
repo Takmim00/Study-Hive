@@ -1,13 +1,9 @@
 const Blog = () => {
   return (
-    <div>
-      
-
-      
-
-      <section className="py-12 bg-gray-100">
+    <div className="w-11/12 mx-auto">
+      <section className="py-12 ">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">Blog & Resources</h2>
+          <h2 className="text-3xl font-bold mb-6">Blog <span className="text-blue-400">& Resources</span></h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="p-6 bg-white shadow-lg rounded-lg">
               <h3 className="font-semibold text-lg">
@@ -36,10 +32,6 @@ const Blog = () => {
           </div>
         </div>
       </section>
-
-      
-
-     
     </div>
   );
 };
