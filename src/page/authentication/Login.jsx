@@ -5,7 +5,7 @@ import { FaGoogle } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import bgImage from "../../assets/authentication.png";
-import loginImage from "../../assets/login.png";
+import loginImage from "../../assets/loginImage.png";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const Login = () => {
