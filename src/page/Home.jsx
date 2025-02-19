@@ -5,6 +5,7 @@ import StudySession from "./StudySession";
 import Blog from "./Blog";
 import StudentSays from "./StudentSays";
 import HowWorks from "./HowWorks";
+import Faq from "./Faq";
 
 
 
@@ -20,6 +21,7 @@ const Home = () => {
             <StudentSays/>
             <HowWorks/>
             <Blog/>
+            <Faq/>
         </div>
     );
 };

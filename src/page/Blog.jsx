@@ -37,31 +37,7 @@ const Blog = () => {
         </div>
       </section>
 
-      <section className="py-12 bg-white">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">
-            Frequently Asked Questions
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-            <div className="p-6 bg-gray-100 rounded-lg">
-              <h3 className="font-semibold text-lg">How do I find a tutor?</h3>
-              <p className="text-gray-700">
-                You can browse our tutor profiles and book sessions based on
-                ratings and subjects.
-              </p>
-            </div>
-            <div className="p-6 bg-gray-100 rounded-lg">
-              <h3 className="font-semibold text-lg">
-                Are the tutoring sessions live?
-              </h3>
-              <p className="text-gray-700">
-                Yes, all sessions are conducted in real-time with interactive
-                tools.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       <section className="py-12 bg-gray-100">
         <div className="container mx-auto text-center">
