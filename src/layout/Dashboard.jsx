@@ -58,7 +58,7 @@ const Dashboard = () => {
         <div className="flex">
           <div>
             <Link
-              to="/dashboard"
+              to="/"
               className="flex flex-1 gap-2 items-center ml-4 mt-4"
             >
               <p className="text-2xl font-semibold ">StudyHive</p>
