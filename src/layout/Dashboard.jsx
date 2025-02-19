@@ -134,6 +134,17 @@ const Dashboard = () => {
             <>
               <li>
                 <NavLink
+                  to="/dashboard/tutorDashboard"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-500" : "text-gray-700"
+                  }
+                >
+                  <MdSpaceDashboard />
+                  Dashboard
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
                   to="/dashboard/createStudy"
                   className={({ isActive }) =>
                     isActive ? "text-blue-500" : "text-gray-700"
@@ -181,6 +192,17 @@ const Dashboard = () => {
           {/* Student Routes */}
           {role === "student" && (
             <>
+              <li>
+                <NavLink
+                  to="/dashboard/studentDashboard"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-500" : "text-gray-700"
+                  }
+                >
+                  <MdSpaceDashboard />
+                  Dashboard
+                </NavLink>
+              </li>
               <li>
                 <NavLink
                   to="/dashboard/viewBooked"
@@ -237,7 +259,8 @@ const Dashboard = () => {
                     isActive ? "text-blue-500" : "text-gray-700"
                   }
                 >
-                  <LuLayoutDashboard /> Dashboard
+                  <LuLayoutDashboard />
+                  Rejected Dashboard
                 </NavLink>
               </li>
             </>

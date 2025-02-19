@@ -29,6 +29,8 @@ import PrivateRoute from "./PrivateRoute";
 import StudentRoute from "./StudentRoute";
 import TutorRoute from "./TutorRoute";
 import AdminDashboard from "../Dashboard/admin/AdminDashboard";
+import TutorDashboard from "../Dashboard/tutor/TutorDashboard";
+import StudentDashboard from "../Dashboard/student/StudentDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -80,6 +82,16 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <TutorRoute>
               <CreateStudy />
+            </TutorRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "tutorDashboard",
+        element: (
+          <PrivateRoute>
+            <TutorRoute>
+              <TutorDashboard/>
             </TutorRoute>
           </PrivateRoute>
         ),
@@ -141,6 +153,16 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <StudentRoute>
               <VeiwBooked />
+            </StudentRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "studentDashboard",
+        element: (
+          <PrivateRoute>
+            <StudentRoute>
+              <StudentDashboard/>
             </StudentRoute>
           </PrivateRoute>
         ),
