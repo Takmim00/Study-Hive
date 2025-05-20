@@ -35,7 +35,11 @@ const StudyMetarials = () => {
     },
   });
   if (isLoading) {
-    return <span className="loading loading-dots loading-lg"></span>;
+    return (
+      <div className="flex justify-center items-center h-40">
+        <div className="loading loading-spinner loading-lg text-blue-500"></div>
+      </div>
+    );
   }
 
   const handleModalOpen = (sessionId) => {
@@ -77,26 +81,26 @@ const StudyMetarials = () => {
             />
             <div className="p-4">
               <div>
-              <div
-                className={`inline-flex items-center px-3 py-1 rounded-full gap-x-2 ${
-                  book.status === "Pending" &&
-                  "bg-yellow-100/60 text-yellow-500"
-                } ${
-                  book.status === "Approved" &&
-                  "bg-green-100/60 text-green-500"
-                } ${
-                  book.status === "Rejected" && "bg-red-100/60 text-red-500"
-                }`}
-              >
-                <span
-                  className={`h-1.5 w-1.5 rounded-full ${
-                    book.status === "Pending" && "bg-yellow-500"
-                  } ${book.status === "Approved" && "bg-green-500"} ${
-                    book.status === "Rejected" && "bg-red-500"
+                <div
+                  className={`inline-flex items-center px-3 py-1 rounded-full gap-x-2 ${
+                    book.status === "Pending" &&
+                    "bg-yellow-100/60 text-yellow-500"
+                  } ${
+                    book.status === "Approved" &&
+                    "bg-green-100/60 text-green-500"
+                  } ${
+                    book.status === "Rejected" && "bg-red-100/60 text-red-500"
                   }`}
-                ></span>
-                <h2 className="text-sm font-normal">{book.status}</h2>
-              </div>
+                >
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full ${
+                      book.status === "Pending" && "bg-yellow-500"
+                    } ${book.status === "Approved" && "bg-green-500"} ${
+                      book.status === "Rejected" && "bg-red-500"
+                    }`}
+                  ></span>
+                  <h2 className="text-sm font-normal">{book.status}</h2>
+                </div>
               </div>
               <h2 className="text-gray-800 font-semibold text-lg mb-4">
                 {book.sessionTitle}

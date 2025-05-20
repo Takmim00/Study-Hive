@@ -43,7 +43,11 @@ const RejectSession = () => {
   }, [reject, tutors]);
 
   if (rejectLoading || tutorsLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-40">
+        <div className="loading loading-spinner loading-lg text-blue-500"></div>
+      </div>
+    );
   }
 
   return (

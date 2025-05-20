@@ -51,7 +51,11 @@ const UpdateNote = () => {
     }
   };
   if (isLoading) {
-    return <span className="loading loading-dots loading-lg"></span>;
+    return (
+      <div className="flex justify-center items-center h-40">
+        <div className="loading loading-spinner loading-lg text-blue-500"></div>
+      </div>
+    );
   }
   return (
     <div>

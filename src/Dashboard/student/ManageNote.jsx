@@ -53,7 +53,9 @@ const ManageNote = () => {
     navigate(`updateNotes/${id}`);
   };
   if (isLoading) {
-    return <span className="loading loading-dots loading-lg"></span>;
+    return (
+      <div className="loading loading-spinner loading-lg text-blue-500"></div>
+    );
   }
 
   return (

@@ -6,7 +6,11 @@ const Profile = () => {
   const { user, loading } = useAuth();
   const [role, isLoading] = useRole();
   if ((loading, isLoading))
-    return <span className="loading loading-dots loading-lg"></span>;
+    return (
+      <div className="flex justify-center items-center h-40">
+        <div className="loading loading-spinner loading-lg text-blue-500"></div>
+      </div>
+    );
 
   return (
     <div className="flex justify-center items-center h-screen">

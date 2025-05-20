@@ -1,4 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { FaSwatchbook } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa6";
 import { SiMaterialformkdocs } from "react-icons/si";
@@ -13,8 +15,6 @@ import {
 } from "recharts";
 import useAuth from "../../hook/useAuth";
 import useAxiosSecure from "../../hook/useAxiosSecure";
-import axios from "axios";
-import { useEffect, useState } from "react";
 
 const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
 
@@ -66,7 +66,11 @@ const TutorDashboard = () => {
   }, [reject, tutors]);
 
   if (rejectLoading || tutorsLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-40">
+        <div className="loading loading-spinner loading-lg text-blue-500"></div>
+      </div>
+    );
   }
 
   const statsArray = [
