@@ -1,5 +1,3 @@
-"use client"
-
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useState } from "react"
@@ -180,7 +178,7 @@ const ViewAllSession = () => {
   }
 
   return (
-    <div className=" min-h-screen p-6">
+    <div className="  p-6">
       <Helmet>
         <title>Dashboard | Study Sessions</title>
       </Helmet>
