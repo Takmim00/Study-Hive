@@ -1,7 +1,5 @@
-
 import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../hook/useAuth";
-
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -9,14 +7,17 @@ const PrivateRoute = ({ children }) => {
 
   if (loading)
     return (
-      <div className="flex items-center justify-center">
-        <span className="loading loading-bars loading-lg"></span>
+      <div className="flex justify-center items-center h-64">
+        <div className="relative w-20 h-20">
+          <div className="absolute top-0 left-0 w-full h-full border-8 border-blue-200 rounded-full animate-ping opacity-75"></div>
+          <div className="absolute top-0 left-0 w-full h-full border-8 border-t-blue-500 border-blue-200 rounded-full animate-spin"></div>
+        </div>
       </div>
     );
   if (user) return children;
-  return <Navigate to="/login" state={{ from: location.pathname }} replace="true" />;
+  return (
+    <Navigate to="/login" state={{ from: location.pathname }} replace="true" />
+  );
 };
-
-
 
 export default PrivateRoute;
