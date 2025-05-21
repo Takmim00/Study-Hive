@@ -133,7 +133,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex overflow-x-auto mb-6 pb-2 scrollbar-hide">
+      {/* <div className="flex overflow-x-auto mb-6 pb-2 scrollbar-hide">
         <div className="flex p-1 rounded-lg bg-white shadow-sm space-x-1">
           {tabs.map((tab) => (
             <button
@@ -150,7 +150,7 @@ const AdminDashboard = () => {
             </button>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">

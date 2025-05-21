@@ -115,10 +115,10 @@ const ViewAllMetarials = () => {
       <div className="mb-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-800">
+            <h1 className="text-2xl font-bold ">
               Study <span className="text-blue-600">Materials Library</span>
             </h1>
-            <p className="mt-1 text-gray-600">
+            <p className="mt-1 text-gray-400">
               Browse and manage all educational resources available to students and tutors
             </p>
           </div>

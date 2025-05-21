@@ -204,7 +204,7 @@ const Dashboard = () => {
                   <NavLink
                     to={item.to}
                     className={({ isActive }) => `
-                      flex items-center px-4 py-2.5 rounded-lg transition-all duration-200
+                      flex items-center px-4 py-1.5 rounded-lg transition-all duration-200
                       ${
                         isActive
                           ? theme === "dark"
@@ -250,7 +250,7 @@ const Dashboard = () => {
                   <NavLink
                     to={item.to}
                     className={({ isActive }) => `
-                      flex items-center px-4 py-2.5 rounded-lg transition-all duration-200
+                      flex items-center px-4 py-1.5 rounded-lg transition-all duration-200
                       ${
                         isActive
                           ? theme === "dark"

@@ -2,12 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/studyHive.png";
+import useRole from "../../hook/useRole";
 import { AuthContext } from "../../provider/AuthProvider";
 import "./navbar.css";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [role, isLoading] = useRole();
+  console.log(role);
 
   useEffect(() => {
     document.body.className = theme === "dark" ? "dark-theme" : "light-theme";
@@ -152,7 +155,16 @@ const Navbar = () => {
                   </div>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/profile" className="flex gap-2 mt-1">
+                  <NavLink
+                    to={
+                      role === "admin"
+                        ? "/dashboard/adminDashboard"
+                        : role === "tutor"
+                        ? "/dashboard/tutorDashboard"
+                        : "/dashboard/studentDashboard"
+                    }
+                    className="flex gap-2 mt-1"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -262,7 +274,16 @@ const Navbar = () => {
               </li>
               {user && (
                 <li>
-                  <NavLink to="/dashboard/profile" className="rounded-lg">
+                  <NavLink
+                    to={
+                      role === "admin"
+                        ? "/dashboard/adminDashboard"
+                        : role === "tutor"
+                        ? "/dashboard/tutorDashboard"
+                        : "/dashboard/studentDashboard"
+                    }
+                    className="rounded-lg"
+                  >
                     Dashboard
                   </NavLink>
                 </li>
