@@ -81,14 +81,14 @@ const UploadMetarial = () => {
   const totalMaterials = tutor.reduce((acc, t) => acc + (t.materials?.length || 0), 0)
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
+    <div className=" py-8 px-4">
       <Helmet>
         <title>Dashboard | Upload Material</title>
       </Helmet>
       
       {/* Header Section */}
       <div className="max-w-7xl mx-auto mb-10">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2 text-center">
+        <h1 className="text-3xl font-bold  mb-2 text-center">
           Upload Your <span className="text-blue-600">Materials</span>
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto text-center">

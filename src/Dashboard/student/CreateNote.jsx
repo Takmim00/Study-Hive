@@ -52,7 +52,7 @@ const CreateNote = () => {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen pb-12">
+    <div className=" min-h-screen pb-12">
       <Helmet>
         <title>Create Notes | Study Hive</title>
       </Helmet>

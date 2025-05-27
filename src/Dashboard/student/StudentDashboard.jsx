@@ -74,7 +74,7 @@ const StudentDashboard = () => {
               <div className="flex justify-between items-center">
                 <div>
                   <div className="text-gray-500 text-sm uppercase tracking-wider font-medium">{stat.category}</div>
-                  <div className="text-3xl font-bold mt-1">{stat.quantity || 0}</div>
+                  <div className="text-3xl text-gray-800 font-bold mt-1">{stat.quantity || 0}</div>
                 </div>
                 <div
                   className="w-12 h-12 rounded-lg flex items-center justify-center"

@@ -16,7 +16,7 @@ const Profile = () => {
     )
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
+    <div className=" py-8 px-4">
       <Helmet>
         <title>Dashboard || Profile</title>
       </Helmet>
@@ -24,8 +24,8 @@ const Profile = () => {
       <div className="max-w-3xl mx-auto">
         {/* Header Section */}
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-800">My Profile</h1>
-          <p className="text-gray-600">Manage your account information and settings</p>
+          <h1 className="text-2xl font-bold ">My Profile</h1>
+          <p className="text-gray-400">Manage your account information and settings</p>
         </div>
 
         {/* Main Profile Card */}

@@ -102,7 +102,7 @@ const ViewDetails = () => {
   const status = getSessionStatus();
 
   return (
-    <div className="bg-gray-50 min-h-screen pb-12">
+    <div className=" pb-12">
       <Helmet>
         <title>Session Details | Study Hive</title>
       </Helmet>

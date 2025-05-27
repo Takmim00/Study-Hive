@@ -95,7 +95,7 @@ const ViewSession = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">
+          <h1 className="text-3xl font-bold ">
             My <span className="text-blue-600">Study Sessions</span>
           </h1>
           <p className="mt-3 text-gray-600 max-w-2xl mx-auto">

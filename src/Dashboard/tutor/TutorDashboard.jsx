@@ -160,7 +160,7 @@ const TutorDashboard = () => {
       <div className="mb-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-800">
+            <h1 className="text-3xl font-bold ">
               Welcome back,{" "}
               <span className="text-blue-600">
                 {user?.displayName || "Tutor"}
@@ -263,7 +263,7 @@ const TutorDashboard = () => {
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-medium text-gray-500">Total Users</p>
-                <h3 className="text-3xl font-bold mt-1">{stats.user || 0}</h3>
+                <h3 className="text-3xl font-bold mt-1 text-gray-800">{stats.user || 0}</h3>
                 <div className="flex items-center mt-2">
                   <span className="flex items-center text-xs font-medium text-green-500">
                     <FaArrowTrendUp className="mr-1" />
@@ -304,7 +304,7 @@ const TutorDashboard = () => {
                 <p className="text-sm font-medium text-gray-500">
                   Booked Sessions
                 </p>
-                <h3 className="text-3xl font-bold mt-1">{stats.booked || 0}</h3>
+                <h3 className="text-3xl font-bold mt-1 text-gray-800">{stats.booked || 0}</h3>
                 <div className="flex items-center mt-2">
                   <span className="flex items-center text-xs font-medium text-green-500">
                     <FaArrowTrendUp className="mr-1" />
@@ -343,7 +343,7 @@ const TutorDashboard = () => {
                 <p className="text-sm font-medium text-gray-500">
                   Study Materials
                 </p>
-                <h3 className="text-3xl font-bold mt-1">
+                <h3 className="text-3xl font-bold mt-1 text-gray-800">
                   {stats.metarials || 0}
                 </h3>
                 <div className="flex items-center mt-2">

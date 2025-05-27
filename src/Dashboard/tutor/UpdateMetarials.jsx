@@ -130,7 +130,7 @@ const UpdateMetarials = () => {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-800">
+          <h2 className="text-3xl font-bold ">
             Update Your <span className="text-blue-600">Study Session</span>
           </h2>
           <p className="mt-3 text-gray-600 max-w-2xl mx-auto">

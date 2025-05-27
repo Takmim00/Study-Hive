@@ -165,7 +165,7 @@ const CreateStudy = () => {
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">
+          <h1 className="text-3xl font-bold ">
             Create a <span className="text-blue-600">New Study Session</span>
           </h1>
           <p className="mt-3 text-gray-600 max-w-2xl mx-auto">

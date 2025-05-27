@@ -71,7 +71,7 @@ const StudyMetarials = () => {
   }
 
   return (
-    <div className="bg-gray-50 min-h-screen pb-12">
+    <div className=" pb-12">
       <Helmet>
         <title>Study Materials | Study Hive</title>
       </Helmet>
