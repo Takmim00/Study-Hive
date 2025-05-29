@@ -1,58 +1,71 @@
-.result,
+/* Error and Result Messages */
 .error {
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-.error {
-  color: #e4584c;
+  color: #dc2626; /* Tailwind red-600, matching modern design */
+  font-size: 14px; /* Slightly smaller for better hierarchy */
+  font-weight: 500;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .result {
-  color: #666ee8;
+  color: #666ee8; /* Kept original color for success messages */
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 8px;
+  margin-bottom: 16px;
 }
 
-/* 
-The StripeElement class is applied to the Element container by default.
-More info: https://stripe.com/docs/stripe-js/reference#element-options
-*/
-
+/* Stripe Elements */
 .StripeElement,
-.StripeElementIdeal,
-.StripeElementP24,
-.StripeElementEPS,
-.StripeElementFpx {
+.stripe-card {
   display: block;
-  margin: 10px 0 20px 0;
-  max-width: 500px;
-  padding: 10px 14px;
-  box-shadow: rgba(50, 50, 93, 0.14902) 0px 1px 3px,
-    rgba(0, 0, 0, 0.0196078) 0px 1px 0px;
-  border-radius: 4px;
-  background: white;
+  margin: 8px 0 16px 0;
+  max-width: 100%; /* Full width for responsiveness */
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb; /* Tailwind gray-200 */
+  background: #f9fafb; /* Tailwind gray-50 */
+  transition: all 0.2s ease-in-out;
 }
 
 .StripeElement--focus,
-.StripeElementIdeal--focus,
-.StripeElementP24--focus,
-.StripeElementEPS--focus,
-.StripeElementFpx--focus {
-  box-shadow: rgba(50, 50, 93, 0.109804) 0px 4px 6px,
-    rgba(0, 0, 0, 0.0784314) 0px 1px 3px;
-  -webkit-transition: all 150ms ease;
-  transition: all 150ms ease;
+.stripe-card--focus {
+  border-color: #3b82f6; /* Tailwind blue-500 */
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); /* Subtle blue glow */
+}
+
+.StripeElement--invalid,
+.stripe-card--invalid {
+  border-color: #dc2626; /* Tailwind red-600 */
+}
+
+.StripeElement--webkit-autofill,
+.stripe-card--webkit-autofill {
+  background-color: #fefcbf !important; /* Kept for autofill */
 }
 
 .StripeElement.loading {
-  height: 41.6px;
+  height: 44px; /* Adjusted for consistency */
   opacity: 0.6;
 }
 
+/* Additional Stripe Element Types */
 .StripeElementIdeal,
 .StripeElementP24,
 .StripeElementEPS,
 .StripeElementFpx {
   padding: 0;
+  border: none;
+  box-shadow: none;
+}
+
+/* Focus states for additional elements */
+.StripeElementIdeal--focus,
+.StripeElementP24--focus,
+.StripeElementEPS--focus,
+.StripeElementFpx--focus {
+  box-shadow: none; /* Minimal shadow for these elements */
 }

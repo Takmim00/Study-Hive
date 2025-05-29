@@ -133,6 +133,7 @@ const DetailsPage = () => {
     if (!user) {
       navigate("/login");
       return;
+      
     }
 
     if (session.registrationFee > 0) {

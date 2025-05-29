@@ -64,7 +64,7 @@ const Support = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
         <div className="w-11/12 mx-auto px-4 py-12 text-center">
@@ -88,7 +88,7 @@ const Support = () => {
       <div className="w-11/12 mx-auto px-4 py-12">
         {/* Quick Actions */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Need immediate help?</h2>
+          <h2 className="text-2xl font-bold  mb-6 text-center">Need immediate help?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {quickActions.map((action, index) => (
               <div
@@ -116,7 +116,7 @@ const Support = () => {
 
         {/* Main Support Cards */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Browse by category</h2>
+          <h2 className="text-2xl font-bold  mb-8 text-center">Browse by category</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {supportItems.map((item, index) => (
               <div

@@ -65,7 +65,7 @@ const Courses = () => {
 
         <div className="w-full md:w-auto">
           <select
-            className="w-full md:w-auto border-2 p-3 rounded-lg bg-white cursor-pointer focus:border-blue-500 outline-none transition-colors"
+            className="w-full md:w-auto border-2 p-3 rounded-lg bg-white cursor-pointer focus:border-blue-500 outline-none transition-colors text-black"
             defaultValue=""
             onChange={(e) => {
               const [field, orderValue] = e.target.value.split("-")
