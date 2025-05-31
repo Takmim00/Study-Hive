@@ -41,7 +41,7 @@ const HowItWorks = () => {
 
       <div className="w-11/12 mx-auto grid md:grid-cols-2 grid-cols-1 gap-6">
         {steps.map((step) => (
-          <div key={step.id} className="relative flex items-center bg-white p-4 rounded-lg shadow-md">
+          <div key={step.id} className="relative flex items-center  p-4 rounded-lg shadow-lg border">
             <div className="absolute -left-5 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-pink-400 text-white font-bold flex items-center justify-center rounded-full">
               {step.id}
             </div>
@@ -50,7 +50,7 @@ const HowItWorks = () => {
             </div>
             <div className="ml-4">
               <h3 className="text-lg font-semibold text-blue-700">{step.title}</h3>
-              <p className="text-gray-600">{step.description}</p>
+              <p className="text-gray-500">{step.description}</p>
             </div>
           </div>
         ))}

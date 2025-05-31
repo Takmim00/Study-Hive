@@ -247,7 +247,7 @@ const WhyChooseUsSection = () => {
             Why <span className="text-blue-500">Choose Us</span>
           </h2>
           <div className="w-16 h-1 bg-blue-500 mx-auto mt-2"></div>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-4 text-gray-500 max-w-2xl mx-auto">
             We're committed to providing the highest quality tutoring experience with proven results and exceptional
             service.
           </p>
@@ -258,11 +258,11 @@ const WhyChooseUsSection = () => {
           {stats.map((stat) => (
             <div
               key={stat.id}
-              className="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow duration-300 border border-gray-100"
+              className=" rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow duration-300 border border-gray-100"
             >
               <div className="flex justify-center mb-4">{stat.icon}</div>
               <h3 className="text-3xl font-bold text-blue-500 mb-1">{stat.value}</h3>
-              <p className="text-gray-600 text-sm">{stat.label}</p>
+              <p className="text-gray-500 text-sm">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -272,13 +272,13 @@ const WhyChooseUsSection = () => {
           {features.map((feature) => (
             <div
               key={feature.id}
-              className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 border border-gray-100"
+              className=" rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 border border-gray-100"
             >
               <div className="flex items-center mb-4">
                 <div className="mr-4 bg-blue-50 p-3 rounded-full">{feature.icon}</div>
-                <h3 className="font-semibold text-gray-800">{feature.title}</h3>
+                <h3 className="font-semibold ">{feature.title}</h3>
               </div>
-              <p className="text-gray-600 text-sm">{feature.description}</p>
+              <p className="text-gray-500 text-sm">{feature.description}</p>
             </div>
           ))}
         </div>

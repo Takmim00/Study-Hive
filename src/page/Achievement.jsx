@@ -102,14 +102,14 @@ const Achievement = () => {
           {stats.map((stat) => (
             <div
               key={stat.id}
-              className="bg-white rounded-lg p-6 text-center shadow-lg transform transition-transform hover:-translate-y-1"
+              className=" rounded-lg p-6 text-center shadow-lg transform transition-transform hover:-translate-y-1"
             >
               <div className="flex justify-center mb-4">
                 <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center">{stat.icon}</div>
               </div>
 
-              <h3 className="text-3xl font-bold text-gray-800 mb-1">{stat.value}</h3>
-              <p className="text-gray-600">{stat.label}</p>
+              <h3 className="text-3xl font-bold  mb-1">{stat.value}</h3>
+              <p className="text-gray-500">{stat.label}</p>
             </div>
           ))}
         </div>

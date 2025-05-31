@@ -35,7 +35,7 @@ const AllTutor = () => {
           {tutors.map((tutor) => (
             <div
               key={tutor._id}
-              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+              className="border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
             >
               <div className="p-6 text-center">
                 <div className="relative w-24 h-24 mx-auto mb-4">
@@ -53,7 +53,7 @@ const AllTutor = () => {
                   </div>
                 </div>
 
-                <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                <h3 className="text-xl font-semibold  mb-1">
                   {tutor.name || "Tutor Name"}
                 </h3>
 

@@ -93,19 +93,19 @@ const Support = () => {
             {quickActions.map((action, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow cursor-pointer"
+                className=" rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow cursor-pointer"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                    <action.icon className="w-6 h-6 text-gray-600" />
+                    <action.icon className="w-6 h-6 text-gray-500" />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-semibold text-gray-900">{action.title}</h3>
+                      <h3 className="font-semibold ">{action.title}</h3>
                       <span className={`w-2 h-2 rounded-full ${action.statusColor}`}></span>
                       <span className="text-xs text-gray-500">{action.status}</span>
                     </div>
-                    <p className="text-sm text-gray-600">{action.description}</p>
+                    <p className="text-sm text-gray-500">{action.description}</p>
                   </div>
                   <ChevronRight className="w-5 h-5 text-gray-400" />
                 </div>
@@ -165,8 +165,8 @@ const Support = () => {
         </div>
 
         {/* Popular Articles */}
-        <div className="bg-white rounded-2xl p-8 shadow-sm border">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Popular Help Articles</h2>
+        <div className=" rounded-2xl p-8 shadow-sm border">
+          <h2 className="text-2xl font-bold  mb-6">Popular Help Articles</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
               "How to find the right tutor for your needs",
@@ -181,7 +181,7 @@ const Support = () => {
                 className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
               >
                 <FileText className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                <span className="text-gray-700 hover:text-blue-600">{article}</span>
+                <span className="text-gray-500 hover:text-blue-600">{article}</span>
               </div>
             ))}
           </div>

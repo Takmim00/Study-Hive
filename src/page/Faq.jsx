@@ -54,12 +54,12 @@ const FaqSection = () => {
 
         <div className="grid md:grid-cols-2 gap-6">
           {faqs.map((faq, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div key={index} className="border rounded-lg shadow-md overflow-hidden">
               <button
                 className="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none"
                 onClick={() => toggleFaq(index)}
               >
-                <span className="text-gray-800">{faq.question}</span>
+                <span className="">{faq.question}</span>
                 <svg
                   className={`w-5 h-5 text-blue-500 transform transition-transform ${
                     activeIndex === index ? "rotate-180" : ""
@@ -76,7 +76,7 @@ const FaqSection = () => {
                   activeIndex === index ? "max-h-40 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
                 }`}
               >
-                <p className="text-gray-600">{faq.answer}</p>
+                <p className="text-gray-500">{faq.answer}</p>
               </div>
             </div>
           ))}

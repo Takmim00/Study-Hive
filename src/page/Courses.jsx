@@ -102,7 +102,7 @@ const Courses = () => {
               return (
                 <div
                   key={i}
-                  className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
+                  className="group  rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
                 >
                   <div className="relative h-52 overflow-hidden">
                     <img
@@ -131,15 +131,15 @@ const Courses = () => {
                   </div>
 
                   <div className="p-5">
-                    <div className="flex items-center mb-3 text-gray-600">
+                    <div className="flex items-center mb-3 text-gray-500">
                       <User size={16} className="mr-2" />
                       <span className="text-sm">{session.name}</span>
                     </div>
 
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">{session.sessionDescription}</p>
+                    <p className="text-gray-500 text-sm mb-4 line-clamp-2">{session.sessionDescription}</p>
 
                     <div className="space-y-2 mb-4">
-                      <div className="flex items-center text-gray-600 text-xs">
+                      <div className="flex items-center text-gray-500 text-xs">
                         <Calendar size={14} className="mr-2" />
                         <span>
                           Registration: {formatDate(session.registrationStartDate)} -{" "}
@@ -147,7 +147,7 @@ const Courses = () => {
                         </span>
                       </div>
 
-                      <div className="flex items-center text-gray-600 text-xs">
+                      <div className="flex items-center text-gray-500 text-xs">
                         <Clock size={14} className="mr-2" />
                         <span>Duration: {session.sessionDuration || "2"} hours</span>
                       </div>

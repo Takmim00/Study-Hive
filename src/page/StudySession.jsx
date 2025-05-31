@@ -111,7 +111,7 @@ const StudySessionCards = () => {
             return (
               <div
                 key={session._id}
-                className={`group bg-white rounded-lg overflow-hidden border-0 transition-all duration-300 ${
+                className={`group  rounded-lg overflow-hidden border transition-all duration-300  ${
                   hoveredCard === session._id
                     ? "shadow-xl transform -translate-y-1"
                     : "shadow-md hover:shadow-lg"
@@ -142,7 +142,7 @@ const StudySessionCards = () => {
                     {session.sessionTitle}
                   </h3>
 
-                  <p className="text-gray-600 text-sm mt-2 line-clamp-2 h-10">
+                  <p className=" text-gray-500   text-sm mt-2 line-clamp-2 h-10">
                     {session.sessionDescription}
                   </p>
 

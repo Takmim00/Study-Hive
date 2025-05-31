@@ -253,7 +253,7 @@ const DetailsPage = () => {
         </button>
 
         {session && (
-          <div className="bg-white rounded-xl shadow-xl overflow-hidden">
+          <div className="border rounded-xl shadow-xl overflow-hidden">
             <div className="relative h-80 md:h-96">
               <img
                 src={session.sessionImage || "/placeholder.svg"}
@@ -323,7 +323,7 @@ const DetailsPage = () => {
                     <h2 className="text-xl font-semibold mb-4">
                       About This Session
                     </h2>
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-gray-500 leading-relaxed">
                       {session.sessionDescription}
                     </p>
                   </div>

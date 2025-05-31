@@ -3,7 +3,7 @@ import logo from "../../assets/studyHive.png";
 const Footer = () => {
   return (
     <div>
-      <footer className="bg-gray-100 text-gray-700">
+      <footer className=" bg-gray-50 text-gray-700">
         <div className="w-11/12 mx-auto px-4 py-8 grid grid-cols-1  md:grid-cols-3 justify-around ">
           <div className="text-gray-800">
             <div className="flex items-center gap-2">

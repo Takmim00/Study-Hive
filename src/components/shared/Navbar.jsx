@@ -4,13 +4,13 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/studyHive.png";
 import useRole from "../../hook/useRole";
 import { AuthContext } from "../../provider/AuthProvider";
-import "./navbar.css";
+
 
 const Navbar = () => {
   const { user, logOut, loading } = useContext(AuthContext);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [role, isLoading] = useRole();
-  console.log(user);
+
 
   useEffect(() => {
     document.body.className = theme === "dark" ? "dark-theme" : "light-theme";
