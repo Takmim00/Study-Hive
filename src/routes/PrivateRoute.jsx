@@ -5,6 +5,7 @@ const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const location = useLocation();
 
+
   if (loading)
     return (
       <div className="flex justify-center items-center h-64">
@@ -14,12 +15,10 @@ const PrivateRoute = ({ children }) => {
         </div>
       </div>
     );
-  if (!user) {
-    return (
-      <Navigate state={{ from: location }} to="/login" replace></Navigate>
-    );
+  if (user) {
+    return children;
   }
-  return children;
+  return <Navigate state={location.pathname} to="/login"></Navigate>;
 };
 
 export default PrivateRoute;

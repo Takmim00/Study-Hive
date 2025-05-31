@@ -27,7 +27,7 @@ const Login = () => {
       .then((res) => {
         console.log(location.state);
         const redirectTo =
-          location.state?.from?.pathname || location.state?.from || "/";
+           location.state?.from || "/";
         navigate(redirectTo, { replace: true });
         toast.success("Login successful!");
       })
