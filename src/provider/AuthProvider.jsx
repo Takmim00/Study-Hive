@@ -49,6 +49,7 @@ const AuthProvider = ({ children }) => {
           photo: loggedUser.photoURL,
           role: "student",
         };
+        
 
         return axios
           .post("https://study-hive-server-three.vercel.app/users", userInfo)

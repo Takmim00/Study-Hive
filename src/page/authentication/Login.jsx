@@ -1,75 +1,77 @@
-"use client"
-
-import { useContext, useState } from "react"
-import { Helmet } from "react-helmet-async"
-import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa"
-import { FaGoogle } from "react-icons/fa6"
-import { Link, useLocation, useNavigate } from "react-router-dom"
-import { toast, ToastContainer } from "react-toastify"
-import bgImage from "../../assets/authentication.png"
-import loginImage from "../../assets/loginImage.png"
-import { AuthContext } from "../../provider/AuthProvider"
+import { useContext, useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa6";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import bgImage from "../../assets/authentication.png";
+import loginImage from "../../assets/loginImage.png";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Login = () => {
-  const { userLogin, googleSignIn, handleGithubLogin } = useContext(AuthContext)
-  const location = useLocation()
-  const navigate = useNavigate()
-  const [showPassword, setShowPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const { userLogin, googleSignIn, handleGithubLogin } =
+    useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    setIsLoading(true)
-    const form = e.target
-    const email = form.email.value
-    const password = form.password.value
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
 
+    setIsLoading(true);
     userLogin(email, password)
       .then((res) => {
-        const user = res.user
-        const redirectTo = location.state?.from || "/"
-        navigate(redirectTo)
-        toast.success("Login successful!")
+        console.log(location.state);
+        const redirectTo =
+          location.state?.from?.pathname || location.state?.from || "/";
+        navigate(redirectTo, { replace: true });
+        toast.success("Login successful!");
       })
       .catch((err) => {
-        if (err.code) {
-          toast.error("No account found with this email. Please register.")
-        }
+        toast.error("No account found with this email. Please register.");
       })
       .finally(() => {
-        setIsLoading(false)
-      })
-  }
+        setIsLoading(false);
+      });
+  };
 
   const googleLogIngHandler = () => {
-    setIsLoading(true)
+    setIsLoading(true);
     googleSignIn()
       .then((res) => {
-        const redirectTo = location.state?.from || "/"
-        navigate(redirectTo)
+        const redirectTo =
+          location.state?.from?.pathname || location.state?.from || "/";
+        navigate(redirectTo, { replace: true });
+        toast.success("Google login successful!");
       })
       .catch((err) => {
-        toast.error("Google login failed. Please try again.")
+        toast.error("Google login failed. Please try again.");
       })
       .finally(() => {
-        setIsLoading(false)
-      })
-  }
+        setIsLoading(false);
+      });
+  };
 
   const githubLogIngHandler = () => {
-    setIsLoading(true)
+    setIsLoading(true);
     handleGithubLogin()
       .then((res) => {
-        const redirectTo = location.state?.from || "/"
-        navigate(redirectTo)
+        const redirectTo =
+          location.state?.from?.pathname || location.state?.from || "/";
+        navigate(redirectTo, { replace: true });
+        toast.success("GitHub login successful!");
       })
       .catch((err) => {
-        toast.error("GitHub login failed. Please try again.")
+        toast.error("GitHub login failed. Please try again.");
       })
       .finally(() => {
-        setIsLoading(false)
-      })
-  }
+        setIsLoading(false);
+      });
+  };
 
   return (
     <div className="  ">
@@ -79,8 +81,6 @@ const Login = () => {
       </Helmet>
 
       <div className="container mx-auto px-4 py-12 flex flex-col items-center">
-        
-
         {/* Main Content */}
         <div className="w-full max-w-5xl">
           <div className="bg-white border border-gray-200 shadow-lg rounded-3xl overflow-hidden shadow-lg">
@@ -88,7 +88,11 @@ const Login = () => {
               {/* Image Section */}
               <div className="md:w-1/2 relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/30 to-cyan-600/30 z-10"></div>
-                <img src={bgImage || "/placeholder.svg"} alt="Background" className="w-full h-full object-cover" />
+                <img
+                  src={bgImage || "/placeholder.svg"}
+                  alt="Background"
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute inset-0 flex items-center justify-center z-20">
                   <img
                     src={loginImage || "/placeholder.svg"}
@@ -101,13 +105,17 @@ const Login = () => {
               {/* Form Section */}
               <div className="md:w-1/2 p-8 md:p-12">
                 <div className="mb-8">
-                  <h2 className="text-2xl font-bold mb-2 text-gray-800">Welcome Back</h2>
+                  <h2 className="text-2xl font-bold mb-2 text-gray-800">
+                    Welcome Back
+                  </h2>
                   <div className="h-1 w-20 bg-gradient-to-r from-purple-400 to-cyan-400 rounded-full"></div>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
-                    <label className="block text-gray-700 text-sm mb-2">Email Address</label>
+                    <label className="block text-gray-700 text-sm mb-2">
+                      Email Address
+                    </label>
                     <div className="relative">
                       <input
                         name="email"
@@ -121,10 +129,12 @@ const Login = () => {
 
                   <div>
                     <div className="flex justify-between items-center mb-2">
-                      <label htmlFor="password" className="block text-gray-700 text-sm">
+                      <label
+                        htmlFor="password"
+                        className="block text-gray-700 text-sm"
+                      >
                         Password
                       </label>
-                      
                     </div>
                     <div className="relative">
                       <input
@@ -140,7 +150,11 @@ const Login = () => {
                         onClick={() => setShowPassword(!showPassword)}
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
                       >
-                        {showPassword ? <FaEye size={18} /> : <FaEyeSlash size={18} />}
+                        {showPassword ? (
+                          <FaEye size={18} />
+                        ) : (
+                          <FaEyeSlash size={18} />
+                        )}
                       </button>
                     </div>
                   </div>
@@ -184,7 +198,9 @@ const Login = () => {
                       <div className="w-full border-t border-gray-300"></div>
                     </div>
                     <div className="relative flex justify-center text-sm">
-                      <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                      <span className="px-2 bg-white text-gray-500">
+                        Or continue with
+                      </span>
                     </div>
                   </div>
 
@@ -213,7 +229,10 @@ const Login = () => {
                 <div className="mt-8 text-center">
                   <p className="text-gray-600">
                     New to Study Hive?{" "}
-                    <Link to="/register" className="text-purple-400 hover:text-purple-300 font-medium">
+                    <Link
+                      to="/register"
+                      className="text-purple-400 hover:text-purple-300 font-medium"
+                    >
                       Create an account
                     </Link>
                   </p>
@@ -221,12 +240,10 @@ const Login = () => {
               </div>
             </div>
           </div>
-
-          
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

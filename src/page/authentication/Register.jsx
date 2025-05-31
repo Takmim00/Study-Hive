@@ -1,5 +1,3 @@
-"use client"
-
 import axios from "axios"
 import { useContext, useState } from "react"
 import { Helmet } from "react-helmet-async"
@@ -52,12 +50,12 @@ const Register = () => {
         updateUserProfile(name, photoURL)
           .then(() => {
             const userInfo = {
-              name: name,
+              displayName: name,
               email: email,
-              photo: photoURL,
+              photoURL: photoURL,
               role,
             }
-
+            
             axios
               .post("https://study-hive-server-three.vercel.app/users", userInfo)
               .then((response) => {
@@ -215,6 +213,7 @@ const Register = () => {
                         placeholder="Create a strong password"
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
                         required
+                        
                       />
                       <button
                         type="button"

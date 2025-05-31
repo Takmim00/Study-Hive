@@ -7,10 +7,10 @@ import { AuthContext } from "../../provider/AuthProvider";
 import "./navbar.css";
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, loading } = useContext(AuthContext);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [role, isLoading] = useRole();
-  console.log(role);
+  console.log(user);
 
   useEffect(() => {
     document.body.className = theme === "dark" ? "dark-theme" : "light-theme";
@@ -36,6 +36,13 @@ const Navbar = () => {
     "bg-primary/10 text-primary font-medium border-b-2 border-primary";
   const normalStyle = "hover:bg-base-200 transition-all duration-300";
 
+  // if (loading) {
+  //   return (
+  //     <div className="flex justify-center items-center h-16">
+  //       <div className="loading loading-spinner loading-lg text-blue-500"></div>
+  //     </div>
+  //   );
+  // }
   return (
     <div className="sticky top-0 z-50 backdrop-blur-md bg-base-100/80 dark:bg-base-300/80 border-b border-base-200 dark:border-base-700">
       <div className="navbar md:w-11/12 mx-auto ">
